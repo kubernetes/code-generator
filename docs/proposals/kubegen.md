@@ -21,7 +21,7 @@ patterns.
 - **version pattern**: ^v\\d+(alpha\\d+|beta\\d+)*$
 
 By default, kubegen will run code generators for both external types defined under `pkg/apis/<group>/<version>` and
-internal types defined under `pkg/apis/<group>`.
+internal types defined under `pkg/apis/<group>`.  The location kubegen searches can be overridden.
 
 kubegen will prepend all generated files with copyright and license comments.
 
@@ -139,7 +139,8 @@ kubegen apps/v1 apps/v1beta1 extensions/v1beta1
 #### Specifying generators
 
 Generating code using only a specific set of generators can be performed using the
-`generator` flag.
+`--generator` flag.  This flag may be provided multiple times to run multiple
+generators.
 
 ```sh
 kubegen --generator client-gen --generator lister-gen
@@ -151,6 +152,18 @@ kubegen --generator client-gen --generator lister-gen
   - wrap the contents of the LICENSE in comments
   - exit non-zero if the LICENSE file is missing
   
+#### Specifying where to search for APIs
+
+Looking for APIs outside the default location can be configured using
+the `--apis-dir` flag.  This flag may be provided multiple times to search multiple
+directories.
+
+```sh
+kubegen --apis-dir notpkg/apis --apis-dir pkg/notapis
+```
+
+- run all code generators against discovered APIs
+  - search for API group versions under notpkg/apis and pkg/notapis instead of pkg/apis  
 
 ## Running via Bazel
 
