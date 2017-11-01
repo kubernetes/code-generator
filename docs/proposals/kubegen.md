@@ -18,7 +18,7 @@ kubegen looks for API groups defined under `pkg/apis/<group>/<version>` where *g
 patterns.
 
 - **group pattern**: ^[a-z]+$
-- **version pattern**: ^v\\d+(alpha\\d+|beta\\d+)*$
+- **version pattern**: ^v\\d+(alpha\\d+|beta\\d+)?$
 
 By default, kubegen will run code generators for both external types defined under `pkg/apis/<group>/<version>` and
 internal types defined under `pkg/apis/<group>`.  The location kubegen searches can be overridden.
@@ -38,7 +38,6 @@ generators against all API group/versions defined in the project.
 - informer-gen
 - lister-gen
 - openapi-gen
-- set-gen
 
 ## Running via Command line
 
@@ -121,6 +120,20 @@ kubegen --generate-internal=false
   - wrap the contents of the LICENSE in comments
   - exit non-zero if the LICENSE file is missing
 
+#### Generating for internal types only
+
+Generating code for internal types can be skipped using the `generate-internal` flag
+
+```sh
+kubegen --generate-external=false
+```
+
+- run all code generators against discovered APIs
+  - run for external types only
+- prepend license to generated files
+  - wrap the contents of the LICENSE in comments
+  - exit non-zero if the LICENSE file is missing
+
 #### Specifying API versions
 
 Generating code only for specific API group versions can be performed by providing the API
@@ -135,6 +148,22 @@ kubegen apps/v1 apps/v1beta1 extensions/v1beta1
 - prepend license to generated files
   - wrap the contents of the LICENSE in comments
   - exit non-zero if the LICENSE file is missing
+
+#### Specifying API groups
+
+Generating code only for specific API group versions can be performed by providing the API
+group versions as positional arguments.
+
+```sh
+kubegen apps extensions
+```
+
+- run all code generators against the apps extensions API groups
+  - run for both internal and external types
+- prepend license to generated files
+  - wrap the contents of the LICENSE in comments
+  - exit non-zero if the LICENSE file is missing
+
 
 #### Specifying generators
 
@@ -154,6 +183,8 @@ kubegen --generator client-gen --generator lister-gen
   
 #### Specifying where to search for APIs
 
+The `--apis-dir` defaults to `pkg/apis` and looks for API groups in that directory.
+
 Looking for APIs outside the default location can be configured using
 the `--apis-dir` flag.  This flag may be provided multiple times to search multiple
 directories.
@@ -167,7 +198,7 @@ kubegen --apis-dir notpkg/apis --apis-dir pkg/notapis
 
 ## Running via Bazel
 
-### Installing via bazel
+### Installing via Bazel
 
 Add the following to the project *WORKSPACE* file
 
@@ -211,4 +242,18 @@ kubegen statically compiles the logic for all code generators
 
 kubegen will include any vendored API groups found under `vendor/k8s.io/api/`
 
+> How can Kubernetes APIs be generated when the external and internal packages live in different repos
 
+Run kubegen separately for internal and external types.
+
+```sh
+kubegen --apis-dir path/to/internal --generate-external=false
+kubegen --apis-dir path/to/external --generate-internal=false
+```
+
+or
+
+```sh
+kubegen --apis-dir path/to/internal --generate-external=false apps extensions
+kubegen --apis-dir path/to/external --generate-internal=false apps/v1beta1 apps/v1beta2 extensions/v1beta
+```
