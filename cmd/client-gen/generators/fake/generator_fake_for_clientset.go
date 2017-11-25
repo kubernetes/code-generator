@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
-	"strings"
 
 	clientgentypes "k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/generator"
@@ -62,8 +61,8 @@ func (g *genClientset) Imports(c *generator.Context) (imports []string) {
 			groupClientPackage := filepath.Join(g.fakeClientsetPackage, "typed", group.Group.NonEmpty(), version.NonEmpty())
 			fakeGroupClientPackage := filepath.Join(groupClientPackage, "fake")
 
-			imports = append(imports, strings.ToLower(fmt.Sprintf("%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), groupClientPackage)))
-			imports = append(imports, strings.ToLower(fmt.Sprintf("fake%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), fakeGroupClientPackage)))
+			imports = append(imports, fmt.Sprintf("%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), groupClientPackage))
+			imports = append(imports, fmt.Sprintf("fake%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), fakeGroupClientPackage))
 		}
 	}
 	// the package that has the clientset Interface

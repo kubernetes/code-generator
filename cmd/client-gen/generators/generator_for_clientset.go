@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
-	"strings"
 
 	clientgentypes "k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/generator"
@@ -58,7 +57,7 @@ func (g *genClientset) Imports(c *generator.Context) (imports []string) {
 	for _, group := range g.groups {
 		for _, version := range group.Versions {
 			typedClientPath := filepath.Join(g.clientsetPackage, "typed", group.Group.NonEmpty(), version.NonEmpty())
-			imports = append(imports, strings.ToLower(fmt.Sprintf("%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), typedClientPath)))
+			imports = append(imports, fmt.Sprintf("%s%s \"%s\"", group.Group.NonEmpty(), version.NonEmpty(), typedClientPath))
 		}
 	}
 	return
