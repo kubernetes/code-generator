@@ -1,7 +1,7 @@
 {
 	"ImportPath": "k8s.io/code-generator",
-	"GoVersion": "go1.9",
-	"GodepVersion": "v80",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
 	"Packages": [
 		"./..."
 	],
@@ -248,11 +248,11 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi/pkg/common",
-			"Rev": "868f2f29720b192240e18284659231b440f9cda5"
+			"Rev": "0c329704159e3b051aafac400b15baacf2a94a04"
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi/pkg/generators",
-			"Rev": "868f2f29720b192240e18284659231b440f9cda5"
+			"Rev": "0c329704159e3b051aafac400b15baacf2a94a04"
 		}
 	]
 }
