@@ -21,9 +21,9 @@ import (
 	"flag"
 	"path/filepath"
 
-	"github.com/golang/glog"
 	"github.com/spf13/pflag"
 	"k8s.io/gengo/args"
+	"k8s.io/klog"
 
 	generatorargs "k8s.io/code-generator/cmd/client-gen/args"
 	"k8s.io/code-generator/cmd/client-gen/generators"
@@ -52,7 +52,7 @@ func main() {
 	}
 
 	if err := generatorargs.Validate(genericArgs); err != nil {
-		glog.Fatalf("Error: %v", err)
+		klog.Fatalf("Error: %v", err)
 	}
 
 	if err := genericArgs.Execute(
@@ -60,6 +60,6 @@ func main() {
 		generators.DefaultNameSystem(),
 		generators.Packages,
 	); err != nil {
-		glog.Fatalf("Error: %v", err)
+		klog.Fatalf("Error: %v", err)
 	}
 }
