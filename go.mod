@@ -10,7 +10,7 @@ require (
 	golang.org/x/tools v0.0.0-20190328211700-ab21143f2384 // indirect
 	gonum.org/v1/gonum v0.0.0-20190331200053-3d26580ed485
 	gonum.org/v1/netlib v0.0.0-20190331212654-76723241ea4e // indirect
-	k8s.io/gengo v0.0.0-20181106084056-51747d6e00da
+	k8s.io/gengo v0.0.0-20190116091435-f8a0810f38af
 	k8s.io/klog v0.0.0-20190306015804-8e90cee79f82
 )
 
@@ -267,7 +267,7 @@ replace (
 	gopkg.in/yaml.v1 => gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
 	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.1
 	gotest.tools => gotest.tools v2.2.0+incompatible
-	k8s.io/gengo => k8s.io/gengo v0.0.0-20181106084056-51747d6e00da
+	k8s.io/gengo => k8s.io/gengo v0.0.0-20190116091435-f8a0810f38af
 	k8s.io/heapster => k8s.io/heapster v1.2.0-beta.1
 	k8s.io/klog => k8s.io/klog v0.0.0-20190306015804-8e90cee79f82
 	k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20190228160746-b3a7cee44a30
