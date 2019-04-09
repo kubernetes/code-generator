@@ -7,6 +7,10 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/BurntSushi/xgb",
+			"Rev": "27f122750802"
+		},
+		{
 			"ImportPath": "github.com/gogo/protobuf",
 			"Rev": "342cbe0a0415"
 		},
@@ -20,15 +24,31 @@
 		},
 		{
 			"ImportPath": "golang.org/x/exp",
-			"Rev": "8460e604b9de"
+			"Rev": "4b39c73a6495"
+		},
+		{
+			"ImportPath": "golang.org/x/image",
+			"Rev": "0694c2d4d067"
+		},
+		{
+			"ImportPath": "golang.org/x/mobile",
+			"Rev": "d3739f865fa6"
+		},
+		{
+			"ImportPath": "golang.org/x/sys",
+			"Rev": "3b5209105503"
+		},
+		{
+			"ImportPath": "golang.org/x/text",
+			"Rev": "e6919f6577db"
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
-			"Rev": "7f7074d5bcfd"
+			"Rev": "aa82965741a9"
 		},
 		{
 			"ImportPath": "gonum.org/v1/gonum",
-			"Rev": "cebdade430cc"
+			"Rev": "3d26580ed485"
 		},
 		{
 			"ImportPath": "gonum.org/v1/netlib",
