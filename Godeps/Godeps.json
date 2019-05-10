@@ -40,7 +40,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/text",
-			"Rev": "e6919f6577db"
+			"Rev": "v0.3.0"
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
