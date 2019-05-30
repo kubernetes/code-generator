@@ -60,7 +60,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/klog",
-			"Rev": "v0.3.1"
+			"Rev": "v0.3.2"
 		},
 		{
 			"ImportPath": "modernc.org/cc",
