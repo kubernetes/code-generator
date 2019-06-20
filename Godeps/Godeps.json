@@ -20,7 +20,7 @@
 		},
 		{
 			"ImportPath": "github.com/spf13/pflag",
-			"Rev": "v1.0.1"
+			"Rev": "v1.0.3"
 		},
 		{
 			"ImportPath": "golang.org/x/exp",
