@@ -12,7 +12,7 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf",
-			"Rev": "342cbe0a0415"
+			"Rev": "v1.0.0"
 		},
 		{
 			"ImportPath": "github.com/remyoudompheng/bigfft",
