@@ -11,6 +11,10 @@
 			"Rev": "27f122750802"
 		},
 		{
+			"ImportPath": "github.com/NYTimes/gziphandler",
+			"Rev": "56545f4a5d46"
+		},
+		{
 			"ImportPath": "github.com/PuerkitoBio/purell",
 			"Rev": "v1.1.1"
 		},
@@ -25,6 +29,10 @@
 		{
 			"ImportPath": "github.com/emicklei/go-restful",
 			"Rev": "v2.9.5"
+		},
+		{
+			"ImportPath": "github.com/ghodss/yaml",
+			"Rev": "73d445a93680"
 		},
 		{
 			"ImportPath": "github.com/go-openapi/jsonpointer",
@@ -45,6 +53,18 @@
 		{
 			"ImportPath": "github.com/gogo/protobuf",
 			"Rev": "v1.0.0"
+		},
+		{
+			"ImportPath": "github.com/golang/protobuf",
+			"Rev": "4bd1920723d7"
+		},
+		{
+			"ImportPath": "github.com/google/gofuzz",
+			"Rev": "44d81051d367"
+		},
+		{
+			"ImportPath": "github.com/googleapis/gnostic",
+			"Rev": "68f4ded48ba9"
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
@@ -73,6 +93,18 @@
 		{
 			"ImportPath": "github.com/modern-go/reflect2",
 			"Rev": "v1.0.1"
+		},
+		{
+			"ImportPath": "github.com/munnerz/goautoneg",
+			"Rev": "a547fc61f48d"
+		},
+		{
+			"ImportPath": "github.com/onsi/ginkgo",
+			"Rev": "11459a886d9c"
+		},
+		{
+			"ImportPath": "github.com/onsi/gomega",
+			"Rev": "dcabb60a477c"
 		},
 		{
 			"ImportPath": "github.com/pmezard/go-difflib",
@@ -144,7 +176,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
-			"Rev": "f8a0810f38af"
+			"Rev": "0689ccc1d7d6"
 		},
 		{
 			"ImportPath": "k8s.io/klog",
@@ -152,7 +184,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "b3a7cee44a30"
+			"Rev": "33be087ad058"
 		},
 		{
 			"ImportPath": "modernc.org/cc",
@@ -173,6 +205,10 @@
 		{
 			"ImportPath": "modernc.org/xc",
 			"Rev": "v1.0.0"
+		},
+		{
+			"ImportPath": "sigs.k8s.io/structured-merge-diff",
+			"Rev": "15d366b2352e"
 		}
 	]
 }
