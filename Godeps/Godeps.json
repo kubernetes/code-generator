@@ -52,7 +52,7 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf",
-			"Rev": "v1.0.0"
+			"Rev": "v0.0.0-20190410021324-65acae22fc9"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf",
@@ -69,6 +69,14 @@
 		{
 			"ImportPath": "github.com/json-iterator/go",
 			"Rev": "v1.1.6"
+		},
+		{
+			"ImportPath": "github.com/kisielk/errcheck",
+			"Rev": "v1.2.0"
+		},
+		{
+			"ImportPath": "github.com/kisielk/gotool",
+			"Rev": "v1.0.0"
 		},
 		{
 			"ImportPath": "github.com/kr/pretty",
