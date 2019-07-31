@@ -7,7 +7,7 @@ go 1.12
 require (
 	github.com/emicklei/go-restful v2.9.5+incompatible // indirect
 	github.com/go-openapi/spec v0.19.2 // indirect
-	github.com/gogo/protobuf v0.0.0-20190410021324-65acae22fc9
+	github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/spf13/pflag v1.0.3
@@ -24,4 +24,5 @@ replace (
 	golang.org/x/sys => golang.org/x/sys v0.0.0-20190209173611-3b5209105503
 	golang.org/x/text => golang.org/x/text v0.3.1-0.20181227161524-e6919f6577db
 	golang.org/x/tools => golang.org/x/tools v0.0.0-20190313210603-aa82965741a9
+	k8s.io/code-generator => ../code-generator
 )
