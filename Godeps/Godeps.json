@@ -60,7 +60,7 @@
 		},
 		{
 			"ImportPath": "github.com/google/gofuzz",
-			"Rev": "44d81051d367"
+			"Rev": "v1.0.0"
 		},
 		{
 			"ImportPath": "github.com/googleapis/gnostic",
@@ -68,7 +68,7 @@
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
-			"Rev": "v1.1.6"
+			"Rev": "v1.1.7"
 		},
 		{
 			"ImportPath": "github.com/kisielk/errcheck",
