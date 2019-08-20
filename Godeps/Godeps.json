@@ -159,6 +159,10 @@
 			"Rev": "cdfb69ac37fc"
 		},
 		{
+			"ImportPath": "golang.org/x/sync",
+			"Rev": "42b317875d0f"
+		},
+		{
 			"ImportPath": "golang.org/x/sys",
 			"Rev": "3b5209105503"
 		},
@@ -168,7 +172,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
-			"Rev": "aa82965741a9"
+			"Rev": "6e04913cbbac"
 		},
 		{
 			"ImportPath": "gonum.org/v1/gonum",
