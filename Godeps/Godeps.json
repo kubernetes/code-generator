@@ -192,7 +192,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
-			"Rev": "955ffa8fcfc9"
+			"Rev": "26a664648505"
 		},
 		{
 			"ImportPath": "k8s.io/klog",
