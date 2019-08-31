@@ -68,7 +68,7 @@
 		},
 		{
 			"ImportPath": "github.com/googleapis/gnostic",
-			"Rev": "68f4ded48ba9"
+			"Rev": "0c5108395e2d"
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
@@ -200,7 +200,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "33be087ad058"
+			"Rev": "743ec37842bf"
 		},
 		{
 			"ImportPath": "modernc.org/cc",
@@ -225,6 +225,10 @@
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff",
 			"Rev": "15d366b2352e"
+		},
+		{
+			"ImportPath": "sigs.k8s.io/yaml",
+			"Rev": "v1.1.0"
 		}
 	]
 }
