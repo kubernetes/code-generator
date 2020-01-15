@@ -7,10 +7,6 @@
 	],
 	"Deps": [
 		{
-			"ImportPath": "github.com/BurntSushi/xgb",
-			"Rev": "27f122750802"
-		},
-		{
 			"ImportPath": "github.com/NYTimes/gziphandler",
 			"Rev": "56545f4a5d46"
 		},
@@ -23,20 +19,12 @@
 			"Rev": "de5bf2ad4578"
 		},
 		{
-			"ImportPath": "github.com/ajstarks/svgo",
-			"Rev": "644b8db467af"
-		},
-		{
 			"ImportPath": "github.com/davecgh/go-spew",
 			"Rev": "v1.1.1"
 		},
 		{
 			"ImportPath": "github.com/emicklei/go-restful",
 			"Rev": "v2.9.5"
-		},
-		{
-			"ImportPath": "github.com/fogleman/gg",
-			"Rev": "0403632d5b90"
 		},
 		{
 			"ImportPath": "github.com/ghodss/yaml",
@@ -67,10 +55,6 @@
 			"Rev": "65acae22fc9d"
 		},
 		{
-			"ImportPath": "github.com/golang/freetype",
-			"Rev": "e2365dfdc4a0"
-		},
-		{
 			"ImportPath": "github.com/golang/protobuf",
 			"Rev": "4bd1920723d7"
 		},
@@ -85,10 +69,6 @@
 		{
 			"ImportPath": "github.com/json-iterator/go",
 			"Rev": "v1.1.8"
-		},
-		{
-			"ImportPath": "github.com/jung-kurt/gofpdf",
-			"Rev": "24315acbbda5"
 		},
 		{
 			"ImportPath": "github.com/kisielk/errcheck",
@@ -139,10 +119,6 @@
 			"Rev": "v1.0.0"
 		},
 		{
-			"ImportPath": "github.com/remyoudompheng/bigfft",
-			"Rev": "52369c62f446"
-		},
-		{
 			"ImportPath": "github.com/spf13/pflag",
 			"Rev": "v1.0.5"
 		},
@@ -157,18 +133,6 @@
 		{
 			"ImportPath": "golang.org/x/crypto",
 			"Rev": "5c40567a22f8"
-		},
-		{
-			"ImportPath": "golang.org/x/exp",
-			"Rev": "4b39c73a6495"
-		},
-		{
-			"ImportPath": "golang.org/x/image",
-			"Rev": "0694c2d4d067"
-		},
-		{
-			"ImportPath": "golang.org/x/mobile",
-			"Rev": "d3739f865fa6"
 		},
 		{
 			"ImportPath": "golang.org/x/net",
@@ -195,18 +159,6 @@
 			"Rev": "a985d3407aa7"
 		},
 		{
-			"ImportPath": "gonum.org/v1/gonum",
-			"Rev": "v0.6.2"
-		},
-		{
-			"ImportPath": "gonum.org/v1/netlib",
-			"Rev": "76723241ea4e"
-		},
-		{
-			"ImportPath": "gonum.org/v1/plot",
-			"Rev": "e2840ee46a6b"
-		},
-		{
 			"ImportPath": "gopkg.in/check.v1",
 			"Rev": "788fd7840127"
 		},
@@ -225,30 +177,6 @@
 		{
 			"ImportPath": "k8s.io/kube-openapi",
 			"Rev": "30be4d16710a"
-		},
-		{
-			"ImportPath": "modernc.org/cc",
-			"Rev": "v1.0.0"
-		},
-		{
-			"ImportPath": "modernc.org/golex",
-			"Rev": "v1.0.0"
-		},
-		{
-			"ImportPath": "modernc.org/mathutil",
-			"Rev": "v1.0.0"
-		},
-		{
-			"ImportPath": "modernc.org/strutil",
-			"Rev": "v1.0.0"
-		},
-		{
-			"ImportPath": "modernc.org/xc",
-			"Rev": "v1.0.0"
-		},
-		{
-			"ImportPath": "rsc.io/pdf",
-			"Rev": "v0.1.1"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff",
