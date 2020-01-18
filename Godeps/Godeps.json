@@ -52,7 +52,7 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf",
-			"Rev": "65acae22fc9d"
+			"Rev": "v1.3.1"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf",
