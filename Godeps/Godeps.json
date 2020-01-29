@@ -59,6 +59,10 @@
 			"Rev": "4bd1920723d7"
 		},
 		{
+			"ImportPath": "github.com/google/go-cmp",
+			"Rev": "v0.3.0"
+		},
+		{
 			"ImportPath": "github.com/google/gofuzz",
 			"Rev": "v1.0.0"
 		},
@@ -168,7 +172,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
-			"Rev": "26a664648505"
+			"Rev": "36b2048a9120"
 		},
 		{
 			"ImportPath": "k8s.io/klog",
