@@ -60,7 +60,7 @@
 		},
 		{
 			"ImportPath": "github.com/google/go-cmp",
-			"Rev": "v0.3.1"
+			"Rev": "v0.4.0"
 		},
 		{
 			"ImportPath": "github.com/google/gofuzz",
@@ -84,7 +84,7 @@
 		},
 		{
 			"ImportPath": "github.com/kr/pretty",
-			"Rev": "v0.1.0"
+			"Rev": "v0.2.0"
 		},
 		{
 			"ImportPath": "github.com/kr/pty",
@@ -140,7 +140,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net",
-			"Rev": "13f9640d40b9"
+			"Rev": "16171245cfb2"
 		},
 		{
 			"ImportPath": "golang.org/x/sync",
@@ -160,11 +160,11 @@
 		},
 		{
 			"ImportPath": "golang.org/x/xerrors",
-			"Rev": "a985d3407aa7"
+			"Rev": "9bdfabe68543"
 		},
 		{
 			"ImportPath": "gopkg.in/check.v1",
-			"Rev": "788fd7840127"
+			"Rev": "41f04d3bba15"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
