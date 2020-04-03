@@ -23,6 +23,10 @@
 			"Rev": "v1.1.1"
 		},
 		{
+			"ImportPath": "github.com/docopt/docopt-go",
+			"Rev": "ee0de3bc6815"
+		},
+		{
 			"ImportPath": "github.com/emicklei/go-restful",
 			"Rev": "v2.9.5"
 		},
@@ -56,7 +60,7 @@
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf",
-			"Rev": "4bd1920723d7"
+			"Rev": "v1.3.3"
 		},
 		{
 			"ImportPath": "github.com/google/go-cmp",
@@ -68,7 +72,7 @@
 		},
 		{
 			"ImportPath": "github.com/googleapis/gnostic",
-			"Rev": "0c5108395e2d"
+			"Rev": "v0.4.1"
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
@@ -140,7 +144,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net",
-			"Rev": "16171245cfb2"
+			"Rev": "d3edc9973b7e"
 		},
 		{
 			"ImportPath": "golang.org/x/sync",
@@ -180,7 +184,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "bf4fb3bd569c"
+			"Rev": "01dfbe2eec3d"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v3",
