@@ -22,7 +22,4 @@ require (
 	k8s.io/kube-openapi v0.0.0-20200410163147-594e756bea31 // release-1.16
 )
 
-replace (
-	golang.org/x/tools => golang.org/x/tools v0.0.0-20190821162956-65e3620a7ae7
-	k8s.io/code-generator => ../code-generator
-)
+replace golang.org/x/tools => golang.org/x/tools v0.0.0-20190821162956-65e3620a7ae7
