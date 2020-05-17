@@ -176,15 +176,15 @@
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
-			"Rev": "e0e292d8aa12"
+			"Rev": "8167cfdcfc14"
 		},
 		{
-			"ImportPath": "k8s.io/klog",
-			"Rev": "v1.0.0"
+			"ImportPath": "k8s.io/klog/v2",
+			"Rev": "v2.0.0"
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "e1beb1bd0f35"
+			"Rev": "656914f816f9"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v3",
