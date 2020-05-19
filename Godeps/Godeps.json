@@ -76,7 +76,7 @@
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
-			"Rev": "v1.1.8"
+			"Rev": "v1.1.9"
 		},
 		{
 			"ImportPath": "github.com/kisielk/errcheck",
