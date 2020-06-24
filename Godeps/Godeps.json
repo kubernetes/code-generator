@@ -152,7 +152,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/sys",
-			"Rev": "fde4db37ae7a"
+			"Rev": "915c9c3d4ccf"
 		},
 		{
 			"ImportPath": "golang.org/x/text",
@@ -160,7 +160,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
-			"Rev": "65e3620a7ae7"
+			"Rev": "c00d67ef29d0"
 		},
 		{
 			"ImportPath": "golang.org/x/xerrors",
