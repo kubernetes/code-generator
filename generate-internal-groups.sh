@@ -115,7 +115,7 @@ if [ "${GENS}" = "all" ] || grep -qw "openapi" <<<"${GENS}"; then
   declare -a OPENAPI_EXTRA_PACKAGES
   "${GOPATH}/bin/openapi-gen" \
            --input-dirs "$(codegen::join , "${EXT_FQ_APIS[@]}" "${OPENAPI_EXTRA_PACKAGES[@]}")" \
-           --input-dirs "k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
+           --input-dirs "${EXT_FQ_APIS[@]},k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
            --output-package "${OUTPUT_PKG}/openapi" \
            -O zz_generated.openapi \
            "$@"
