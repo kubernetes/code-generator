@@ -19,6 +19,10 @@
 			"Rev": "de5bf2ad4578"
 		},
 		{
+			"ImportPath": "github.com/asaskevich/govalidator",
+			"Rev": "f61b66f89f4a"
+		},
+		{
 			"ImportPath": "github.com/davecgh/go-spew",
 			"Rev": "v1.1.1"
 		},
@@ -71,6 +75,10 @@
 			"Rev": "v1.0.0"
 		},
 		{
+			"ImportPath": "github.com/google/uuid",
+			"Rev": "v1.1.1"
+		},
+		{
 			"ImportPath": "github.com/googleapis/gnostic",
 			"Rev": "v0.4.1"
 		},
@@ -101,6 +109,10 @@
 		{
 			"ImportPath": "github.com/mailru/easyjson",
 			"Rev": "v0.7.0"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "v1.1.2"
 		},
 		{
 			"ImportPath": "github.com/modern-go/concurrent",
@@ -192,11 +204,11 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "8b5066479488"
+			"Rev": "74b467f3a622"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v4",
-			"Rev": "v4.0.1"
+			"Rev": "v4.0.2"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/yaml",
