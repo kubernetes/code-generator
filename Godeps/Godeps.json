@@ -68,7 +68,7 @@
 		},
 		{
 			"ImportPath": "github.com/google/go-cmp",
-			"Rev": "v0.4.0"
+			"Rev": "v0.5.2"
 		},
 		{
 			"ImportPath": "github.com/google/gofuzz",
@@ -148,7 +148,7 @@
 		},
 		{
 			"ImportPath": "github.com/stretchr/testify",
-			"Rev": "v1.4.0"
+			"Rev": "v1.6.1"
 		},
 		{
 			"ImportPath": "github.com/yuin/goldmark",
@@ -176,7 +176,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/text",
-			"Rev": "v0.3.3"
+			"Rev": "v0.3.4"
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
@@ -184,7 +184,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/xerrors",
-			"Rev": "9bdfabe68543"
+			"Rev": "5ec99f83aff1"
 		},
 		{
 			"ImportPath": "gopkg.in/check.v1",
@@ -193,6 +193,10 @@
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
 			"Rev": "v2.2.8"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v3",
+			"Rev": "9f266ea9e77c"
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
