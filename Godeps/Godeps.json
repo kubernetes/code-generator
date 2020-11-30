@@ -152,7 +152,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net",
-			"Rev": "ab3426394381"
+			"Rev": "69a78807bb2b"
 		},
 		{
 			"ImportPath": "golang.org/x/sync",
@@ -160,7 +160,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/sys",
-			"Rev": "85ca7c5b95cd"
+			"Rev": "fdedc70b468f"
 		},
 		{
 			"ImportPath": "golang.org/x/text",
