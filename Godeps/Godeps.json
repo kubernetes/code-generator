@@ -7,6 +7,14 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "cloud.google.com/go",
+			"Rev": "v0.26.0"
+		},
+		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Rev": "v0.3.1"
+		},
+		{
 			"ImportPath": "github.com/NYTimes/gziphandler",
 			"Rev": "56545f4a5d46"
 		},
@@ -23,6 +31,14 @@
 			"Rev": "f61b66f89f4a"
 		},
 		{
+			"ImportPath": "github.com/census-instrumentation/opencensus-proto",
+			"Rev": "v0.2.1"
+		},
+		{
+			"ImportPath": "github.com/client9/misspell",
+			"Rev": "v0.3.4"
+		},
+		{
 			"ImportPath": "github.com/creack/pty",
 			"Rev": "v1.1.9"
 		},
@@ -37,6 +53,18 @@
 		{
 			"ImportPath": "github.com/emicklei/go-restful",
 			"Rev": "v2.9.5"
+		},
+		{
+			"ImportPath": "github.com/envoyproxy/go-control-plane",
+			"Rev": "5f8ba28d4473"
+		},
+		{
+			"ImportPath": "github.com/envoyproxy/protoc-gen-validate",
+			"Rev": "v0.1.0"
+		},
+		{
+			"ImportPath": "github.com/fsnotify/fsnotify",
+			"Rev": "v1.4.7"
 		},
 		{
 			"ImportPath": "github.com/go-logr/logr",
@@ -63,8 +91,16 @@
 			"Rev": "v1.3.2"
 		},
 		{
+			"ImportPath": "github.com/golang/glog",
+			"Rev": "23def4e6c14b"
+		},
+		{
+			"ImportPath": "github.com/golang/mock",
+			"Rev": "v1.1.1"
+		},
+		{
 			"ImportPath": "github.com/golang/protobuf",
-			"Rev": "v1.3.3"
+			"Rev": "v1.4.3"
 		},
 		{
 			"ImportPath": "github.com/google/go-cmp",
@@ -81,6 +117,10 @@
 		{
 			"ImportPath": "github.com/googleapis/gnostic",
 			"Rev": "v0.4.1"
+		},
+		{
+			"ImportPath": "github.com/hpcloud/tail",
+			"Rev": "v1.0.0"
 		},
 		{
 			"ImportPath": "github.com/json-iterator/go",
@@ -132,15 +172,19 @@
 		},
 		{
 			"ImportPath": "github.com/onsi/ginkgo",
-			"Rev": "11459a886d9c"
+			"Rev": "v1.11.0"
 		},
 		{
 			"ImportPath": "github.com/onsi/gomega",
-			"Rev": "dcabb60a477c"
+			"Rev": "v1.7.0"
 		},
 		{
 			"ImportPath": "github.com/pmezard/go-difflib",
 			"Rev": "v1.0.0"
+		},
+		{
+			"ImportPath": "github.com/prometheus/client_model",
+			"Rev": "14fe0d1b01d4"
 		},
 		{
 			"ImportPath": "github.com/spf13/pflag",
@@ -163,12 +207,24 @@
 			"Rev": "75b288015ac9"
 		},
 		{
+			"ImportPath": "golang.org/x/exp",
+			"Rev": "509febef88a4"
+		},
+		{
+			"ImportPath": "golang.org/x/lint",
+			"Rev": "d0100b6bd8b3"
+		},
+		{
 			"ImportPath": "golang.org/x/mod",
 			"Rev": "ce943fd02449"
 		},
 		{
 			"ImportPath": "golang.org/x/net",
 			"Rev": "3d97a244fca7"
+		},
+		{
+			"ImportPath": "golang.org/x/oauth2",
+			"Rev": "d2e6202438be"
 		},
 		{
 			"ImportPath": "golang.org/x/sync",
@@ -195,8 +251,32 @@
 			"Rev": "5ec99f83aff1"
 		},
 		{
+			"ImportPath": "google.golang.org/appengine",
+			"Rev": "v1.4.0"
+		},
+		{
+			"ImportPath": "google.golang.org/genproto",
+			"Rev": "cb27e3aa2013"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc",
+			"Rev": "v1.27.0"
+		},
+		{
+			"ImportPath": "google.golang.org/protobuf",
+			"Rev": "v1.25.0"
+		},
+		{
 			"ImportPath": "gopkg.in/check.v1",
 			"Rev": "8fa46927fb4f"
+		},
+		{
+			"ImportPath": "gopkg.in/fsnotify.v1",
+			"Rev": "v1.4.7"
+		},
+		{
+			"ImportPath": "gopkg.in/tomb.v1",
+			"Rev": "dd632973f1e7"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
@@ -205,6 +285,10 @@
 		{
 			"ImportPath": "gopkg.in/yaml.v3",
 			"Rev": "9f266ea9e77c"
+		},
+		{
+			"ImportPath": "honnef.co/go/tools",
+			"Rev": "ea95bdfd59fc"
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
@@ -220,7 +304,7 @@
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v4",
-			"Rev": "v4.0.2"
+			"Rev": "v4.1.0"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/yaml",
