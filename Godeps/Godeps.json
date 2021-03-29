@@ -52,7 +52,7 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf",
-			"Rev": "v1.3.1"
+			"Rev": "v1.3.2"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf",
@@ -76,7 +76,7 @@
 		},
 		{
 			"ImportPath": "github.com/kisielk/errcheck",
-			"Rev": "v1.2.0"
+			"Rev": "v1.5.0"
 		},
 		{
 			"ImportPath": "github.com/kisielk/gotool",
