@@ -116,7 +116,7 @@
 		},
 		{
 			"ImportPath": "github.com/googleapis/gnostic",
-			"Rev": "v0.4.1"
+			"Rev": "v0.5.1"
 		},
 		{
 			"ImportPath": "github.com/hpcloud/tail",
@@ -189,6 +189,10 @@
 		{
 			"ImportPath": "github.com/spf13/pflag",
 			"Rev": "v1.0.5"
+		},
+		{
+			"ImportPath": "github.com/stoewer/go-strcase",
+			"Rev": "v1.2.0"
 		},
 		{
 			"ImportPath": "github.com/stretchr/objx",
@@ -284,7 +288,7 @@
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v3",
-			"Rev": "9f266ea9e77c"
+			"Rev": "eeeca48fe776"
 		},
 		{
 			"ImportPath": "honnef.co/go/tools",
@@ -300,7 +304,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "591a79e4bda7"
+			"Rev": "1a6458611d18"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v4",
