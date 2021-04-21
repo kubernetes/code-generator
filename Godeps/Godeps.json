@@ -79,10 +79,6 @@
 			"Rev": "v0.19.3"
 		},
 		{
-			"ImportPath": "github.com/go-openapi/spec",
-			"Rev": "v0.19.5"
-		},
-		{
 			"ImportPath": "github.com/go-openapi/swag",
 			"Rev": "v0.19.5"
 		},
@@ -140,7 +136,7 @@
 		},
 		{
 			"ImportPath": "github.com/kr/pty",
-			"Rev": "v1.1.5"
+			"Rev": "v1.1.1"
 		},
 		{
 			"ImportPath": "github.com/kr/text",
@@ -196,7 +192,7 @@
 		},
 		{
 			"ImportPath": "github.com/stretchr/objx",
-			"Rev": "v0.2.0"
+			"Rev": "v0.1.0"
 		},
 		{
 			"ImportPath": "github.com/stretchr/testify",
@@ -304,7 +300,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/kube-openapi",
-			"Rev": "1a6458611d18"
+			"Rev": "95288971da7e"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v4",
