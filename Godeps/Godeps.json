@@ -244,7 +244,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/text",
-			"Rev": "v0.3.4"
+			"Rev": "v0.3.6"
 		},
 		{
 			"ImportPath": "golang.org/x/tools",
