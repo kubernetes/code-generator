@@ -281,7 +281,7 @@ func groupPackage(basePackage string, groupVersions clientgentypes.GroupVersions
 	groupPkgName := strings.Split(string(groupVersions.PackageName), ".")[0]
 
 	return &generator.DefaultPackage{
-		PackageName: groupPkgName,
+		PackageName: genutil.NormalizeGoPackageName(groupPkgName),
 		PackagePath: packagePath,
 		HeaderText:  boilerplate,
 		GeneratorFunc: func(c *generator.Context) (generators []generator.Generator) {
