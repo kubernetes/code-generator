@@ -19,5 +19,3 @@ require (
 	k8s.io/kube-openapi v0.0.0-20200805222855-6aeccd4b50c6
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
-
-replace k8s.io/code-generator => ../code-generator
