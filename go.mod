@@ -14,6 +14,7 @@ require (
 	github.com/onsi/ginkgo v1.14.0 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0 // indirect
+	golang.org/x/net v0.0.0-20211209124913-491a49abca63 // indirect
 	golang.org/x/tools v0.1.8
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/gengo v0.0.0-20210813121822-485abfe95c7c
@@ -21,3 +22,5 @@ require (
 	k8s.io/kube-openapi v0.0.0-20211115234752-e816edb12b65
 	sigs.k8s.io/structured-merge-diff/v4 v4.1.2 // indirect
 )
+
+replace k8s.io/code-generator => ../code-generator
