@@ -24,5 +24,3 @@ require (
 	k8s.io/kube-openapi v0.0.0-20220324211241-9f9c01d62a3a
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
 )
-
-replace k8s.io/code-generator => ../code-generator
