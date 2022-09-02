@@ -11,7 +11,7 @@ require (
 	golang.org/x/tools v0.1.12
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/gengo v0.0.0-20211129171323-c02415ce4185
-	k8s.io/klog/v2 v2.70.1
+	k8s.io/klog/v2 v2.80.0
 	k8s.io/kube-openapi v0.0.0-20220803162953-67bda5d908f1
 )
 
@@ -42,3 +42,5 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
+
+replace k8s.io/code-generator => ../code-generator
