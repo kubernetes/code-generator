@@ -2,7 +2,7 @@
 
 module k8s.io/code-generator
 
-go 1.19
+go 1.20
 
 require (
 	github.com/gogo/protobuf v1.3.2
@@ -40,3 +40,5 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
+
+replace k8s.io/code-generator => ../code-generator
