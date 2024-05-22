@@ -568,7 +568,7 @@ function kube::codegen::gen_client() {
         fi
     done < <(
         ( kube::codegen::internal::grep -l --null \
-            -e '+genclient' \
+            -e '//\s*+genclient' \
             -r "${in_dir}${one_input_api}" \
             --include '*.go' \
             || true \
