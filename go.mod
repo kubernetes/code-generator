@@ -13,14 +13,14 @@ require (
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/text v0.15.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/apimachinery v0.0.0-20240624224638-0e02b52b8933
+	k8s.io/apimachinery v0.0.0-20240626061443-e3238d482de2
 	k8s.io/gengo/v2 v2.0.0-20240228010128-51d4e06bde70
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340
 )
 
 require (
-	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
+	github.com/emicklei/go-restful/v3 v3.12.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect
@@ -35,7 +35,7 @@ require (
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/tools v0.21.0 // indirect
-	google.golang.org/protobuf v1.33.0 // indirect
+	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
