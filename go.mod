@@ -15,7 +15,7 @@ require (
 	github.com/google/gofuzz v1.2.0
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/text v0.21.0
-	k8s.io/apimachinery v0.0.0-20250106201545-3e8e52d6a125
+	k8s.io/apimachinery v0.0.0
 	k8s.io/gengo/v2 v2.0.0-20240911193312-2b36238f13e9
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7
@@ -23,7 +23,7 @@ require (
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
@@ -44,3 +44,5 @@ require (
 	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
 )
+
+replace k8s.io/apimachinery => ../apimachinery
