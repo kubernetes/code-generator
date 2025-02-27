@@ -2,9 +2,9 @@
 
 module k8s.io/code-generator
 
-go 1.24.0
+go 1.23.0
 
-godebug default=go1.24
+godebug default=go1.23
 
 require (
 	github.com/gogo/protobuf v1.3.2
@@ -12,8 +12,8 @@ require (
 	github.com/google/go-cmp v0.6.0
 	github.com/google/gofuzz v1.2.0
 	github.com/spf13/pflag v1.0.5
-	golang.org/x/text v0.21.0
-	k8s.io/apimachinery v0.0.0-20250227200116-758f86daa84e
+	golang.org/x/text v0.22.0
+	k8s.io/apimachinery v0.0.0
 	k8s.io/gengo/v2 v2.0.0-20240911193312-2b36238f13e9
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7
@@ -37,7 +37,7 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
 	google.golang.org/protobuf v1.35.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
@@ -46,3 +46,5 @@ require (
 	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
 )
+
+replace k8s.io/apimachinery => ../apimachinery
