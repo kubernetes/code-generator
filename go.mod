@@ -13,7 +13,7 @@ require (
 	github.com/google/gofuzz v1.2.0
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/text v0.22.0
-	k8s.io/apimachinery v0.0.0-20250303192542-9dca0b5e166d
+	k8s.io/apimachinery v0.33.0-alpha.3
 	k8s.io/gengo/v2 v2.0.0-20250207200755-1244d31929d7
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7
