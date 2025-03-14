@@ -12,7 +12,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/text v0.22.0
-	k8s.io/apimachinery v0.0.0-20250312012745-e79d00029257
+	k8s.io/apimachinery v0.0.0-20250314012750-c8bf40462f05
 	k8s.io/gengo/v2 v2.0.0-20250207200755-1244d31929d7
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20250304201544-e5f78fe3ede9
