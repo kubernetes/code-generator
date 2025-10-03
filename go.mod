@@ -13,7 +13,7 @@ require (
 	github.com/spf13/pflag v1.0.9
 	go.yaml.in/yaml/v2 v2.4.2
 	golang.org/x/text v0.28.0
-	k8s.io/apimachinery v0.0.0-20251002032028-268a6d0fb19c
+	k8s.io/apimachinery v0.0.0-20251003013056-d59a6d67daf4
 	k8s.io/gengo/v2 v2.0.0-20250922181213-ec3ebc5fd46b
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20250910181357-589584f1c912
