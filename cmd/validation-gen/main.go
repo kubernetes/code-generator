@@ -74,11 +74,12 @@ func main() {
 }
 
 type Args struct {
-	OutputFile   string
-	ReadOnlyPkgs []string // Always consider these as last-ditch possibilities for validations.
-	GoHeaderFile string
-	PrintDocs    bool
-	LintOnly     bool
+	OutputFile      string
+	ReadOnlyPkgs    []string // Always consider these as last-ditch possibilities for validations.
+	GoHeaderFile    string
+	PrintDocs       bool
+	LintOnly        bool
+	DVEnforcedRoots []string
 }
 
 // AddFlags add the generator flags to the flag set.
@@ -93,6 +94,8 @@ func (args *Args) AddFlags(fs *pflag.FlagSet) {
 		"print documentation for supported declarative validations, and then exit")
 	fs.BoolVar(&args.LintOnly, "lint", false,
 		"only run linting checks, do not generate code")
+	fs.StringSliceVar(&args.DVEnforcedRoots, "dv-enforced-roots", args.DVEnforcedRoots,
+		"list of root types (e.g. k8s.io/api/core/v1.Pod) to enforce strict linting rules on")
 }
 
 // Validate checks the given arguments.
