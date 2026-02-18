@@ -94,7 +94,7 @@ func (args *Args) AddFlags(fs *pflag.FlagSet) {
 		"print documentation for supported declarative validations, and then exit")
 	fs.BoolVar(&args.LintOnly, "lint", false,
 		"only run linting checks, do not generate code")
-	fs.StringSliceVar(&args.DVEnforcedRoots, "dv-enforced-roots", args.DVEnforcedRoots,
+	fs.StringSliceVar(&args.DVEnforcedRoots, "dv-enforced-root", args.DVEnforcedRoots,
 		"list of root types (e.g. k8s.io/api/core/v1.Pod) to enforce strict linting rules on")
 }
 
