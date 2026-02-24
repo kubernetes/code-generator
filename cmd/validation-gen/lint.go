@@ -72,6 +72,10 @@ func (l *linter) lintType(t *types.Type) error {
 	l.linted[t] = true
 
 	if t.CommentLines != nil {
+		extracted := codetags.Extract("+", t.CommentLines)
+		if _, ok := extracted["k8s:validation-gen-nolint"]; ok {
+			return nil
+		}
 		klog.V(5).Infof("linting type %s", t.Name.String())
 		lintErrs, err := l.lintComments(t, t, t.CommentLines)
 		if err != nil {

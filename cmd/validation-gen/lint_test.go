@@ -20,7 +20,6 @@ import (
 	"errors"
 	"testing"
 
-	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/code-generator/cmd/validation-gen/validators"
 	"k8s.io/gengo/v2/codetags"
 	"k8s.io/gengo/v2/generator"
@@ -229,7 +228,7 @@ func TestRuleStability(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			dummyType := &types.Type{Name: types.Name{Name: "Dummy"}}
-			rule := validationStability(sets.New("Dummy"))
+			rule := validationStability()
 			tags, _ := validator.ExtractTags(validators.Context{}, tt.comments)
 			msg, err := rule(nil, dummyType, tags)
 			if err != nil {
@@ -241,91 +240,6 @@ func TestRuleStability(t *testing.T) {
 	}
 }
 
-func TestTransitiveClosure(t *testing.T) {
-	universe := types.Universe{}
-	pkg := &types.Package{
-		Path:  "test/pkg",
-		Name:  "pkg",
-		Types: map[string]*types.Type{},
-	}
-	universe["test/pkg"] = pkg
-
-	recursiveType := &types.Type{
-		Name: types.Name{Package: "test/pkg", Name: "Recursive"},
-		Kind: types.Struct,
-	}
-	// Self-reference via pointer
-	recursiveType.Members = []types.Member{
-		{
-			Name: "Self",
-			Type: &types.Type{
-				Kind: types.Pointer,
-				Elem: recursiveType,
-			},
-		},
-	}
-	pkg.Types["Recursive"] = recursiveType
-
-	rootType := &types.Type{
-		Name: types.Name{Package: "test/pkg", Name: "Root"},
-		Kind: types.Struct,
-		Members: []types.Member{
-			{
-				Name: "Field",
-				Type: recursiveType,
-			},
-		},
-	}
-	pkg.Types["Root"] = rootType
-
-	roots := []string{"test/pkg.Root"}
-	closure := transitiveClosure(universe, roots)
-
-	if !closure.Has("test/pkg.Root") {
-		t.Errorf("closure missing Root")
-	}
-	if !closure.Has("test/pkg.Recursive") {
-		t.Errorf("closure missing Recursive")
-	}
-}
-
-func TestRuleTypeFiltering(t *testing.T) {
-	enabledTypes := sets.New("AllowedType")
-	rule := validationStability(enabledTypes)
-
-	tests := []struct {
-		name     string
-		typeName string
-		comments []string
-		wantMsg  string
-	}{
-		{
-			name:     "allowed type, invalid tag",
-			typeName: "AllowedType",
-			comments: []string{"+k8s:forbidden"},
-			wantMsg:  `tag "k8s:forbidden" with stability level "Alpha" cannot be used in Stable validation`,
-		},
-		{
-			name:     "ignored type, invalid tag",
-			typeName: "IgnoredType",
-			comments: []string{"+k8s:forbidden"},
-			wantMsg:  "",
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			typ := &types.Type{Name: types.Name{Name: tt.typeName}}
-			tags, _ := validator.ExtractTags(validators.Context{}, tt.comments)
-			msg, err := rule(nil, typ, tags)
-			if err != nil {
-				t.Errorf("unexpected error: %v", err)
-			} else if msg != tt.wantMsg {
-				t.Errorf("got %q, want %q", msg, tt.wantMsg)
-			}
-		})
-	}
-}
 func TestLintType(t *testing.T) {
 	tests := []struct {
 		name        string

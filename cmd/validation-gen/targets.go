@@ -26,6 +26,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/code-generator/cmd/validation-gen/validators"
 	"k8s.io/gengo/v2"
+	"k8s.io/gengo/v2/codetags"
 	"k8s.io/gengo/v2/generator"
 	"k8s.io/gengo/v2/namer"
 	"k8s.io/gengo/v2/types"
@@ -294,7 +295,7 @@ func GetTargets(context *generator.Context, args *Args) []generator.Target {
 	}
 
 	// Create a linter to collect errors as we go.
-	linter := newLinter(lintRules(transitiveClosure(context.Universe, args.DVEnforcedRoots), validator)...)
+	linter := newLinter(lintRules(validator)...)
 
 	// Build a cache of type->callNode for every type we need.
 	for _, input := range context.Inputs {
@@ -374,15 +375,14 @@ func GetTargets(context *generator.Context, args *Args) []generator.Target {
 			}
 		}
 
-		for _, t := range rootTypes {
-			klog.V(3).InfoS("linting root-type", "type", t)
-			if err := linter.lintType(t); err != nil {
-				klog.Fatalf("failed to lint type %q: %v", t.Name, err)
+		extracted := codetags.Extract("+", pkg.Comments)
+		if _, ok := extracted["k8s:validation-gen-nolint"]; !ok {
+			for _, t := range rootTypes {
+				klog.V(3).InfoS("linting root-type", "type", t)
+				if err := linter.lintType(t); err != nil {
+					klog.Fatalf("failed to lint type %q: %v", t.Name, err)
+				}
 			}
-		}
-		if args.LintOnly {
-			klog.V(4).Info("Lint is set, skip appending targets")
-			continue
 		}
 
 		targets = append(targets,
@@ -422,9 +422,7 @@ func GetTargets(context *generator.Context, args *Args) []generator.Target {
 				buf.WriteString(fmt.Sprintf("    %s\n", err.Error()))
 			}
 		}
-		if args.LintOnly {
-			klog.Fatalf("lint failed:\n%s", buf.String())
-		}
+		klog.Fatalf("lint failed:\n%s", buf.String())
 	}
 	return targets
 }
@@ -440,60 +438,4 @@ func isTypeWith(t *types.Type, typesWith []string) bool {
 		}
 	}
 	return false
-}
-
-// transitiveClosure computes the set of all types reachable from the given roots.
-func transitiveClosure(universe types.Universe, roots []string) sets.Set[string] {
-	result := sets.New[string]()
-	queue := []*types.Type{}
-
-	// Resolve roots
-	for _, rootName := range roots {
-		name := types.ParseFullyQualifiedName(rootName)
-		pkg := universe[name.Package]
-		if pkg == nil {
-			klog.Fatalf("Package %q not found in universe", name.Package)
-			continue
-		}
-		t := pkg.Types[name.Name]
-		if t == nil {
-			klog.Fatalf("Type %q not found in package %q", name.Name, name.Package)
-			continue
-		}
-		queue = append(queue, t)
-	}
-
-	for len(queue) > 0 {
-		t := queue[0]
-		queue = queue[1:]
-
-		key := t.Name.String()
-		if result.Has(key) {
-			continue
-		}
-		result.Insert(key)
-
-		switch t.Kind {
-		case types.Struct:
-			for _, m := range t.Members {
-				queue = append(queue, m.Type)
-			}
-		case types.Slice, types.Array, types.Pointer:
-			if t.Elem != nil {
-				queue = append(queue, t.Elem)
-			}
-		case types.Map:
-			if t.Elem != nil {
-				queue = append(queue, t.Elem)
-			}
-			if t.Key != nil {
-				queue = append(queue, t.Key)
-			}
-		case types.Alias:
-			if t.Underlying != nil {
-				queue = append(queue, t.Underlying)
-			}
-		}
-	}
-	return result
 }

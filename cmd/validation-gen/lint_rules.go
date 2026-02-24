@@ -19,31 +19,10 @@ package main
 import (
 	"fmt"
 
-	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/code-generator/cmd/validation-gen/validators"
 	"k8s.io/gengo/v2/codetags"
 	"k8s.io/gengo/v2/types"
 )
-
-// FilteredRule returns a lintRule that only runs if the type (or its container) is in the enabledTypes set.
-// If enabledTypes is empty or nil, the rule is disabled.
-func FilteredRule(enabledTypes sets.Set[string], rule lintRule) lintRule {
-	if len(enabledTypes) == 0 {
-		return func(container *types.Type, t *types.Type, tags []codetags.Tag) (string, error) {
-			return "", nil
-		}
-	}
-	return func(container *types.Type, t *types.Type, tags []codetags.Tag) (string, error) {
-		checkType := t
-		if container != nil {
-			checkType = container
-		}
-		if checkType != nil && !enabledTypes.Has(checkType.Name.String()) {
-			return "", nil
-		}
-		return rule(container, t, tags)
-	}
-}
 
 func checkAlphaBetaUsage(tag codetags.Tag, isRoot bool) (string, error) {
 	if tag.Name == "k8s:alpha" || tag.Name == "k8s:beta" {
@@ -99,8 +78,8 @@ func checkTagStability(tag codetags.Tag, contextLevel validators.TagStabilityLev
 }
 
 // validationStability enforces stability level constraints on tags.
-func validationStability(enabledTypes sets.Set[string]) lintRule {
-	return FilteredRule(enabledTypes, func(container *types.Type, t *types.Type, tags []codetags.Tag) (string, error) {
+func validationStability() lintRule {
+	return func(container *types.Type, t *types.Type, tags []codetags.Tag) (string, error) {
 		for _, tag := range tags {
 			contextLevel := validators.TagStabilityLevelStable
 			switch tag.Name {
@@ -129,7 +108,7 @@ func validationStability(enabledTypes sets.Set[string]) lintRule {
 			}
 		}
 		return "", nil
-	})
+	}
 }
 
 // hasTag recursively checks if a tag with given name exists in the tag tree.
@@ -272,10 +251,10 @@ func requiredAndOptional(extractor validators.ValidationExtractor) lintRule {
 	}
 }
 
-func lintRules(dvEnforcedTypes sets.Set[string], extractor validators.ValidationExtractor) []lintRule {
+func lintRules(extractor validators.ValidationExtractor) []lintRule {
 	return []lintRule{
 		alphaBetaPrefix(),
-		validationStability(dvEnforcedTypes),
+		validationStability(),
 		requiredAndOptional(extractor),
 	}
 }
