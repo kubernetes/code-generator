@@ -309,7 +309,7 @@ func (ektv eachKeyTagValidator) Docs() TagDoc {
 	doc := TagDoc{
 		Tag:            ektv.TagName(),
 		Scopes:         ektv.ValidScopes().UnsortedList(),
-		StabilityLevel: TagStabilityLevelAlpha,
+		StabilityLevel: TagStabilityLevelBeta,
 		Description:    "Declares a validation for each value in a map or list.",
 		Payloads: []TagPayloadDoc{{
 			Description: "<validation-tag>",
