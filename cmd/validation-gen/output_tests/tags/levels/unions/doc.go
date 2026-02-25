@@ -103,3 +103,28 @@ type Z2 struct{}
 
 type BetaZ1 struct{}
 type BetaZ2 struct{}
+
+type MyListStruct struct {
+	TypeMeta int
+
+	// +k8s:listType=map
+	// +k8s:listMapKey=name
+	// +k8s:alpha=+k8s:item(name: "succeeded")=+k8s:zeroOrOneOfMember
+	// +k8s:alpha=+k8s:item(name: "failed")=+k8s:zeroOrOneOfMember
+	Tasks []Task `json:"tasks"`
+}
+
+type MyListStructBeta struct {
+	TypeMeta int
+
+	// +k8s:listType=map
+	// +k8s:listMapKey=name
+	// +k8s:beta=+k8s:item(name: "succeeded")=+k8s:zeroOrOneOfMember
+	// +k8s:beta=+k8s:item(name: "failed")=+k8s:zeroOrOneOfMember
+	TasksBeta []Task `json:"tasksBeta"`
+}
+
+type Task struct {
+	Name  string `json:"name"`
+	State string `json:"state"`
+}
