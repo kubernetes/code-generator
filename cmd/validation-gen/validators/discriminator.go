@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"regexp"
 	"slices"
-	"strconv"
 
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/code-generator/cmd/validation-gen/util"
@@ -451,7 +450,7 @@ func convertDiscriminatorValue(val string, discType *types.Type) (any, error) {
 	case "string":
 		return val, nil
 	case "bool":
-		b, err := strconv.ParseBool(val)
+		b, err := util.ParseBool(val)
 		if err != nil {
 			return nil, fmt.Errorf("cannot parse %q as bool: %w", val, err)
 		}
