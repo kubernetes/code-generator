@@ -231,7 +231,7 @@ func parseTypedValue(value string, argType codetags.ArgType) (any, codetags.Valu
 	case codetags.ArgTypeString:
 		return value, codetags.ValueTypeString, nil
 	case codetags.ArgTypeInt:
-		intVal, err := strconv.Atoi(value)
+		intVal, err := util.ParseInt(value)
 		if err != nil {
 			return nil, "", fmt.Errorf("invalid integer: %w", err)
 		}

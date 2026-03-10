@@ -18,7 +18,6 @@ package validators
 
 import (
 	"fmt"
-	"strconv"
 
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/code-generator/cmd/validation-gen/util"
@@ -177,7 +176,7 @@ func (maxItemsTagValidator) GetValidations(context Context, tag codetags.Tag) (V
 		return Validations{}, fmt.Errorf("can only be used on list types (%s)", rootTypeString(context.Type, t))
 	}
 
-	intVal, err := strconv.Atoi(tag.Value)
+	intVal, err := util.ParseInt(tag.Value)
 	if err != nil {
 		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
 	}
@@ -229,7 +228,7 @@ func (minimumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
-	intVal, err := strconv.Atoi(tag.Value)
+	intVal, err := util.ParseInt(tag.Value)
 	if err != nil {
 		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
 	}

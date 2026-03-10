@@ -458,7 +458,7 @@ func convertDiscriminatorValue(val string, discType *types.Type) (any, error) {
 		return b, nil
 	default:
 		if types.IsInteger(nt) {
-			i, err := strconv.ParseInt(val, 10, 64)
+			i, err := util.ParseInt(val)
 			if err != nil {
 				return nil, fmt.Errorf("cannot parse %q as integer: %w", val, err)
 			}

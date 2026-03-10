@@ -83,7 +83,7 @@ func (v neqTagValidator) GetValidations(context Context, tag codetags.Tag) (Vali
 		if tag.ValueType != codetags.ValueTypeInt {
 			return Validations{}, fmt.Errorf("type mismatch: field is an integer, but payload is of type %s", tag.ValueType)
 		}
-		disallowedValue, err = strconv.Atoi(tag.Value)
+		disallowedValue, err = util.ParseInt(tag.Value)
 		if err != nil {
 			return Validations{}, fmt.Errorf("invalid integer value for payload: %w", err)
 		}
