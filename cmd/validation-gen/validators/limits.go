@@ -226,13 +226,17 @@ func (minimumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 
 	// This tag can apply to value and pointer fields, as well as typedefs
 	// (which should never be pointers). We need to check the concrete type.
-	if t := util.NonPointer(util.NativeType(context.Type)); !types.IsInteger(t) {
+	t := util.NonPointer(util.NativeType(context.Type))
+	if !types.IsInteger(t) {
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
 	intVal, err := util.ParseInt(tag.Value)
 	if err != nil {
 		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
+	}
+	if isUnsignedInt(t) && intVal < 0 {
+		return result, fmt.Errorf("must be greater than or equal to zero for unsigned types (%s)", rootTypeString(context.Type, t))
 	}
 	result.AddFunction(Function(minimumTagName, DefaultFlags, minimumValidator, intVal))
 	return result, nil
@@ -274,13 +278,17 @@ func (maximumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 
 	// This tag can apply to value and pointer fields, as well as typedefs
 	// (which should never be pointers). We need to check the concrete type.
-	if t := util.NonPointer(util.NativeType(context.Type)); !types.IsInteger(t) {
+	t := util.NonPointer(util.NativeType(context.Type))
+	if !types.IsInteger(t) {
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
 	intVal, err := util.ParseInt(tag.Value)
 	if err != nil {
 		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
+	}
+	if isUnsignedInt(t) && intVal < 0 {
+		return result, fmt.Errorf("must be greater than or equal to zero for unsigned types (%s)", rootTypeString(context.Type, t))
 	}
 	result.AddFunction(Function(maximumTagName, DefaultFlags, maximumValidator, intVal))
 	return result, nil
