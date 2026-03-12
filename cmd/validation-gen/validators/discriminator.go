@@ -63,8 +63,9 @@ type fieldMemberRules struct {
 }
 
 type memberRule struct {
-	value       string
-	validations Validations
+	value          string
+	validations    Validations
+	stabilityLevel ValidationStabilityLevel
 }
 
 func (mg discriminatorGroups) getOrCreate(name string) *discriminatorGroup {
@@ -204,8 +205,9 @@ func (mtv *memberTagValidator) GetValidations(context Context, tag codetags.Tag)
 	}
 
 	group.members[fieldName].rules = append(group.members[fieldName].rules, memberRule{
-		value:       value,
-		validations: payloadValidations,
+		value:          value,
+		validations:    payloadValidations,
+		stabilityLevel: context.StabilityLevel,
 	})
 
 	return Validations{}, nil
@@ -323,20 +325,50 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	}
 
 	// Prepare DiscriminatedRules
-	// Aggregate rules by value
+	// Mark each rule's validation functions with their stability level before
+	// aggregating by value, so that different rules for the same value can
+	// carry different stability levels.
 	rulesByValue := make(map[string]Validations)
 	var values []string
+	uniformLevel := rules.rules[0].stabilityLevel
 	for _, rule := range rules.rules {
+		// Track unique discriminator values in order of first appearance.
 		if _, ok := rulesByValue[rule.value]; !ok {
 			values = append(values, rule.value)
 		}
-		v := rulesByValue[rule.value]
-		v.Add(rule.validations)
-		rulesByValue[rule.value] = v
+		// Mark each validation function with its stability level before merging.
+		v := rule.validations
+		if rule.stabilityLevel != "" {
+			marked := make([]FunctionGen, len(v.Functions))
+			for i, f := range v.Functions {
+				marked[i] = f.WithStabilityLevel(rule.stabilityLevel)
+			}
+			v.Functions = marked
+		}
+		// Accumulate this rule's validations with others that share the same discriminator value.
+		existing := rulesByValue[rule.value]
+		existing.Add(v)
+		rulesByValue[rule.value] = existing
+		// Track whether all rules share the same level (for default-forbidden marking).
+		if rule.stabilityLevel != uniformLevel {
+			uniformLevel = ""
+		}
 	}
 	slices.Sort(values)
 
 	discriminatorType := group.discriminatorMember.Type
+
+	// Mark the default-forbidden with the uniform level if all rules agree.
+	if uniformLevel != "" {
+		if mwf, ok := defaultForbidden.(MultiWrapperFunction); ok {
+			marked := make([]FunctionGen, len(mwf.Functions))
+			for i, f := range mwf.Functions {
+				marked[i] = f.WithStabilityLevel(uniformLevel)
+			}
+			mwf.Functions = marked
+			defaultForbidden = mwf
+		}
+	}
 
 	var discriminatedRules []any
 	for _, val := range values {
