@@ -328,11 +328,12 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	// Mark each rule's validation functions with their stability level before
 	// aggregating by value, so that different rules for the same value can
 	// carry different stability levels.
-	rulesByValue := make(map[string]Validations)
+	rulesByValue := make(map[string]*Validations)
 	var values []string
 	for _, rule := range rules.rules {
 		// Track unique discriminator values in order of first appearance.
 		if _, ok := rulesByValue[rule.value]; !ok {
+			rulesByValue[rule.value] = &Validations{}
 			values = append(values, rule.value)
 		}
 		// Mark each validation function with its stability level before merging.
@@ -345,8 +346,7 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 			v.Functions = marked
 		}
 		// Accumulate this rule's validations with others that share the same discriminator value.
-		v.Add(rulesByValue[rule.value])
-		rulesByValue[rule.value] = v
+		rulesByValue[rule.value].Add(v)
 	}
 	slices.Sort(values)
 
@@ -355,14 +355,7 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	// When all rules share the same stability level, the default-forbidden
 	// (which fires for unrecognized discriminator values) should also be marked
 	// with that level so its errors carry the same stability annotation.
-	uniformLevel := rules.rules[0].stabilityLevel
-	for i := 1; i < len(rules.rules); i++ {
-		if rules.rules[i].stabilityLevel != uniformLevel {
-			uniformLevel = ""
-			break
-		}
-	}
-	if uniformLevel != "" {
+	if uniformLevel := uniformStabilityLevel(rules.rules); uniformLevel != "" {
 		mwf, ok := defaultForbidden.(MultiWrapperFunction)
 		if !ok {
 			return Validations{}, fmt.Errorf("internal error: defaultForbidden is not a MultiWrapperFunction")
@@ -377,10 +370,8 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 
 	var discriminatedRules []any
 	for _, val := range values {
-		ruleValidations := rulesByValue[val]
-
 		wrapper := MultiWrapperFunction{
-			Functions: ruleValidations.Functions,
+			Functions: rulesByValue[val].Functions,
 			ObjType:   nilableFieldType,
 		}
 
@@ -443,6 +434,18 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	)
 
 	return Validations{Functions: []FunctionGen{fn}}, nil
+}
+
+// uniformStabilityLevel returns the common stability level if all rules share
+// the same one, or "" if they differ.
+func uniformStabilityLevel(rules []memberRule) ValidationStabilityLevel {
+	level := rules[0].stabilityLevel
+	for i := 1; i < len(rules); i++ {
+		if rules[i].stabilityLevel != level {
+			return ""
+		}
+	}
+	return level
 }
 
 func (mtfv *discriminatorFieldValidator) getForbiddenValidation(t *types.Type) (any, error) {
