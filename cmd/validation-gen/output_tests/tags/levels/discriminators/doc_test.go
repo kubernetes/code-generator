@@ -59,7 +59,7 @@ func TestBeta(t *testing.T) {
 		field.Required(field.NewPath("fieldA"), "").MarkBeta(),
 	})
 
-	// Invalid: mode A with FieldB set (forbidden), should be stability level alpha
+	// Invalid: mode A with FieldB set (forbidden), should be stability level beta
 	st.Value(&BetaStruct{D1: "A", FieldA: ptr.To("val"), FieldB: ptr.To("val")}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByValidationStabilityLevel(), field.ErrorList{
 		field.Forbidden(field.NewPath("fieldB"), "").MarkBeta(),
 	})
@@ -67,7 +67,7 @@ func TestBeta(t *testing.T) {
 	// Valid: mode B with FieldB set
 	st.Value(&BetaStruct{D1: "B", FieldB: ptr.To("val")}).ExpectValid()
 
-	// Invalid: mode B with FieldB missing (required), should be stability level alpha
+	// Invalid: mode B with FieldB missing (required), should be stability level beta
 	st.Value(&BetaStruct{D1: "B"}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByValidationStabilityLevel(), field.ErrorList{
 		field.Required(field.NewPath("fieldB"), "").MarkBeta(),
 	})

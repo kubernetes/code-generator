@@ -338,6 +338,7 @@ func Validate_SameValueMixedPayloads(ctx context.Context, op operation.Operation
 			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 				errs := field.ErrorList{}
 				earlyReturn := false
+				errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 3).MarkBeta()...)
 				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
 					errs = append(errs, e...)
 					earlyReturn = true
@@ -345,7 +346,6 @@ func Validate_SameValueMixedPayloads(ctx context.Context, op operation.Operation
 				if earlyReturn {
 					return errs
 				}
-				errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 3).MarkBeta()...)
 				return errs
 			}},
 	})...)

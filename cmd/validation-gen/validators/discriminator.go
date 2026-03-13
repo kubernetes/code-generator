@@ -330,7 +330,6 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	// carry different stability levels.
 	rulesByValue := make(map[string]Validations)
 	var values []string
-	uniformLevel := rules.rules[0].stabilityLevel
 	for _, rule := range rules.rules {
 		// Track unique discriminator values in order of first appearance.
 		if _, ok := rulesByValue[rule.value]; !ok {
@@ -346,28 +345,34 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 			v.Functions = marked
 		}
 		// Accumulate this rule's validations with others that share the same discriminator value.
-		existing := rulesByValue[rule.value]
-		existing.Add(v)
-		rulesByValue[rule.value] = existing
-		// Track whether all rules share the same level (for default-forbidden marking).
-		if rule.stabilityLevel != uniformLevel {
-			uniformLevel = ""
-		}
+		v.Add(rulesByValue[rule.value])
+		rulesByValue[rule.value] = v
 	}
 	slices.Sort(values)
 
 	discriminatorType := group.discriminatorMember.Type
 
-	// Mark the default-forbidden with the uniform level if all rules agree.
-	if uniformLevel != "" {
-		if mwf, ok := defaultForbidden.(MultiWrapperFunction); ok {
-			marked := make([]FunctionGen, len(mwf.Functions))
-			for i, f := range mwf.Functions {
-				marked[i] = f.WithStabilityLevel(uniformLevel)
-			}
-			mwf.Functions = marked
-			defaultForbidden = mwf
+	// When all rules share the same stability level, the default-forbidden
+	// (which fires for unrecognized discriminator values) should also be marked
+	// with that level so its errors carry the same stability annotation.
+	uniformLevel := rules.rules[0].stabilityLevel
+	for i := 1; i < len(rules.rules); i++ {
+		if rules.rules[i].stabilityLevel != uniformLevel {
+			uniformLevel = ""
+			break
 		}
+	}
+	if uniformLevel != "" {
+		mwf, ok := defaultForbidden.(MultiWrapperFunction)
+		if !ok {
+			return Validations{}, fmt.Errorf("internal error: defaultForbidden is not a MultiWrapperFunction")
+		}
+		marked := make([]FunctionGen, len(mwf.Functions))
+		for i, f := range mwf.Functions {
+			marked[i] = f.WithStabilityLevel(uniformLevel)
+		}
+		mwf.Functions = marked
+		defaultForbidden = mwf
 	}
 
 	var discriminatedRules []any
