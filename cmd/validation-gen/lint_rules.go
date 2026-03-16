@@ -18,6 +18,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"k8s.io/code-generator/cmd/validation-gen/validators"
 	"k8s.io/gengo/v2/codetags"
@@ -80,31 +81,44 @@ func checkTagStability(tag codetags.Tag, contextLevel validators.TagStabilityLev
 // validationStability enforces stability level constraints on tags.
 func validationStability() lintRule {
 	return func(container *types.Type, t *types.Type, tags []codetags.Tag) (string, error) {
+		pkgPath := t.Name.Package
+		if container != nil {
+			pkgPath = container.Name.Package
+		}
+
+		// Unprefixed validations are normally required to be Stable.
+		// In Alpha packages, we allow Beta-level validations (e.g., +k8s:immutable)
+		// without a prefix, as they graduate to Stable before the API reaches Beta.
+		// Alpha-level validations still require an explicit +k8s:alpha= prefix.
+		defaultContextLevel := validators.TagStabilityLevelStable
+		if strings.Contains(pkgPath, "alpha") {
+			defaultContextLevel = validators.TagStabilityLevelBeta
+		}
+
 		for _, tag := range tags {
-			contextLevel := validators.TagStabilityLevelStable
-			switch tag.Name {
-			case "k8s:alpha":
-				contextLevel = validators.TagStabilityLevelAlpha
-			case "k8s:beta":
-				contextLevel = validators.TagStabilityLevelBeta
-			default:
-				// Normal tag (implicit Stable context).
-				// Check the root tag itself.
-				stability, err := validators.GetStability(tag.Name)
-				if err == nil && stability != validators.TagStabilityLevelStable {
-					return fmt.Sprintf("tag %q with stability level %q cannot be used in Stable validation", tag.Name, stability), nil
+			contextLevel := defaultContextLevel
+			tagToCheck := tag
+
+			if tag.Name == "k8s:alpha" || tag.Name == "k8s:beta" {
+				if tag.Name == "k8s:alpha" {
+					contextLevel = validators.TagStabilityLevelAlpha
+				} else {
+					contextLevel = validators.TagStabilityLevelBeta
 				}
+				if tag.ValueTag == nil {
+					continue
+				}
+				tagToCheck = *tag.ValueTag
 			}
 
-			// Recursively check content.
-			if tag.ValueTag != nil {
-				msg, err := checkTagStability(*tag.ValueTag, contextLevel)
-				if err != nil {
-					return "", err
-				}
-				if msg != "" {
-					return msg, nil
-				}
+			// checkTagStability recursively checks that a tag and its nested tags
+			// satisfy the stability requirements of the context.
+			msg, err := checkTagStability(tagToCheck, contextLevel)
+			if err != nil {
+				return "", err
+			}
+			if msg != "" {
+				return msg, nil
 			}
 		}
 		return "", nil

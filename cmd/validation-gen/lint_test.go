@@ -191,6 +191,7 @@ func TestRuleStability(t *testing.T) {
 	tests := []struct {
 		name     string
 		comments []string
+		pkg      string
 		wantMsg  string
 	}{
 		{
@@ -223,11 +224,23 @@ func TestRuleStability(t *testing.T) {
 			comments: []string{"+k8s:beta=+k8s:validateTrue"}, // Beta context, Alpha tag
 			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Beta validation`,
 		},
+		{
+			name:     "alpha pkg context, beta tag (implicit beta context)",
+			comments: []string{"+k8s:maximum=1"}, // Beta tag in Alpha package
+			pkg:      "k8s.io/api/apps/v1alpha1",
+			wantMsg:  "",
+		},
+		{
+			name:     "alpha pkg context, alpha tag (fails beta validation)",
+			comments: []string{"+k8s:forbidden"}, // Alpha tag in Alpha package
+			pkg:      "k8s.io/api/apps/v1alpha1",
+			wantMsg:  `tag "k8s:forbidden" with stability level "Alpha" cannot be used in Beta validation`,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			dummyType := &types.Type{Name: types.Name{Name: "Dummy"}}
+			dummyType := &types.Type{Name: types.Name{Package: tt.pkg, Name: "Dummy"}}
 			rule := validationStability()
 			tags, _ := validator.ExtractTags(validators.Context{}, tt.comments)
 			msg, err := rule(nil, dummyType, tags)
