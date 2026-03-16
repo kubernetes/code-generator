@@ -315,7 +315,7 @@ func (rtv requirednessTagValidator) Docs() TagDoc {
 		doc.StabilityLevel = TagStabilityLevelStable
 		doc.Description = "Indicates that a field is optional to clients."
 	case requirednessForbidden:
-		doc.StabilityLevel = TagStabilityLevelAlpha
+		doc.StabilityLevel = TagStabilityLevelBeta
 		doc.Description = "Indicates that a field may not be specified."
 	default:
 		panic(fmt.Sprintf("unknown requiredness mode: %q", rtv.mode))

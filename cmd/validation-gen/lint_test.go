@@ -210,18 +210,18 @@ func TestRuleStability(t *testing.T) {
 		},
 		{
 			name:     "alpha context, alpha tag",
-			comments: []string{"+k8s:alpha=+k8s:forbidden"}, // Alpha context, Alpha tag
+			comments: []string{"+k8s:alpha=+k8s:validateTrue"}, // Alpha context, Alpha tag
 			wantMsg:  "",
 		},
 		{
 			name:     "stable context, alpha tag",
-			comments: []string{"+k8s:forbidden"}, // Stable context, Alpha tag
-			wantMsg:  `tag "k8s:forbidden" with stability level "Alpha" cannot be used in Stable validation`,
+			comments: []string{"+k8s:validateTrue"}, // Stable context, Alpha tag
+			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Stable validation`,
 		},
 		{
 			name:     "beta context, alpha tag",
-			comments: []string{"+k8s:beta=+k8s:forbidden"}, // Beta context, Alpha tag
-			wantMsg:  `tag "k8s:forbidden" with stability level "Alpha" cannot be used in Beta validation`,
+			comments: []string{"+k8s:beta=+k8s:validateTrue"}, // Beta context, Alpha tag
+			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Beta validation`,
 		},
 	}
 
