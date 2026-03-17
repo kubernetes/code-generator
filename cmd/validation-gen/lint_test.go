@@ -225,16 +225,38 @@ func TestRuleStability(t *testing.T) {
 			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Beta validation`,
 		},
 		{
-			name:     "alpha pkg context, beta tag (implicit beta context)",
+			name:     "alpha pkg context, beta tag (allowed)",
 			comments: []string{"+k8s:maximum=1"}, // Beta tag in Alpha package
 			pkg:      "k8s.io/api/apps/v1alpha1",
 			wantMsg:  "",
 		},
 		{
-			name:     "alpha pkg context, alpha tag (fails beta validation)",
-			comments: []string{"+k8s:forbidden"}, // Alpha tag in Alpha package
+			name:     "alpha pkg context, alpha tag (allowed)",
+			comments: []string{"+k8s:validateTrue"}, // Alpha tag in Alpha package
 			pkg:      "k8s.io/api/apps/v1alpha1",
-			wantMsg:  `tag "k8s:forbidden" with stability level "Alpha" cannot be used in Beta validation`,
+			wantMsg:  "",
+		},
+		{
+			name:     "beta pkg context, beta tag (allowed)",
+			comments: []string{"+k8s:maximum=1"}, // Beta tag in Beta package
+			pkg:      "k8s.io/api/apps/v1beta1",
+			wantMsg:  "",
+		},
+		{
+			name:     "beta pkg context, alpha tag (fails)",
+			comments: []string{"+k8s:validateTrue"}, // Alpha tag in Beta package
+			pkg:      "k8s.io/api/apps/v1beta1",
+			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Beta validation`,
+		},
+		{
+			name:     "ifEnabled context allows beta tag",
+			comments: []string{"+k8s:ifEnabled(SomeFeature)=+k8s:maximum=1"}, // Beta tag in ifEnabled
+			wantMsg:  "",
+		},
+		{
+			name:     "ifEnabled context fails alpha tag",
+			comments: []string{"+k8s:ifEnabled(SomeFeature)=+k8s:validateTrue"}, // Alpha tag in ifEnabled
+			wantMsg:  `tag "k8s:validateTrue" with stability level "Alpha" cannot be used in Beta validation`,
 		},
 	}
 

@@ -18,6 +18,7 @@ package main
 
 import (
 	"fmt"
+	"path"
 	"strings"
 
 	"k8s.io/code-generator/cmd/validation-gen/validators"
@@ -57,21 +58,18 @@ func alphaBetaPrefix() lintRule {
 // checkTagStability recursively checks that a tag and its nested tags
 // satisfy the stability requirements of the context.
 func checkTagStability(tag codetags.Tag, contextLevel validators.TagStabilityLevel) (string, error) {
-	if contextLevel == validators.TagStabilityLevelAlpha {
+	tagStability, err := validators.GetStability(tag.Name)
+	// all DV tags have stability, if a tag doesn't have stability then it is not a valid DV tag.
+	if err != nil {
 		return "", nil
 	}
-
-	stability, err := validators.GetStability(tag.Name)
-	if err == nil {
-		if contextLevel == validators.TagStabilityLevelBeta {
-			if stability != validators.TagStabilityLevelStable && stability != validators.TagStabilityLevelBeta {
-				return fmt.Sprintf("tag %q with stability level %q cannot be used in %s validation", tag.Name, stability, contextLevel), nil
-			}
-		} else if stability != validators.TagStabilityLevelStable {
-			return fmt.Sprintf("tag %q with stability level %q cannot be used in %s validation", tag.Name, stability, contextLevel), nil
-		}
+	cmpOrder, err := tagStability.Compare(contextLevel)
+	if err != nil {
+		return "", err
 	}
-
+	if cmpOrder < 0 {
+		return fmt.Sprintf("tag %q with stability level %q cannot be used in %s validation", tag.Name, tagStability, contextLevel), nil
+	}
 	if tag.ValueTag != nil {
 		return checkTagStability(*tag.ValueTag, contextLevel)
 	}
@@ -87,11 +85,15 @@ func validationStability() lintRule {
 		}
 
 		// Unprefixed validations are normally required to be Stable.
-		// In Alpha packages, we allow Beta-level validations (e.g., +k8s:immutable)
-		// without a prefix, as they graduate to Stable before the API reaches Beta.
-		// Alpha-level validations still require an explicit +k8s:alpha= prefix.
+		// In Alpha packages, we allow Alpha-level and Beta-level validations
+		// without a prefix. In Beta packages, we allow Beta-level validations
+		// without a prefix.
 		defaultContextLevel := validators.TagStabilityLevelStable
-		if strings.Contains(pkgPath, "alpha") {
+		// APIVersion is the last element of the package path.
+		apiVersion := path.Base(pkgPath)
+		if strings.Contains(apiVersion, "alpha") {
+			defaultContextLevel = validators.TagStabilityLevelAlpha
+		} else if strings.Contains(apiVersion, "beta") {
 			defaultContextLevel = validators.TagStabilityLevelBeta
 		}
 
@@ -99,6 +101,8 @@ func validationStability() lintRule {
 			contextLevel := defaultContextLevel
 			tagToCheck := tag
 
+			// For stability level tags, set the stability context for the inner validation,
+			// overriding the package-level default.
 			if tag.Name == "k8s:alpha" || tag.Name == "k8s:beta" {
 				if tag.Name == "k8s:alpha" {
 					contextLevel = validators.TagStabilityLevelAlpha
@@ -111,8 +115,16 @@ func validationStability() lintRule {
 				tagToCheck = *tag.ValueTag
 			}
 
-			// checkTagStability recursively checks that a tag and its nested tags
-			// satisfy the stability requirements of the context.
+			// For feature gate tags, we allow developers to use nested beta validation tags
+			// without forcing validation authors to write redundant handwritten code (bypassing the
+			// declarative validation equivalence check), we automatically relax the stability
+			// context to Beta if the current context is Stable.
+			if tagToCheck.Name == "k8s:ifEnabled" || tagToCheck.Name == "k8s:ifDisabled" {
+				if contextLevel == validators.TagStabilityLevelStable {
+					contextLevel = validators.TagStabilityLevelBeta
+				}
+			}
+
 			msg, err := checkTagStability(tagToCheck, contextLevel)
 			if err != nil {
 				return "", err
