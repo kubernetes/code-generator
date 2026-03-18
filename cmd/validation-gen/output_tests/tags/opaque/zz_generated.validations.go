@@ -38,6 +38,14 @@ func init() { localSchemeBuilder.Register(RegisterValidations) }
 // RegisterValidations adds validation functions to the given scheme.
 // Public to allow building arbitrary schemes.
 func RegisterValidations(scheme *testscheme.Scheme) error {
+	// type OpaqueFieldsStruct
+	scheme.AddValidationFunc((*OpaqueFieldsStruct)(nil), func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
+		switch op.Request.SubresourcePath() {
+		case "/":
+			return Validate_OpaqueFieldsStruct(ctx, op, nil /* fldPath */, obj.(*OpaqueFieldsStruct), safe.Cast[*OpaqueFieldsStruct](oldObj))
+		}
+		return field.ErrorList{field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath()))}
+	})
 	// type OtherString
 	scheme.AddValidationFunc(
 		(*OtherString)(nil),
@@ -114,6 +122,19 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 			}
 		})
 	return nil
+}
+
+// Validate_OpaqueFieldsStruct validates an instance of OpaqueFieldsStruct according
+// to declarative validation rules in the API schema.
+func Validate_OpaqueFieldsStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OpaqueFieldsStruct) (errs field.ErrorList) {
+	// field OpaqueFieldsStruct.OtherStruct has no validation
+	// field OpaqueFieldsStruct.OpaqueSliceField has no validation
+	// field OpaqueFieldsStruct.OpaqueMapField has no validation
+	// field OpaqueFieldsStruct.TypedefOpaqueStructField has no validation
+	// field OpaqueFieldsStruct.TypedefOpaqueSliceField has no validation
+	// field OpaqueFieldsStruct.TypedefOpaqueMapField has no validation
+	// field OpaqueFieldsStruct.IsolatedOpaqueStructField has no validation
+	return errs
 }
 
 // Validate_OtherString validates an instance of OtherString according

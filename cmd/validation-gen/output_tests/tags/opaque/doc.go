@@ -87,6 +87,29 @@ type OtherStruct struct {
 	StringField string `json:"stringField"`
 }
 
+// OpaqueFieldsStruct contains fields with the opaque markers, contains no field validations.
+// Validations should not be generated for these fields.
+type OpaqueFieldsStruct struct {
+	// +k8s:opaqueType
+	OtherStruct
+
+	// +k8s:eachVal=+k8s:opaqueType
+	OpaqueSliceField []OtherStruct `json:"opaqueSliceField"`
+
+	// +k8s:eachKey=+k8s:opaqueType
+	// +k8s:eachVal=+k8s:opaqueType
+	OpaqueMapField map[OtherString]OtherStruct `json:"opaqueMapField"`
+
+	TypedefOpaqueStructField TypedefOpaqueStruct `json:"typedefOpaqueStructField"`
+
+	TypedefOpaqueSliceField TypedefOpaqueSlice `json:"typedefOpaqueSliceField"`
+
+	TypedefOpaqueMapField TypedefOpaqueMap `json:"typedefOpaqueMapField"`
+
+	// +k8s:opaqueType
+	IsolatedOpaqueStructField OtherStruct `json:"isolatedOpaqueStructField"`
+}
+
 // +k8s:validateFalse="type OtherString"
 type OtherString string
 
@@ -94,6 +117,18 @@ type OtherString string
 // fixing it requires fixing randfill.  That is a tomorrow problem.  For now, the
 // following types have been tested to generate correct code with
 // +k8s:opaqueType.
+
+// +k8s:opaqueType
+type TypedefOpaqueStruct struct {
+	StringField string `json:"stringField"`
+}
+
+// +k8s:eachVal=+k8s:opaqueType
+type TypedefOpaqueSlice []OtherStruct
+
+// +k8s:eachKey=+k8s:opaqueType
+// +k8s:eachVal=+k8s:opaqueType
+type TypedefOpaqueMap map[OtherString]OtherStruct
 
 // +k8s:validateTrue="type TypedefSliceOther"
 // +k8s:eachVal=+k8s:opaqueType

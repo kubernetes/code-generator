@@ -419,7 +419,7 @@ func (td *typeDiscoverer) discoverType(t *types.Type, fldPath *field.Path) (*typ
 			if util.NonPointer(util.NativeType(t)).Kind == types.Map && util.NonPointer(util.NativeType(t)).Elem.Kind == types.Slice {
 				return nil, fmt.Errorf("field %s: validation for map of slices is not supported", fldPath)
 			}
-			klog.V(5).InfoS("found type-attached validations", "n", validations.Len(), "type", t)
+			klog.V(5).InfoS("found type-attached validations", "n", len(validations.Functions), "type", t)
 			thisNode.typeValidations.Add(validations)
 		}
 
@@ -692,7 +692,7 @@ func (td *typeDiscoverer) discoverStruct(thisNode *typeNode, fldPath *field.Path
 		} else if validations.Empty() {
 			klog.V(6).InfoS("no field-attached validations", "field", childPath)
 		} else {
-			klog.V(5).InfoS("found field-attached validations", "n", validations.Len(), "field", childPath)
+			klog.V(5).InfoS("found field-attached validations", "n", len(validations.Functions), "field", childPath)
 			if util.NonPointer(util.NativeType(childType)).Kind == types.Map && util.NonPointer(util.NativeType(childType)).Elem.Kind == types.Slice {
 				return fmt.Errorf("field %s: validation for map of slices is not supported", childPath)
 			}
@@ -915,21 +915,37 @@ func (g *genValidations) hasValidationsImpl(n *typeNode, seen map[*typeNode]bool
 	}
 	seen[n] = true
 
-	if !n.typeValidations.Empty() {
+	if n.typeValidations.HasEmitable() {
 		return true
 	}
+
 	allChildren := n.fields
+	if n.underlying != nil {
+		switch n.underlying.childType.Kind {
+		case types.Slice:
+			if n.typeValIterations.HasEmitable() && g.hasValidationsImpl(n.underlying.node.elem.node, seen) {
+				return true
+			}
+		case types.Map:
+			if n.typeKeyIterations.HasEmitable() && g.hasValidationsImpl(n.underlying.node.key.node, seen) {
+				return true
+			}
+			if n.typeValIterations.HasEmitable() && g.hasValidationsImpl(n.underlying.node.elem.node, seen) {
+				return true
+			}
+		default:
+			allChildren = append(allChildren, n.underlying)
+		}
+	}
+
 	if n.key != nil {
 		allChildren = append(allChildren, n.key)
 	}
 	if n.elem != nil {
 		allChildren = append(allChildren, n.elem)
 	}
-	if n.underlying != nil {
-		allChildren = append(allChildren, n.underlying)
-	}
 	for _, c := range allChildren {
-		if !c.fieldValidations.Empty() {
+		if c.fieldValidations.HasEmitable() {
 			return true
 		}
 		if g.hasValidationsImpl(c.node, seen) {
