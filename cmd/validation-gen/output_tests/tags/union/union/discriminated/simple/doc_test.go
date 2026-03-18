@@ -41,4 +41,10 @@ func Test(t *testing.T) {
 	// Test validation ratcheting
 	st.Value(&Struct{D: DM2, M1: &M1{}, M2: &M2{}}).OldValue(&Struct{D: DM2, M1: &M1{}, M2: &M2{}}).ExpectValid()
 	st.Value(&Struct{D: DM1}).OldValue(&Struct{D: DM1}).ExpectValid()
+
+	// Test update with nil old value (simulates newly-set pointer field during update).
+	// Discriminated union validation should still detect mismatches even though oldObj is nil.
+	st.Value(&Struct{D: DM1}).OldValue(nil).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByDetailSubstring().ByOrigin(), field.ErrorList{
+		field.Invalid(field.NewPath("m1"), nil, "must be specified when"),
+	}.WithOrigin("union"))
 }

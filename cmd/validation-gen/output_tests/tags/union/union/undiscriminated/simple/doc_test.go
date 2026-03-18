@@ -52,4 +52,10 @@ func Test(t *testing.T) {
 	st.Value(&Struct{}).OldValue(&Struct{}).ExpectValid()
 	st.Value(&Struct{M1: &M1{}, M2: &M2{}}).OldValue(&Struct{M1: &M1{}, M2: &M2{}}).ExpectValid()
 	st.Value(&Struct{M3: "a string", M2: &M2{}}).OldValue(&Struct{M3: "different string", M2: &M2{}}).ExpectValid()
+
+	// Test update with nil old value (simulates new map entry or newly-set pointer field during update).
+	// Union validation should still detect the empty union even though oldObj is nil.
+	st.Value(&Struct{}).OldValue(nil).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByDetailSubstring().ByOrigin(), field.ErrorList{
+		field.Invalid(nil, nil, "must specify one of").WithOrigin("union"),
+	})
 }
