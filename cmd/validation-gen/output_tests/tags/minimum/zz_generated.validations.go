@@ -37,16 +37,61 @@ func init() { localSchemeBuilder.Register(RegisterValidations) }
 // RegisterValidations adds validation functions to the given scheme.
 // Public to allow building arbitrary schemes.
 func RegisterValidations(scheme *testscheme.Scheme) error {
-	// type Struct
+	// type BasicStruct
 	scheme.AddValidationFunc(
-		(*Struct)(nil),
+		(*BasicStruct)(nil),
 		func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
 			switch op.Request.SubresourcePath() {
 			case "/":
-				return Validate_Struct(
+				return Validate_BasicStruct(
 					ctx, op, nil, /* fldPath */
-					obj.(*Struct),
-					safe.Cast[*Struct](oldObj))
+					obj.(*BasicStruct),
+					safe.Cast[*BasicStruct](oldObj))
+			}
+			return field.ErrorList{
+				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
+			}
+		})
+	// type NegativeMinimumStruct
+	scheme.AddValidationFunc(
+		(*NegativeMinimumStruct)(nil),
+		func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
+			switch op.Request.SubresourcePath() {
+			case "/":
+				return Validate_NegativeMinimumStruct(
+					ctx, op, nil, /* fldPath */
+					obj.(*NegativeMinimumStruct),
+					safe.Cast[*NegativeMinimumStruct](oldObj))
+			}
+			return field.ErrorList{
+				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
+			}
+		})
+	// type OptionalStruct
+	scheme.AddValidationFunc(
+		(*OptionalStruct)(nil),
+		func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
+			switch op.Request.SubresourcePath() {
+			case "/":
+				return Validate_OptionalStruct(
+					ctx, op, nil, /* fldPath */
+					obj.(*OptionalStruct),
+					safe.Cast[*OptionalStruct](oldObj))
+			}
+			return field.ErrorList{
+				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
+			}
+		})
+	// type RequiredStruct
+	scheme.AddValidationFunc(
+		(*RequiredStruct)(nil),
+		func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
+			switch op.Request.SubresourcePath() {
+			case "/":
+				return Validate_RequiredStruct(
+					ctx, op, nil, /* fldPath */
+					obj.(*RequiredStruct),
+					safe.Cast[*RequiredStruct](oldObj))
 			}
 			return field.ErrorList{
 				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
@@ -55,28 +100,15 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 	return nil
 }
 
-// Validate_IntType validates an instance of IntType according
+// Validate_BasicStruct validates an instance of BasicStruct according
 // to declarative validation rules in the API schema.
-func Validate_IntType(
+func Validate_BasicStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
-	obj, oldObj *IntType) (errs field.ErrorList) {
+	obj, oldObj *BasicStruct) (errs field.ErrorList) {
 
-	if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
-		errs = append(errs, e...)
-	}
+	// field BasicStruct.TypeMeta has no validation
 
-	return errs
-}
-
-// Validate_Struct validates an instance of Struct according
-// to declarative validation rules in the API schema.
-func Validate_Struct(
-	ctx context.Context, op operation.Operation, fldPath *field.Path,
-	obj, oldObj *Struct) (errs field.ErrorList) {
-
-	// field Struct.TypeMeta has no validation
-
-	{ // field Struct.IntField
+	{ // field BasicStruct.IntField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *int,
@@ -94,13 +126,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *int {
+			func(oldObj *BasicStruct) *int {
 				return &oldObj.IntField
 			})
 		errs = append(errs, fn(fldPath.Child("intField"), &obj.IntField, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.IntPtrField
+	{ // field BasicStruct.IntPtrField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *int,
@@ -118,13 +150,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *int {
+			func(oldObj *BasicStruct) *int {
 				return oldObj.IntPtrField
 			})
 		errs = append(errs, fn(fldPath.Child("intPtrField"), obj.IntPtrField, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Int16Field
+	{ // field BasicStruct.Int16Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *int16,
@@ -142,13 +174,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *int16 {
+			func(oldObj *BasicStruct) *int16 {
 				return &oldObj.Int16Field
 			})
 		errs = append(errs, fn(fldPath.Child("int16Field"), &obj.Int16Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Int32Field
+	{ // field BasicStruct.Int32Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *int32,
@@ -166,13 +198,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *int32 {
+			func(oldObj *BasicStruct) *int32 {
 				return &oldObj.Int32Field
 			})
 		errs = append(errs, fn(fldPath.Child("int32Field"), &obj.Int32Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Int64Field
+	{ // field BasicStruct.Int64Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *int64,
@@ -190,13 +222,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *int64 {
+			func(oldObj *BasicStruct) *int64 {
 				return &oldObj.Int64Field
 			})
 		errs = append(errs, fn(fldPath.Child("int64Field"), &obj.Int64Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.UintField
+	{ // field BasicStruct.UintField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *uint,
@@ -214,13 +246,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *uint {
+			func(oldObj *BasicStruct) *uint {
 				return &oldObj.UintField
 			})
 		errs = append(errs, fn(fldPath.Child("uintField"), &obj.UintField, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.UintPtrField
+	{ // field BasicStruct.UintPtrField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *uint,
@@ -238,13 +270,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *uint {
+			func(oldObj *BasicStruct) *uint {
 				return oldObj.UintPtrField
 			})
 		errs = append(errs, fn(fldPath.Child("uintPtrField"), obj.UintPtrField, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Uint16Field
+	{ // field BasicStruct.Uint16Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *uint16,
@@ -262,13 +294,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *uint16 {
+			func(oldObj *BasicStruct) *uint16 {
 				return &oldObj.Uint16Field
 			})
 		errs = append(errs, fn(fldPath.Child("uint16Field"), &obj.Uint16Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Uint32Field
+	{ // field BasicStruct.Uint32Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *uint32,
@@ -286,13 +318,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *uint32 {
+			func(oldObj *BasicStruct) *uint32 {
 				return &oldObj.Uint32Field
 			})
 		errs = append(errs, fn(fldPath.Child("uint32Field"), &obj.Uint32Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.Uint64Field
+	{ // field BasicStruct.Uint64Field
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *uint64,
@@ -310,13 +342,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *uint64 {
+			func(oldObj *BasicStruct) *uint64 {
 				return &oldObj.Uint64Field
 			})
 		errs = append(errs, fn(fldPath.Child("uint64Field"), &obj.Uint64Field, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.TypedefField
+	{ // field BasicStruct.TypedefField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *IntType,
@@ -332,13 +364,13 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *IntType {
+			func(oldObj *BasicStruct) *IntType {
 				return &oldObj.TypedefField
 			})
 		errs = append(errs, fn(fldPath.Child("typedefField"), &obj.TypedefField, oldVal, oldObj != nil)...)
 	}
 
-	{ // field Struct.TypedefPtrField
+	{ // field BasicStruct.TypedefPtrField
 		fn := func(
 			fldPath *field.Path,
 			obj, oldObj *IntType,
@@ -354,10 +386,356 @@ func Validate_Struct(
 			return
 		}
 		oldVal := safe.Field(oldObj,
-			func(oldObj *Struct) *IntType {
+			func(oldObj *BasicStruct) *IntType {
 				return oldObj.TypedefPtrField
 			})
 		errs = append(errs, fn(fldPath.Child("typedefPtrField"), obj.TypedefPtrField, oldVal, oldObj != nil)...)
+	}
+
+	return errs
+}
+
+// Validate_IntType validates an instance of IntType according
+// to declarative validation rules in the API schema.
+func Validate_IntType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *IntType) (errs field.ErrorList) {
+
+	if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	return errs
+}
+
+// Validate_NegativeMinimumStruct validates an instance of NegativeMinimumStruct according
+// to declarative validation rules in the API schema.
+func Validate_NegativeMinimumStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NegativeMinimumStruct) (errs field.ErrorList) {
+
+	// field NegativeMinimumStruct.TypeMeta has no validation
+
+	{ // field NegativeMinimumStruct.NegativeMinimumField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return &oldObj.NegativeMinimumField
+			})
+		errs = append(errs, fn(fldPath.Child("negativeMinimumField"), &obj.NegativeMinimumField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field NegativeMinimumStruct.NegativeMinimumPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return oldObj.NegativeMinimumPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("negativeMinimumPtrField"), obj.NegativeMinimumPtrField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field NegativeMinimumStruct.OptionalNegativeMinimumField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return &oldObj.OptionalNegativeMinimumField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalNegativeMinimumField"), &obj.OptionalNegativeMinimumField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field NegativeMinimumStruct.OptionalNegativeMinimumPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return oldObj.OptionalNegativeMinimumPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalNegativeMinimumPtrField"), obj.OptionalNegativeMinimumPtrField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field NegativeMinimumStruct.RequiredNegativeMinimumField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return &oldObj.RequiredNegativeMinimumField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredNegativeMinimumField"), &obj.RequiredNegativeMinimumField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field NegativeMinimumStruct.RequiredNegativeMinimumPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, -10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *NegativeMinimumStruct) *int {
+				return oldObj.RequiredNegativeMinimumPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredNegativeMinimumPtrField"), obj.RequiredNegativeMinimumPtrField, oldVal, oldObj != nil)...)
+	}
+
+	return errs
+}
+
+// Validate_OptionalStruct validates an instance of OptionalStruct according
+// to declarative validation rules in the API schema.
+func Validate_OptionalStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OptionalStruct) (errs field.ErrorList) {
+
+	// field OptionalStruct.TypeMeta has no validation
+
+	{ // field OptionalStruct.OptionalIntField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *OptionalStruct) *int {
+				return &oldObj.OptionalIntField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalIntField"), &obj.OptionalIntField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field OptionalStruct.OptionalIntPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *OptionalStruct) *int {
+				return oldObj.OptionalIntPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalIntPtrField"), obj.OptionalIntPtrField, oldVal, oldObj != nil)...)
+	}
+
+	return errs
+}
+
+// Validate_RequiredStruct validates an instance of RequiredStruct according
+// to declarative validation rules in the API schema.
+func Validate_RequiredStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *RequiredStruct) (errs field.ErrorList) {
+
+	// field RequiredStruct.TypeMeta has no validation
+
+	{ // field RequiredStruct.RequiredIntField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *RequiredStruct) *int {
+				return &oldObj.RequiredIntField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredIntField"), &obj.RequiredIntField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field RequiredStruct.RequiredIntPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *RequiredStruct) *int {
+				return oldObj.RequiredIntPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredIntPtrField"), obj.RequiredIntPtrField, oldVal, oldObj != nil)...)
 	}
 
 	return errs
