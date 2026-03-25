@@ -155,11 +155,11 @@ func Validate_SpecialValidationStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha().MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -187,11 +187,11 @@ func Validate_SpecialValidationStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkBeta().MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -219,7 +219,7 @@ func Validate_SpecialValidationStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify).MarkAlpha(); len(e) != 0 {
+			if e := validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify).MarkAlpha().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -248,7 +248,7 @@ func Validate_SpecialValidationStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify).MarkBeta(); len(e) != 0 {
+			if e := validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify).MarkBeta().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -384,7 +384,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -413,7 +413,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 2).MarkBeta(); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 2).MarkBeta().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -490,7 +490,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.Immutable(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+			if e := validate.Immutable(ctx, op, fldPath, obj, oldObj).MarkAlpha().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -519,7 +519,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.Immutable(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+			if e := validate.Immutable(ctx, op, fldPath, obj, oldObj).MarkBeta().MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

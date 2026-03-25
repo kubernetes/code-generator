@@ -294,7 +294,7 @@ func Validate_T02(
 	obj, oldObj *T02) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02, ShortCircuit"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -317,7 +317,7 @@ func Validate_T02(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.S, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.S, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -346,7 +346,7 @@ func Validate_T02(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.PS, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.PS, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -375,7 +375,7 @@ func Validate_T02(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.T, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.T, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -406,7 +406,7 @@ func Validate_T02(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.PT, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02.PT, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -434,7 +434,7 @@ func Validate_T03(
 	obj, oldObj *T03) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03, ShortCircuit"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -460,7 +460,7 @@ func Validate_T03(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.S, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.S, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -492,7 +492,7 @@ func Validate_T03(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PS, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PS, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -524,7 +524,7 @@ func Validate_T03(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.T, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.T, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -558,7 +558,7 @@ func Validate_T03(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PT, ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PT, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -589,11 +589,11 @@ func Validate_TMultiple(
 	obj, oldObj *TMultiple) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, ShortCircuit 1"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, ShortCircuit 2"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -625,11 +625,11 @@ func Validate_TMultiple(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, ShortCircuit 1"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, ShortCircuit 2"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -667,11 +667,11 @@ func Validate_TMultiple(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, ShortCircuit 1"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, ShortCircuit 2"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -709,11 +709,11 @@ func Validate_TMultiple(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, ShortCircuit 1"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, ShortCircuit 2"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -753,11 +753,11 @@ func Validate_TMultiple(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, ShortCircuit 1"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, ShortCircuit 2"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

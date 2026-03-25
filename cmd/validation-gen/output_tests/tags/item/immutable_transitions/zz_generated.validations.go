@@ -84,7 +84,7 @@ func Validate_Struct(
 			func() { // cohort = "{"key1": "a"}"
 				earlyReturn := false
 				if e := validate.SliceItem(ctx, op, fldPath, obj, oldObj,
-					func(item *Item) bool { return item.Key1 == "a" }, validate.DirectEqual, validate.Immutable); len(e) != 0 {
+					func(item *Item) bool { return item.Key1 == "a" }, validate.DirectEqual, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 					errs = append(errs, e...)
 					earlyReturn = true
 				}
@@ -99,7 +99,7 @@ func Validate_Struct(
 					func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Item) field.ErrorList {
 						return validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField",
 							func(o *Item) *string { return &o.StringField }, validate.DirectEqualPtr, validate.Immutable)
-					}); len(e) != 0 {
+					}).MarkShortCircuit(); len(e) != 0 {
 					errs = append(errs, e...)
 					earlyReturn = true
 				}

@@ -62,7 +62,7 @@ func Validate_T(
 	obj, oldObj *T) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T ShortCircuit"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -74,7 +74,7 @@ func Validate_T(
 	}
 	func() { // cohort = "c2"
 		earlyReturn := false
-		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c2 ShortCircuit"); len(e) != 0 {
+		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c2 ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 			errs = append(errs, e...)
 			earlyReturn = true
 		}
@@ -87,7 +87,7 @@ func Validate_T(
 	}()
 	func() { // cohort = "c1"
 		earlyReturn := false
-		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c1 ShortCircuit"); len(e) != 0 {
+		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c1 ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 			errs = append(errs, e...)
 			earlyReturn = true
 		}
@@ -114,7 +114,7 @@ func Validate_T(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S ShortCircuit"); len(e) != 0 {
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -126,7 +126,7 @@ func Validate_T(
 			}
 			func() { // cohort = "c2"
 				earlyReturn := false
-				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c2 ShortCircuit"); len(e) != 0 {
+				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c2 ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 					errs = append(errs, e...)
 					earlyReturn = true
 				}
@@ -139,7 +139,7 @@ func Validate_T(
 			}()
 			func() { // cohort = "c1"
 				earlyReturn := false
-				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 ShortCircuit"); len(e) != 0 {
+				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 					errs = append(errs, e...)
 					earlyReturn = true
 				}

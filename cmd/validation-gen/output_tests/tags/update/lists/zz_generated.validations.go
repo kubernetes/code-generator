@@ -92,7 +92,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, nil, validate.NoSet); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, nil, validate.NoSet).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -121,7 +121,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, nil, validate.NoUnset); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, nil, validate.NoUnset).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -150,7 +150,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -183,7 +183,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoRemoveItem); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -216,7 +216,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -250,7 +250,7 @@ func Validate_UpdateListStruct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj,
-				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem); len(e) != 0 {
+				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -285,7 +285,7 @@ func Validate_UpdateListStruct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj,
-				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -320,7 +320,7 @@ func Validate_UpdateListStruct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj,
-				func(a CompositeKeyItem, b CompositeKeyItem) bool { return a.Name == b.Name && a.Priority == b.Priority }, validate.NoRemoveItem); len(e) != 0 {
+				func(a CompositeKeyItem, b CompositeKeyItem) bool { return a.Name == b.Name && a.Priority == b.Priority }, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -354,7 +354,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, validate.NoAddItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -388,7 +388,7 @@ func Validate_UpdateListStruct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj,
-				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -422,7 +422,7 @@ func Validate_UpdateListStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -456,7 +456,7 @@ func Validate_UpdateListStruct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.UpdateSlice(ctx, op, fldPath, obj, oldObj,
-				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -491,7 +491,7 @@ func Validate_UpdateListStruct(
 				func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name }, validate.DirectEqual,
 				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UpdateItem) field.ErrorList {
 					return validate.UpdateStruct(ctx, op, fldPath, obj, oldObj, validate.NoModify)
-				}); len(e) != 0 {
+				}).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

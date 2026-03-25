@@ -93,7 +93,7 @@ func Validate_Struct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj,
-				func(a OtherStruct, b OtherStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable); len(e) != 0 {
+				func(a OtherStruct, b OtherStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -128,7 +128,7 @@ func Validate_Struct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj,
-				func(a OtherTypedefStruct, b OtherTypedefStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable); len(e) != 0 {
+				func(a OtherTypedefStruct, b OtherTypedefStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -163,7 +163,7 @@ func Validate_Struct(
 			// call field-attached validations
 			earlyReturn := false
 			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj,
-				func(a OtherStruct, b OtherStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable); len(e) != 0 {
+				func(a OtherStruct, b OtherStruct) bool { return a.KeyField == b.KeyField }, validate.DirectEqual, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

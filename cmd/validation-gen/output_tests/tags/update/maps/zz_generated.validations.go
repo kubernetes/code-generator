@@ -77,7 +77,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoSet); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoSet).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -106,7 +106,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoUnset); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoUnset).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -135,7 +135,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoAddItem); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoAddItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -164,7 +164,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoRemoveItem); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -193,7 +193,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoAddItem, validate.NoRemoveItem); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoAddItem, validate.NoRemoveItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -222,7 +222,7 @@ func Validate_UpdateMapStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoSet, validate.NoAddItem); len(e) != 0 {
+			if e := validate.UpdateMap(ctx, op, fldPath, obj, oldObj, validate.NoSet, validate.NoAddItem).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -254,7 +254,7 @@ func Validate_UpdateMapStruct(
 			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
 				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapItem) field.ErrorList {
 					return validate.UpdateStruct(ctx, op, fldPath, obj, oldObj, validate.NoModify)
-				}); len(e) != 0 {
+				}).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

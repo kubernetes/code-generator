@@ -118,7 +118,7 @@ func Validate_ItemList(
 	func() { // cohort = "{"key": "immutable"}"
 		earlyReturn := false
 		if e := validate.SliceItem(ctx, op, fldPath, obj, oldObj,
-			func(item *Item) bool { return item.Key == "immutable" }, validate.DirectEqual, validate.Immutable); len(e) != 0 {
+			func(item *Item) bool { return item.Key == "immutable" }, validate.DirectEqual, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 			errs = append(errs, e...)
 			earlyReturn = true
 		}

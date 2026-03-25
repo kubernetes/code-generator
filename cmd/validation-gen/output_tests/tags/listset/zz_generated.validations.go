@@ -92,7 +92,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -121,7 +121,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -154,7 +154,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -183,7 +183,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -216,7 +216,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -245,7 +245,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -278,7 +278,7 @@ func Validate_ImmutableStruct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, nil, validate.Immutable); len(e) != 0 {
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual, nil, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

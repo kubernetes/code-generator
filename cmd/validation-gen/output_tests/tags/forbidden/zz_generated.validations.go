@@ -77,11 +77,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -109,11 +109,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -141,11 +141,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -173,11 +173,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -205,11 +205,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -237,11 +237,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -269,11 +269,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -301,11 +301,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -333,11 +333,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -365,11 +365,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -397,11 +397,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -429,11 +429,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -461,11 +461,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -493,11 +493,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -525,11 +525,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalSlice(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -557,11 +557,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenMap(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenMap(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalMap(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalMap(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {
@@ -589,11 +589,11 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.ForbiddenMap(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.ForbiddenMap(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.OptionalMap(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+			if e := validate.OptionalMap(ctx, op, fldPath, obj, oldObj).MarkShortCircuit(); len(e) != 0 {
 				earlyReturn = true
 			}
 			if earlyReturn {

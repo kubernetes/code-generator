@@ -120,7 +120,7 @@ func Validate_E02(
 	obj, oldObj *E02) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E02, ShortCircuit"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E02, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -138,7 +138,7 @@ func Validate_E03(
 	obj, oldObj *E03) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E03, ShortCircuit"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E03, ShortCircuit").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
@@ -159,11 +159,11 @@ func Validate_EMultiple(
 	obj, oldObj *EMultiple) (errs field.ErrorList) {
 
 	earlyReturn := false
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, ShortCircuit 1"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, ShortCircuit 1").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}
-	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, ShortCircuit 2"); len(e) != 0 {
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, ShortCircuit 2").MarkShortCircuit(); len(e) != 0 {
 		errs = append(errs, e...)
 		earlyReturn = true
 	}

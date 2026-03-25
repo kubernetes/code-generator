@@ -76,7 +76,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, validate.Immutable); len(e) != 0 {
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -105,7 +105,7 @@ func Validate_Struct(
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false, validate.Immutable); len(e) != 0 {
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false, validate.Immutable).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -137,7 +137,7 @@ func Validate_Struct(
 			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true,
 				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					return validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify)
-				}); len(e) != 0 {
+				}).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -169,7 +169,7 @@ func Validate_Struct(
 			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false,
 				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					return validate.UpdateValueByCompare(ctx, op, fldPath, obj, oldObj, validate.NoModify)
-				}); len(e) != 0 {
+				}).MarkShortCircuit(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
