@@ -1445,6 +1445,9 @@ func emitCallsToValidators(c *generator.Context, validations []validators.Functi
 				case validators.ValidationStabilityLevelBeta:
 					sw.Do(".MarkBeta()", nil)
 				}
+				if isShortCircuit {
+					sw.Do(".MarkShortCircuit()", nil)
+				}
 			}
 
 			// If validation is conditional, wrap the validation function with a conditions check.
