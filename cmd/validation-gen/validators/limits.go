@@ -288,14 +288,20 @@ func (minimumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
-	intVal, err := util.ParseInt(tag.Value)
-	if err != nil {
-		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
+	bitSize := intBitSize(t)
+	if isUnsignedInt(t) {
+		uintVal, err := util.ParseUnsignedInt(tag.Value, bitSize)
+		if err != nil {
+			return result, fmt.Errorf("failed to parse tag payload: %w", err)
+		}
+		result.AddFunction(Function(minimumTagName, DefaultFlags, minimumValidator, uintVal))
+	} else {
+		intVal, err := util.ParseSignedInt(tag.Value, bitSize)
+		if err != nil {
+			return result, fmt.Errorf("failed to parse tag payload: %w", err)
+		}
+		result.AddFunction(Function(minimumTagName, DefaultFlags, minimumValidator, intVal))
 	}
-	if isUnsignedInt(t) && intVal < 0 {
-		return result, fmt.Errorf("must be greater than or equal to zero for unsigned types (%s)", rootTypeString(context.Type, t))
-	}
-	result.AddFunction(Function(minimumTagName, DefaultFlags, minimumValidator, intVal))
 	return result, nil
 }
 
@@ -340,14 +346,20 @@ func (maximumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
-	intVal, err := util.ParseInt(tag.Value)
-	if err != nil {
-		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
+	bitSize := intBitSize(t)
+	if isUnsignedInt(t) {
+		uintVal, err := util.ParseUnsignedInt(tag.Value, bitSize)
+		if err != nil {
+			return result, fmt.Errorf("failed to parse tag payload: %w", err)
+		}
+		result.AddFunction(Function(maximumTagName, DefaultFlags, maximumValidator, uintVal))
+	} else {
+		intVal, err := util.ParseSignedInt(tag.Value, bitSize)
+		if err != nil {
+			return result, fmt.Errorf("failed to parse tag payload: %w", err)
+		}
+		result.AddFunction(Function(maximumTagName, DefaultFlags, maximumValidator, intVal))
 	}
-	if isUnsignedInt(t) && intVal < 0 {
-		return result, fmt.Errorf("must be greater than or equal to zero for unsigned types (%s)", rootTypeString(context.Type, t))
-	}
-	result.AddFunction(Function(maximumTagName, DefaultFlags, maximumValidator, intVal))
 	return result, nil
 }
 

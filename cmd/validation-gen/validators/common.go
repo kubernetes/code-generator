@@ -35,11 +35,27 @@ func rootTypeString(src, dst *types.Type) string {
 	return src.String() + " -> " + dst.String()
 }
 
-// isInt returns true if t is a uint type.
+// isUnsignedInt returns true if t is an unsigned integer type.
 func isUnsignedInt(t *types.Type) bool {
 	switch t {
 	case types.Uint, types.Uint64, types.Uint32, types.Uint16, types.Byte:
 		return true
 	}
 	return false
+}
+
+// intBitSize returns the bit width of a gengo integer type. For platform-sized
+// types (int, uint), 64 is returned because all supported Kubernetes platforms
+// are 64-bit. Byte maps to 8.
+func intBitSize(t *types.Type) int {
+	switch t {
+	case types.Byte: // int8 becomes byte in gengo
+		return 8
+	case types.Int16, types.Uint16:
+		return 16
+	case types.Int32, types.Uint32:
+		return 32
+	default: // int, int64, uint, uint64
+		return 64
+	}
 }
