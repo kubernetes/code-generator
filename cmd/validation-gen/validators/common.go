@@ -17,6 +17,8 @@ limitations under the License.
 package validators
 
 import (
+	"strconv"
+
 	"k8s.io/gengo/v2/types"
 )
 
@@ -45,8 +47,7 @@ func isUnsignedInt(t *types.Type) bool {
 }
 
 // intBitSize returns the bit width of a gengo integer type. For platform-sized
-// types (int, uint), 64 is returned because all supported Kubernetes platforms
-// are 64-bit. Byte maps to 8.
+// types (int, uint), strconv.IntSize is used. Byte maps to 8.
 func intBitSize(t *types.Type) int {
 	switch t {
 	case types.Byte: // int8 becomes byte in gengo
@@ -55,7 +56,9 @@ func intBitSize(t *types.Type) int {
 		return 16
 	case types.Int32, types.Uint32:
 		return 32
-	default: // int, int64, uint, uint64
+	case types.Int64, types.Uint64:
 		return 64
+	default: // int, uint
+		return strconv.IntSize
 	}
 }
