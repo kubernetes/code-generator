@@ -288,7 +288,10 @@ func (minimumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
-	bitSize := intBitSize(t)
+	bitSize, err := intBitSize(t)
+	if err != nil {
+		return result, err
+	}
 	if isUnsignedInt(t) {
 		uintVal, err := util.ParseUnsignedInt(tag.Value, bitSize)
 		if err != nil {
@@ -346,7 +349,10 @@ func (maximumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 		return result, fmt.Errorf("can only be used on integer types (%s)", rootTypeString(context.Type, t))
 	}
 
-	bitSize := intBitSize(t)
+	bitSize, err := intBitSize(t)
+	if err != nil {
+		return result, err
+	}
 	if isUnsignedInt(t) {
 		uintVal, err := util.ParseUnsignedInt(tag.Value, bitSize)
 		if err != nil {

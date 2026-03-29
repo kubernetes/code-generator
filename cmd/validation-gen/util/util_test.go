@@ -707,6 +707,12 @@ func TestParseSignedInt(t *testing.T) {
 			bitSize:       32,
 			expectedError: true,
 		},
+		{
+			name:          "unknown bit size returns error",
+			in:            "1",
+			bitSize:       7,
+			expectedError: true,
+		},
 	}
 
 	for _, tc := range testcases {
@@ -843,6 +849,12 @@ func TestParseUnsignedInt(t *testing.T) {
 			name:          "floating point rejected",
 			in:            "1.0",
 			bitSize:       32,
+			expectedError: true,
+		},
+		{
+			name:          "unknown bit size returns error",
+			in:            "1",
+			bitSize:       7,
 			expectedError: true,
 		},
 	}

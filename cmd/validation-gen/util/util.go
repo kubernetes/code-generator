@@ -164,8 +164,10 @@ func ParseSignedInt(val string, bitSize int) (int64, error) {
 		minVal, maxVal = math.MinInt16, math.MaxInt16
 	case 32:
 		minVal, maxVal = math.MinInt32, math.MaxInt32
-	default:
+	case 64:
 		minVal, maxVal = math.MinInt64, math.MaxInt64
+	default:
+		return 0, fmt.Errorf("unsupported bitSize %d; must be 8, 16, 32, or 64", bitSize)
 	}
 	if intVal < minVal || intVal > maxVal {
 		return 0, fmt.Errorf("value %d does not fit in int%d (range [%d, %d])", intVal, bitSize, minVal, maxVal)
@@ -198,8 +200,10 @@ func ParseUnsignedInt(val string, bitSize int) (uint64, error) {
 		maxVal = math.MaxUint16
 	case 32:
 		maxVal = math.MaxUint32
-	default:
+	case 64:
 		maxVal = math.MaxUint64
+	default:
+		return 0, fmt.Errorf("unsupported bitSize %d; must be 8, 16, 32, or 64", bitSize)
 	}
 	if uintVal > maxVal {
 		return 0, fmt.Errorf("value %d does not fit in uint%d (range [0, %d])", uintVal, bitSize, maxVal)
