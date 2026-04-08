@@ -273,31 +273,10 @@ func Validate_NonStringDiscriminator(ctx context.Context, op operation.Operation
 				return errs
 			}},
 	})...)
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *NonStringDiscriminator) *string { return obj.FieldB }, func(obj *NonStringDiscriminator) int { return obj.D2 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, int]{
-		{
-			Value: 1, Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
-					return errs
-				}
-				return errs
-			}},
-	})...)
 
 	// field NonStringDiscriminator.TypeMeta has no validation
 	// field NonStringDiscriminator.D1 has no validation
 	// field NonStringDiscriminator.FieldA has no validation
-	// field NonStringDiscriminator.D2 has no validation
-	// field NonStringDiscriminator.FieldB has no validation
 	return errs
 }
 

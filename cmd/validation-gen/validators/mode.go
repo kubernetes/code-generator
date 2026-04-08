@@ -102,8 +102,8 @@ func (mdtv *modeDiscriminatorTagValidator) GetValidations(context Context, tag c
 		return Validations{}, fmt.Errorf("can only be used on non-pointer types")
 	}
 
-	if t := util.NonPointer(util.NativeType(context.Type)); t.Kind != types.Builtin || (t.Name.Name != "string" && t.Name.Name != "bool" && !types.IsInteger(t)) {
-		return Validations{}, fmt.Errorf("can only be used on string, bool or integer types (%s)", rootTypeString(context.Type, t))
+	if t := util.NonPointer(util.NativeType(context.Type)); t.Kind != types.Builtin || (t.Name.Name != "string" && t.Name.Name != "bool") {
+		return Validations{}, fmt.Errorf("can only be used on string or bool types (%s)", rootTypeString(context.Type, t))
 	}
 
 	if mdtv.shared[context.ParentPath.String()] == nil {
@@ -496,13 +496,6 @@ func convertDiscriminatorValue(val string, discType *types.Type) (any, error) {
 		}
 		return b, nil
 	default:
-		if types.IsInteger(nt) {
-			i, err := util.ParseInt(val)
-			if err != nil {
-				return nil, fmt.Errorf("cannot parse %q as integer: %w", val, err)
-			}
-			return int(i), nil
-		}
 		return nil, fmt.Errorf("unsupported discriminator type: %s", nt.Name.Name)
 	}
 }

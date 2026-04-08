@@ -102,15 +102,6 @@ func TestNonStringDiscriminator(t *testing.T) {
 	st.Value(&NonStringDiscriminator{D1: false, FieldA: ptr.To("val")}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField(), field.ErrorList{
 		field.Forbidden(field.NewPath("fieldA"), ""),
 	})
-
-	// Int mode
-	st.Value(&NonStringDiscriminator{D2: 1, FieldB: ptr.To("val")}).ExpectValid()
-	st.Value(&NonStringDiscriminator{D2: 1}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField(), field.ErrorList{
-		field.Required(field.NewPath("fieldB"), ""),
-	})
-	st.Value(&NonStringDiscriminator{D2: 2, FieldB: ptr.To("val")}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField(), field.ErrorList{
-		field.Forbidden(field.NewPath("fieldB"), ""),
-	})
 }
 
 func TestMultipleDiscriminators(t *testing.T) {

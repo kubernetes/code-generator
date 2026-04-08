@@ -81,12 +81,6 @@ type NonStringDiscriminator struct {
 
 	// +k8s:ifMode(modality:"Bool", mode:"true")=+k8s:required
 	FieldA *string `json:"fieldA,omitempty"`
-
-	// +k8s:modeDiscriminator(modality:"Int")
-	D2 int `json:"d2"`
-
-	// +k8s:ifMode(modality:"Int", mode:"1")=+k8s:required
-	FieldB *string `json:"fieldB,omitempty"`
 }
 
 type MultipleDiscriminators struct {
