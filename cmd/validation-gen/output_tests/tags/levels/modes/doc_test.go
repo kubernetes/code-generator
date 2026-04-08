@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package discriminators
+package modes
 
 import (
 	"testing"
@@ -90,12 +90,12 @@ func TestMixedLevels(t *testing.T) {
 		field.Required(field.NewPath("b"), "").MarkBeta(),
 	})
 
-	// Mode=A with B set (forbidden) -> beta error (field B's +k8s:discriminator is beta)
+	// Mode=A with B set (forbidden) -> beta error (field B's +k8s:modeDiscriminator is beta)
 	st.Value(&MixedLevels{Mode: "A", A: ptr.To("val"), B: ptr.To("val")}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByValidationStabilityLevel(), field.ErrorList{
 		field.Forbidden(field.NewPath("b"), "").MarkBeta(),
 	})
 
-	// Mode=B with A set (forbidden) -> alpha error (field A's +k8s:discriminator is alpha)
+	// Mode=B with A set (forbidden) -> alpha error (field A's +k8s:modeDiscriminator is alpha)
 	st.Value(&MixedLevels{Mode: "B", A: ptr.To("val"), B: ptr.To("val")}).ExpectMatches(field.ErrorMatcher{}.ByType().ByField().ByValidationStabilityLevel(), field.ErrorList{
 		field.Forbidden(field.NewPath("a"), "").MarkAlpha(),
 	})

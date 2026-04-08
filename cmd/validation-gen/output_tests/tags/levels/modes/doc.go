@@ -18,7 +18,7 @@ limitations under the License.
 // +k8s:validation-gen-scheme-registry=k8s.io/code-generator/cmd/validation-gen/testscheme.Scheme
 
 // +k8s:validation-gen-nolint
-package discriminators
+package modes
 
 import "k8s.io/code-generator/cmd/validation-gen/testscheme"
 
@@ -27,63 +27,63 @@ var localSchemeBuilder = testscheme.New()
 type AlphaStruct struct {
 	TypeMeta int
 
-	// +k8s:alpha=+k8s:discriminator
+	// +k8s:alpha=+k8s:modeDiscriminator
 	D1 string `json:"d1"`
 
-	// +k8s:alpha=+k8s:member("A")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("A")=+k8s:required
 	FieldA *string `json:"fieldA,omitempty"`
 
-	// +k8s:alpha=+k8s:member("B")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("B")=+k8s:required
 	FieldB *string `json:"fieldB,omitempty"`
 }
 
 type BetaStruct struct {
 	TypeMeta int
 
-	// +k8s:beta=+k8s:discriminator
+	// +k8s:beta=+k8s:modeDiscriminator
 	D1 string `json:"d1"`
 
-	// +k8s:beta=+k8s:member("A")=+k8s:required
+	// +k8s:beta=+k8s:ifMode("A")=+k8s:required
 	FieldA *string `json:"fieldA,omitempty"`
 
-	// +k8s:beta=+k8s:member("B")=+k8s:required
+	// +k8s:beta=+k8s:ifMode("B")=+k8s:required
 	FieldB *string `json:"fieldB,omitempty"`
 }
 
 type MixedLevels struct {
 	TypeMeta int
 
-	// +k8s:discriminator
+	// +k8s:modeDiscriminator
 	Mode string `json:"mode"`
 
-	// +k8s:alpha=+k8s:member("A")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("A")=+k8s:required
 	A *string `json:"a,omitempty"`
 
-	// +k8s:beta=+k8s:member("B")=+k8s:required
+	// +k8s:beta=+k8s:ifMode("B")=+k8s:required
 	B *string `json:"b,omitempty"`
 }
 
 type CrossLevels struct {
 	TypeMeta int
 
-	// +k8s:beta=+k8s:discriminator
+	// +k8s:beta=+k8s:modeDiscriminator
 	Kind string `json:"kind"`
 
-	// +k8s:alpha=+k8s:member("A")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("A")=+k8s:required
 	A *string `json:"a,omitempty"`
 
-	// +k8s:alpha=+k8s:member("B")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("B")=+k8s:required
 	B *string `json:"b,omitempty"`
 }
 
 type SameFieldMixed struct {
 	TypeMeta int
 
-	// +k8s:discriminator
+	// +k8s:modeDiscriminator
 	Mode string `json:"mode"`
 
-	// +k8s:alpha=+k8s:member("A")=+k8s:required
-	// +k8s:beta=+k8s:member("B")=+k8s:required
+	// +k8s:alpha=+k8s:ifMode("A")=+k8s:required
+	// +k8s:beta=+k8s:ifMode("B")=+k8s:required
 	Value *string `json:"value,omitempty"`
 }
 
@@ -92,11 +92,11 @@ type SameFieldMixed struct {
 type SameValueMixedPayloads struct {
 	TypeMeta int
 
-	// +k8s:discriminator
+	// +k8s:modeDiscriminator
 	Mode string `json:"mode"`
 
-	// +k8s:alpha=+k8s:member("A")=+k8s:required
-	// +k8s:beta=+k8s:member("A")=+k8s:minLength=3
+	// +k8s:alpha=+k8s:ifMode("A")=+k8s:required
+	// +k8s:beta=+k8s:ifMode("A")=+k8s:minLength=3
 	Value *string `json:"value,omitempty"`
 }
 
