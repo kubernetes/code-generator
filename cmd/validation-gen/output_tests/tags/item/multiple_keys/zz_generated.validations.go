@@ -89,7 +89,7 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Item, b Item) bool {
 				return a.StringKey == b.StringKey && a.IntKey == b.IntKey && a.BoolKey == b.BoolKey
 			})...)
-			func() { // cohort {"stringKey": "target", "intKey": 42, "boolKey": true}
+			func() { // cohort {"boolKey": true, "stringKey": "target", "intKey": 42}
 				errs = append(errs, validate.SliceItem(ctx, op, fldPath, obj, oldObj, func(item *Item) bool { return item.StringKey == "target" && item.IntKey == 42 && item.BoolKey == true }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Item) field.ErrorList {
 					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "item OutOfOrder[boolKey=42,stringKey=target,intKey=42]")
 				})...)
