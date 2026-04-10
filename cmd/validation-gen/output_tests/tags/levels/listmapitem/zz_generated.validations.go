@@ -84,6 +84,13 @@ func Validate_ListMapItemStruct(ctx context.Context, op operation.Operation, fld
 			// call field-attached validations
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
+			func() { // cohort {"key": "foo"}
+				errs = append(errs, validate.SliceItem(ctx, op, fldPath, obj, oldObj, func(item *MapItem) bool { return item.Key == "foo" }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapItem) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *MapItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
+					})
+				}).MarkAlpha()...)
+			}()
 			return
 		}(fldPath.Child("alphaItemTag"), obj.AlphaItemTag, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.AlphaItemTag }), oldObj != nil)...)
 
@@ -117,6 +124,13 @@ func Validate_ListMapItemStruct(ctx context.Context, op operation.Operation, fld
 			// call field-attached validations
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
+			func() { // cohort {"key": "foo"}
+				errs = append(errs, validate.SliceItem(ctx, op, fldPath, obj, oldObj, func(item *MapItem) bool { return item.Key == "foo" }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapItem) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *MapItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()
+					})
+				}).MarkAlpha()...)
+			}()
 			return
 		}(fldPath.Child("doubleAlpha"), obj.DoubleAlpha, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.DoubleAlpha }), oldObj != nil)...)
 
@@ -130,6 +144,13 @@ func Validate_ListMapItemStruct(ctx context.Context, op operation.Operation, fld
 			// call field-attached validations
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
+			func() { // cohort {"key": "foo"}
+				errs = append(errs, validate.SliceItem(ctx, op, fldPath, obj, oldObj, func(item *MapItem) bool { return item.Key == "foo" }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapItem) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *MapItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
+					})
+				}).MarkBeta()...)
+			}()
 			return
 		}(fldPath.Child("betaItemTag"), obj.BetaItemTag, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.BetaItemTag }), oldObj != nil)...)
 
@@ -163,6 +184,13 @@ func Validate_ListMapItemStruct(ctx context.Context, op operation.Operation, fld
 			// call field-attached validations
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
+			func() { // cohort {"key": "foo"}
+				errs = append(errs, validate.SliceItem(ctx, op, fldPath, obj, oldObj, func(item *MapItem) bool { return item.Key == "foo" }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapItem) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *MapItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()
+					})
+				}).MarkBeta()...)
+			}()
 			return
 		}(fldPath.Child("doubleBeta"), obj.DoubleBeta, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.DoubleBeta }), oldObj != nil)...)
 

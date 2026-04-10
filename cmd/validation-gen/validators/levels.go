@@ -84,15 +84,11 @@ func (ltv *levelTagValidator) GetValidations(context Context, tag codetags.Tag) 
 		return Validations{}, err
 	}
 
-	result := Validations{}
-	result.Variables = append(result.Variables, validations.Variables...)
-	for _, fn := range validations.Functions {
-		f := fn
-		f.StabilityLevel = ltv.level
-		result.AddFunction(f)
-	}
-
-	return result, nil
+	validations = WrapFunctions(validations, func(fn FunctionGen, scope DeferredScope) FunctionGen {
+		fn.StabilityLevel = ltv.level
+		return fn
+	})
+	return validations, nil
 }
 
 func (ltv *levelTagValidator) Docs() TagDoc {
