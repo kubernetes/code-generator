@@ -19,11 +19,9 @@ limitations under the License.
 
 // This is a test package.
 // +k8s:validation-gen-nolint
-package options
+package subfields
 
 import "k8s.io/code-generator/cmd/validation-gen/testscheme"
-
-type MySlice []string
 
 var localSchemeBuilder = testscheme.New()
 
@@ -33,25 +31,11 @@ type Struct struct {
 	// +k8s:ifEnabled(FeatureX)=+k8s:subfield(xEnabledField)=+k8s:validateFalse="field Struct.ObjectMeta.XEnabledField"
 	ObjectMeta `json:"metadata,omitempty"`
 
-	// +k8s:ifEnabled(FeatureX)=+k8s:validateFalse="field Struct.XEnabledField"
-	XEnabledField string `json:"xEnabledField"`
-
-	// +k8s:ifDisabled(FeatureX)=+k8s:validateFalse="field Struct.XDisabledField"
-	XDisabledField string `json:"xDisabledField"`
-
-	// +k8s:ifEnabled(FeatureY)=+k8s:validateFalse="field Struct.YEnabledField"
-	YEnabledField string `json:"yEnabledField"`
-
-	// +k8s:ifDisabled(FeatureY)=+k8s:validateFalse="field Struct.YDisabledField"
-	YDisabledField string `json:"yDisabledField"`
-
-	// +k8s:ifEnabled(FeatureX)=+k8s:validateFalse="field Struct.XYMixedField/X"
-	// +k8s:ifDisabled(FeatureY)=+k8s:validateFalse="field Struct.XYMixedField/Y"
-	XYMixedField string `json:"xyMixedField"`
-	// +k8s:ifEnabled(FeatureX)=+k8s:validateFalse="field Struct.NilableAliasField"
-	NilableAliasField MySlice `json:"nilableAliasField"`
+	// +k8s:ifDisabled(FeatureX)=+k8s:subfield(xDisabledField)=+k8s:validateFalse="field Struct.ObjectMetaDisabled.XDisabledField"
+	ObjectMetaDisabled ObjectMeta `json:"metadataDisabled,omitempty"`
 }
 
 type ObjectMeta struct {
-	XEnabledField string `json:"xEnabledField"`
+	XEnabledField  string `json:"xEnabledField"`
+	XDisabledField string `json:"xDisabledField"`
 }

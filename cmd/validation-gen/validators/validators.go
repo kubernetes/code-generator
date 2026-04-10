@@ -557,6 +557,10 @@ type FunctionGen struct {
 
 	// StabilityLevel indicates the stability level of the corresponding validation.
 	StabilityLevel ValidationStabilityLevel
+
+	// StabilityLevelSelfManaged indicates that the function already has stability levels
+	// embedded or handled, and should not be wrapped by levelTagValidator.
+	StabilityLevelSelfManaged bool
 }
 
 // WithTypeArgs returns a derived FunctionGen with type arguments.

@@ -280,7 +280,6 @@ func getDiscriminatorValidations(shared map[string]discriminatorGroups, context 
 			}
 			continue
 		}
-
 		fieldNames := make([]string, 0, len(group.members))
 		for name := range group.members {
 			fieldNames = append(fieldNames, name)
@@ -349,8 +348,6 @@ func generateMemberFieldValidation(structType *types.Type, group *discriminatorG
 	}
 	slices.Sort(values)
 
-	discriminatorType := group.discriminatorMember.Type
-
 	// When all rules share the same stability level, the default-forbidden
 	// (which fires for unrecognized discriminator values) should also be marked
 	// with that level so its errors carry the same stability annotation.
@@ -367,6 +364,7 @@ func generateMemberFieldValidation(structType *types.Type, group *discriminatorG
 		defaultForbidden = mwf
 	}
 
+	discriminatorType := group.discriminatorMember.Type
 	var discriminatedRules []any
 	for _, val := range values {
 		wrapper := MultiWrapperFunction{
@@ -431,6 +429,10 @@ func generateMemberFieldValidation(structType *types.Type, group *discriminatorG
 		defaultForbidden,
 		rulesSlice,
 	)
+	// Stability levels are already set on the wrapped validation functions, so
+	// skip the level wrapping in the upstream. Processing the stability level
+	// in the upstream will override the stability levels of the wrapped validators.
+	fn.StabilityLevelSelfManaged = true
 	return Validations{Functions: []FunctionGen{fn}}, nil
 }
 

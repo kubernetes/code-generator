@@ -81,6 +81,9 @@ func (ltv *levelTagValidator) GetValidations(context Context, tag codetags.Tag) 
 	}
 
 	validations = WrapFunctions(validations, func(fn FunctionGen, scope DeferredScope) FunctionGen {
+		if fn.StabilityLevelSelfManaged {
+			return fn
+		}
 		fn.StabilityLevel = ltv.level
 		return fn
 	})

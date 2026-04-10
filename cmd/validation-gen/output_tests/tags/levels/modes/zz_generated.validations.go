@@ -109,7 +109,7 @@ func Validate_AlphaStruct(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *AlphaStruct) *string { return obj.FieldB }, func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
@@ -128,7 +128,7 @@ func Validate_AlphaStruct(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 
 	// field AlphaStruct.TypeMeta has no validation
 	// field AlphaStruct.D1 has no validation
@@ -158,7 +158,7 @@ func Validate_BetaStruct(ctx context.Context, op operation.Operation, fldPath *f
 				}
 				return errs
 			}},
-	}).MarkBeta()...)
+	})...)
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *BetaStruct) *string { return obj.FieldB }, func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
@@ -177,7 +177,7 @@ func Validate_BetaStruct(ctx context.Context, op operation.Operation, fldPath *f
 				}
 				return errs
 			}},
-	}).MarkBeta()...)
+	})...)
 
 	// field BetaStruct.TypeMeta has no validation
 	// field BetaStruct.D1 has no validation
@@ -207,7 +207,7 @@ func Validate_CrossLevels(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b", func(obj *CrossLevels) *string { return obj.B }, func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
@@ -226,7 +226,7 @@ func Validate_CrossLevels(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 
 	// field CrossLevels.TypeMeta has no validation
 	// field CrossLevels.Kind has no validation
@@ -256,7 +256,7 @@ func Validate_MixedLevels(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b", func(obj *MixedLevels) *string { return obj.B }, func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
@@ -275,7 +275,7 @@ func Validate_MixedLevels(ctx context.Context, op operation.Operation, fldPath *
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 
 	// field MixedLevels.TypeMeta has no validation
 	// field MixedLevels.Mode has no validation
@@ -318,7 +318,7 @@ func Validate_SameFieldMixed(ctx context.Context, op operation.Operation, fldPat
 				}
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 
 	// field SameFieldMixed.TypeMeta has no validation
 	// field SameFieldMixed.Mode has no validation
@@ -348,7 +348,7 @@ func Validate_SameValueMixedPayloads(ctx context.Context, op operation.Operation
 				errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 3).MarkBeta()...)
 				return errs
 			}},
-	}).MarkAlpha()...)
+	})...)
 
 	// field SameValueMixedPayloads.TypeMeta has no validation
 	// field SameValueMixedPayloads.Mode has no validation

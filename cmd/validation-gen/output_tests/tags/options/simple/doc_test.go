@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package options
+package simple
 
 import (
 	"testing"
@@ -36,10 +36,9 @@ func Test(t *testing.T) {
 		// All zero values
 	}).Opts([]string{"FeatureX", "FeatureY"}).ExpectValidateFalseByPath(map[string][]string{
 		// All ifEnabled validations should trigger
-		"metadata.xEnabledField": {"field Struct.ObjectMeta.XEnabledField"},
-		"xEnabledField":          {"field Struct.XEnabledField"},
-		"yEnabledField":          {"field Struct.YEnabledField"},
-		"xyMixedField":           {"field Struct.XYMixedField/X"},
+		"xEnabledField":     {"field Struct.XEnabledField"},
+		"yEnabledField":     {"field Struct.YEnabledField"},
+		"xyMixedField":      {"field Struct.XYMixedField/X"},
 		"nilableAliasField": {"field Struct.NilableAliasField"},
 	})
 
@@ -47,9 +46,8 @@ func Test(t *testing.T) {
 		// All zero values
 	}).Opts([]string{"FeatureX"}).ExpectValidateFalseByPath(map[string][]string{
 		// All ifEnabled validations should trigger
-		"metadata.xEnabledField": {"field Struct.ObjectMeta.XEnabledField"},
-		"xEnabledField":          {"field Struct.XEnabledField"},
-		"yDisabledField":         {"field Struct.YDisabledField"},
+		"xEnabledField":  {"field Struct.XEnabledField"},
+		"yDisabledField": {"field Struct.YDisabledField"},
 		"xyMixedField": {
 			"field Struct.XYMixedField/X",
 			"field Struct.XYMixedField/Y"},
