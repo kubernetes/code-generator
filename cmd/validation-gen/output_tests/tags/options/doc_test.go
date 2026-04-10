@@ -40,6 +40,7 @@ func Test(t *testing.T) {
 		"xEnabledField":          {"field Struct.XEnabledField"},
 		"yEnabledField":          {"field Struct.YEnabledField"},
 		"xyMixedField":           {"field Struct.XYMixedField/X"},
+		"nilableAliasField": {"field Struct.NilableAliasField"},
 	})
 
 	st.Value(&Struct{
@@ -52,6 +53,7 @@ func Test(t *testing.T) {
 		"xyMixedField": {
 			"field Struct.XYMixedField/X",
 			"field Struct.XYMixedField/Y"},
+		"nilableAliasField": {"field Struct.NilableAliasField"},
 	})
 
 	st.Value(&Struct{

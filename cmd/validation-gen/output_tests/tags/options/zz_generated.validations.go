@@ -25,6 +25,7 @@ import (
 	context "context"
 	fmt "fmt"
 
+	equality "k8s.io/apimachinery/pkg/api/equality"
 	operation "k8s.io/apimachinery/pkg/api/operation"
 	safe "k8s.io/apimachinery/pkg/api/safe"
 	validate "k8s.io/apimachinery/pkg/api/validate"
@@ -141,6 +142,20 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 			})...)
 			return
 		}(fldPath.Child("xyMixedField"), &obj.XYMixedField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.XYMixedField }), oldObj != nil)...)
+
+	// field Struct.NilableAliasField
+	errs = append(errs,
+		func(fldPath *field.Path, obj, oldObj MySlice, oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
+				return nil
+			}
+			// call field-attached validations
+			errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj MySlice) field.ErrorList {
+				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.NilableAliasField")
+			})...)
+			return
+		}(fldPath.Child("nilableAliasField"), obj.NilableAliasField, safe.Field(oldObj, func(oldObj *Struct) MySlice { return oldObj.NilableAliasField }), oldObj != nil)...)
 
 	return errs
 }

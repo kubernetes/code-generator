@@ -23,6 +23,8 @@ package options
 
 import "k8s.io/code-generator/cmd/validation-gen/testscheme"
 
+type MySlice []string
+
 var localSchemeBuilder = testscheme.New()
 
 type Struct struct {
@@ -46,6 +48,8 @@ type Struct struct {
 	// +k8s:ifEnabled(FeatureX)=+k8s:validateFalse="field Struct.XYMixedField/X"
 	// +k8s:ifDisabled(FeatureY)=+k8s:validateFalse="field Struct.XYMixedField/Y"
 	XYMixedField string `json:"xyMixedField"`
+	// +k8s:ifEnabled(FeatureX)=+k8s:validateFalse="field Struct.NilableAliasField"
+	NilableAliasField MySlice `json:"nilableAliasField"`
 }
 
 type ObjectMeta struct {
