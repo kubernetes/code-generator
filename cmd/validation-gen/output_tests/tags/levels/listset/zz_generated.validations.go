@@ -130,13 +130,13 @@ func Validate_ListSetStruct(ctx context.Context, op operation.Operation, fldPath
 				return nil
 			}
 			// call field-attached validations
+			// lists with set semantics require unique values
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *SimpleSetItem) field.ErrorList {
 				return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *SimpleSetItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
 					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()
 				})
 			})...)
-			// lists with set semantics require unique values
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
 		}(fldPath.Child("chainedSubfieldSet"), obj.ChainedSubfieldSet, safe.Field(oldObj, func(oldObj *ListSetStruct) []SimpleSetItem { return oldObj.ChainedSubfieldSet }), oldObj != nil)...)
 
@@ -178,13 +178,13 @@ func Validate_ListSetStruct(ctx context.Context, op operation.Operation, fldPath
 				return nil
 			}
 			// call field-attached validations
+			// lists with set semantics require unique values
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *SimpleSetItem) field.ErrorList {
 				return validate.Subfield(ctx, op, fldPath, obj, oldObj, "value", func(o *SimpleSetItem) *int { return &o.Value }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
 					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()
 				})
 			})...)
-			// lists with set semantics require unique values
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
 		}(fldPath.Child("chainedSubfieldSetBeta"), obj.ChainedSubfieldSetBeta, safe.Field(oldObj, func(oldObj *ListSetStruct) []SimpleSetItem { return oldObj.ChainedSubfieldSetBeta }), oldObj != nil)...)
 
