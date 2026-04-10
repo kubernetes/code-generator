@@ -60,7 +60,7 @@ func (ztfv zeroOrOneOfTypeOrFieldValidator) GetValidations(context Context) (Val
 		return Validations{}, nil
 	}
 
-	return processUnionValidations(context, unions, zeroOrOneOfVariablePrefix,
+	return processUnionValidations(context.Path, context.Type, unions, zeroOrOneOfVariablePrefix,
 		zeroOrOneOfMemberTagName, zeroOrOneOfUnionValidator, types.Name{})
 }
 

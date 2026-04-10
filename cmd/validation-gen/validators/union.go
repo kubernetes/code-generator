@@ -49,37 +49,31 @@ func init() {
 	//   - struct union: "MyStruct" (validation on the struct type)
 	//   - list union: "Pipeline.Tasks" (validation on the list field)
 	shared := map[string]unions{}
-	RegisterTypeValidator(unionTypeOrFieldValidator{shared})
-	RegisterFieldValidator(unionTypeOrFieldValidator{shared})
 	RegisterTagValidator(unionDiscriminatorTagValidator{shared})
 	RegisterTagValidator(unionMemberTagValidator{shared})
 }
 
-type unionTypeOrFieldValidator struct {
-	shared map[string]unions
-}
+func getUnionValidations(shared map[string]unions, context Context) (Validations, error) {
+	// unions are keyed by ParentPath for struct fields (ScopeField), or Path for others.
+	structPath := context.ParentPath
+	parentType := context.ParentType
 
-func (unionTypeOrFieldValidator) Init(_ Config) {}
-
-func (unionTypeOrFieldValidator) Name() string {
-	return "unionTypeOrFieldValidator"
-}
-
-func (utfv unionTypeOrFieldValidator) GetValidations(context Context) (Validations, error) {
 	// TODO: Add support for map items once map item validation is implemented
 
 	// Extract the most concrete type possible.
-	if k := util.NonPointer(util.NativeType(context.Type)).Kind; k != types.Struct && k != types.Slice {
+	if k := util.NonPointer(util.NativeType(parentType)).Kind; k != types.Struct && k != types.Slice {
 		return Validations{}, nil
 	}
 
-	unions := utfv.shared[context.Path.String()]
+	unions := shared[structPath.String()]
 	if len(unions) == 0 {
 		return Validations{}, nil
 	}
+	delete(shared, structPath.String())
 
-	return processUnionValidations(context, unions, unionVariablePrefix,
+	result, err := processUnionValidations(structPath, parentType, unions, unionVariablePrefix,
 		unionMemberTagName, unionValidator, discriminatedUnionValidator)
+	return result, err
 }
 
 const (
@@ -109,9 +103,13 @@ func (udtv unionDiscriminatorTagValidator) GetValidations(context Context, tag c
 	if err != nil {
 		return Validations{}, err
 	}
-	// This tag does not actually emit any validations, it just accumulates
-	// information. The validation is done by the unionTypeOrFieldValidator.
-	return Validations{}, nil
+	return Validations{
+		Deferred: []DeferredGen{
+			Deferred(ParentContext, func() (Validations, error) {
+				return getUnionValidations(udtv.shared, context)
+			}),
+		},
+	}, nil
 }
 
 func (udtv unionDiscriminatorTagValidator) Docs() TagDoc {
@@ -148,9 +146,13 @@ func (umtv unionMemberTagValidator) GetValidations(context Context, tag codetags
 	if err != nil {
 		return Validations{}, err
 	}
-	// This tag does not actually emit any validations, it just accumulates
-	// information. The validation is done by the unionTypeOrFieldValidator.
-	return Validations{}, nil
+	return Validations{
+		Deferred: []DeferredGen{
+			Deferred(ParentContext, func() (Validations, error) {
+				return getUnionValidations(umtv.shared, context)
+			}),
+		},
+	}, nil
 }
 
 func (umtv unionMemberTagValidator) Docs() TagDoc {
@@ -231,7 +233,7 @@ func (us unions) getOrCreate(name string) *union {
 	return u
 }
 
-func processUnionValidations(context Context, unions unions, varPrefix string,
+func processUnionValidations(structPath *field.Path, parentType *types.Type, unions unions, varPrefix string,
 	tagName string, undiscriminatedValidator types.Name, discriminatedValidator types.Name,
 ) (Validations, error) {
 	result := Validations{}
@@ -248,7 +250,7 @@ func processUnionValidations(context Context, unions unions, varPrefix string,
 			if len(u.fieldMembers) > 0 && len(u.itemMembers) > 0 {
 				return Validations{}, fmt.Errorf("cannot have both field members and item members")
 			}
-			nativeType := util.NonPointer(util.NativeType(context.Type))
+			nativeType := util.NonPointer(util.NativeType(parentType))
 			if nativeType.Kind == types.Struct && len(u.itemMembers) > 0 {
 				return Validations{}, fmt.Errorf("struct type cannot have item members")
 			}
@@ -259,11 +261,11 @@ func processUnionValidations(context Context, unions unions, varPrefix string,
 			// TODO: Avoid the "local" here. This was added to avoid errors caused when the package is an empty string.
 			//       The correct package would be the output package but is not known here. This does not show up in generated code.
 			// TODO: Append a consistent hash suffix to avoid generated name conflicts?
-			varBaseName := sanitizeName(context.Path.String() + "_" + unionName) // unionName can be ""
+			varBaseName := sanitizeName(structPath.String() + "_" + unionName) // unionName can be ""
 			supportVarName := PrivateVar{Name: varPrefix + "_" + varBaseName, Package: "local"}
 
 			var extractorArgs []any
-			ptrType := types.PointerTo(context.Type)
+			ptrType := types.PointerTo(parentType)
 
 			// Handle field unions
 			for _, member := range u.fieldMembers {
@@ -284,7 +286,7 @@ func processUnionValidations(context Context, unions unions, varPrefix string,
 
 				for _, fullPath := range keys {
 					selector := u.itemMembers[fullPath]
-					extractor, err := createItemExtractor(context.Type, elemType, selector)
+					extractor, err := createItemExtractor(parentType, elemType, selector)
 					if err != nil {
 						return Validations{}, err
 					}
@@ -295,7 +297,7 @@ func processUnionValidations(context Context, unions unions, varPrefix string,
 			if u.discriminator != nil {
 				supportVar := Variable(supportVarName,
 					Function(tagName, DefaultFlags, newDiscriminatedUnionMembership,
-						append([]any{*u.discriminator}, getMemberArgs(u, context, true)...)...))
+						append([]any{*u.discriminator}, getMemberArgs(u, parentType, true)...)...))
 				result.Variables = append(result.Variables, supportVar)
 
 				discriminatorExtractor := FunctionLiteral{
@@ -308,7 +310,7 @@ func processUnionValidations(context Context, unions unions, varPrefix string,
 				fn := Function(tagName, DefaultFlags, discriminatedValidator, extraArgs...).WithStabilityLevel(u.stabilityLevel)
 				result.Functions = append(result.Functions, fn)
 			} else {
-				supportVar := Variable(supportVarName, Function(tagName, DefaultFlags, newUnionMembership, getMemberArgs(u, context, false)...))
+				supportVar := Variable(supportVarName, Function(tagName, DefaultFlags, newUnionMembership, getMemberArgs(u, parentType, false)...))
 				result.Variables = append(result.Variables, supportVar)
 
 				extraArgs := append([]any{supportVarName}, extractorArgs...)
@@ -515,7 +517,7 @@ func lastPathElement(path *field.Path) string {
 }
 
 // getMemberArgs gets a list of arguments which construct union members.
-func getMemberArgs(u *union, context Context, discrim bool) []any {
+func getMemberArgs(u *union, _ *types.Type, discrim bool) []any {
 	members := make([]any, 0, len(u.members))
 	for _, f := range u.members {
 		fieldName := f.fieldName
