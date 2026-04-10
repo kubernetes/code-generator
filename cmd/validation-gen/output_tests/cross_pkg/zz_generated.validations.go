@@ -347,11 +347,11 @@ func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Pat
 			}
 			// call field-attached validations
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.ListMapOfOtherStruct")...)
-			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField })...)
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct values")
 			})...)
+			// lists with map semantics require unique keys
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField })...)
 			return
 		}(fldPath.Child("listMapOfOtherStruct"), obj.ListMapOfOtherStruct, safe.Field(oldObj, func(oldObj *T1) []other.StructType { return oldObj.ListMapOfOtherStruct }), oldObj != nil)...)
 
