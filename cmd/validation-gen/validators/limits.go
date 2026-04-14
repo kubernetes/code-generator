@@ -26,18 +26,20 @@ import (
 )
 
 const (
-	minItemsTagName  = "k8s:minItems"
-	maxItemsTagName  = "k8s:maxItems"
-	minimumTagName   = "k8s:minimum"
-	maximumTagName   = "k8s:maximum"
-	minLengthTagName = "k8s:minLength"
-	maxLengthTagName = "k8s:maxLength"
-	maxBytesTagName  = "k8s:maxBytes"
+	minItemsTagName      = "k8s:minItems"
+	maxItemsTagName      = "k8s:maxItems"
+	minimumTagName       = "k8s:minimum"
+	maximumTagName       = "k8s:maximum"
+	minLengthTagName     = "k8s:minLength"
+	maxLengthTagName     = "k8s:maxLength"
+	maxBytesTagName      = "k8s:maxBytes"
+	maxPropertiesTagName = "k8s:maxProperties"
 )
 
 func init() {
 	RegisterTagValidator(minItemsTagValidator{})
 	RegisterTagValidator(maxItemsTagValidator{})
+	RegisterTagValidator(maxPropertiesTagValidator{})
 	RegisterTagValidator(minimumTagValidator{})
 	RegisterTagValidator(maximumTagValidator{})
 	RegisterTagValidator(minLengthTagValidator{})
@@ -256,6 +258,65 @@ func (mitv maxItemsTagValidator) Docs() TagDoc {
 		Payloads: []TagPayloadDoc{{
 			Description: "<non-negative integer>",
 			Docs:        "This list must be no more than X items long.",
+		}},
+		PayloadsType:     codetags.ValueTypeInt,
+		PayloadsRequired: true,
+	}
+}
+
+type maxPropertiesTagValidator struct{}
+
+func (maxPropertiesTagValidator) Init(_ Config) {}
+
+func (maxPropertiesTagValidator) TagName() string {
+	return maxPropertiesTagName
+}
+
+var maxPropertiesTagValidScopes = sets.New(
+	ScopeType,
+	ScopeField,
+)
+
+func (maxPropertiesTagValidator) ValidScopes() sets.Set[Scope] {
+	return maxPropertiesTagValidScopes
+}
+
+var maxPropertiesValidator = types.Name{Package: libValidationPkg, Name: "MaxProperties"}
+
+func (maxPropertiesTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
+	var result Validations
+
+	// NOTE: pointers to maps are not supported, so we should never see a pointer here.
+	t := util.NativeType(context.Type)
+	if t.Kind != types.Map {
+		return Validations{}, fmt.Errorf("can only be used on map types (%s)", rootTypeString(context.Type, t))
+	}
+	keyType := util.NativeType(t.Key)
+	if keyType.Kind != types.Builtin || keyType.Name.Name != "string" {
+		return Validations{}, fmt.Errorf("can only be used on map types with string-based keys (%s)", rootTypeString(context.Type, t))
+	}
+
+	intVal, err := util.ParseInt(tag.Value)
+	if err != nil {
+		return result, fmt.Errorf("failed to parse tag payload as int: %w", err)
+	}
+	if intVal < 0 {
+		return result, fmt.Errorf("must be greater than or equal to zero")
+	}
+	// Note: maxProperties short-circuits other validations.
+	result.AddFunction(Function(maxPropertiesTagName, ShortCircuit, maxPropertiesValidator, intVal))
+	return result, nil
+}
+
+func (mptv maxPropertiesTagValidator) Docs() TagDoc {
+	return TagDoc{
+		Tag:            mptv.TagName(),
+		StabilityLevel: TagStabilityLevelBeta,
+		Scopes:         sets.List(mptv.ValidScopes()),
+		Description:    "Indicates that a map has a limit on its size.",
+		Payloads: []TagPayloadDoc{{
+			Description: "<non-negative integer>",
+			Docs:        "This map must have no more than X properties.",
 		}},
 		PayloadsType:     codetags.ValueTypeInt,
 		PayloadsRequired: true,
