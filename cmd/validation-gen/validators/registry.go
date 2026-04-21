@@ -283,8 +283,8 @@ func RegisterFieldValidator(fv FieldValidator) {
 // TagValidationExtractor represents an aggregation of validator plugins.
 type TagValidationExtractor interface {
 	// ExtractTagValidations extracts all validations associated with the given tags.
-	// Some tag validators may return empty validations and update internal state
-	// that is then used by FieldValidators.
+	// Some tag validators may update internal state and then return deferred
+	// validations.
 	ExtractTagValidations(context Context, Tags ...codetags.Tag) (Validations, error)
 }
 
