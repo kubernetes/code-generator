@@ -25,6 +25,7 @@ import (
 	context "context"
 	fmt "fmt"
 
+	equality "k8s.io/apimachinery/pkg/api/equality"
 	operation "k8s.io/apimachinery/pkg/api/operation"
 	safe "k8s.io/apimachinery/pkg/api/safe"
 	validate "k8s.io/apimachinery/pkg/api/validate"
@@ -99,6 +100,20 @@ func Validate_HasTypeVal(
 	}
 
 	// field HasTypeVal.S has no validation
+	return errs
+}
+
+// Validate_OtherStruct validates an instance of OtherStruct according
+// to declarative validation rules in the API schema.
+func Validate_OtherStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OtherStruct) (errs field.ErrorList) {
+
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	// field OtherStruct.S has no validation
 	return errs
 }
 
@@ -178,6 +193,112 @@ func Validate_T1(
 				return &oldObj.HasNoValFieldVal
 			})
 		errs = append(errs, fn(fldPath.Child("hasNoValFieldVal"), &obj.HasNoValFieldVal, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.ValidatedSlice
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj TypedefSliceWithValidations,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_TypedefSliceWithValidations(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) TypedefSliceWithValidations {
+				return oldObj.ValidatedSlice
+			})
+		errs = append(errs, fn(fldPath.Child("validatedSlice"), obj.ValidatedSlice, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.ValidatedMap
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj TypedefMapWithValidations,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_TypedefMapWithValidations(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) TypedefMapWithValidations {
+				return oldObj.ValidatedMap
+			})
+		errs = append(errs, fn(fldPath.Child("validatedMap"), obj.ValidatedMap, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.ValidatedMapKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj TypedefMapWithKeyValidations,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_TypedefMapWithKeyValidations(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) TypedefMapWithKeyValidations {
+				return oldObj.ValidatedMapKey
+			})
+		errs = append(errs, fn(fldPath.Child("validatedMapKey"), obj.ValidatedMapKey, oldVal, oldObj != nil)...)
+	}
+
+	return errs
+}
+
+// Validate_TypedefMapWithKeyValidations validates an instance of TypedefMapWithKeyValidations according
+// to declarative validation rules in the API schema.
+func Validate_TypedefMapWithKeyValidations(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TypedefMapWithKeyValidations) (errs field.ErrorList) {
+
+	return errs
+}
+
+// Validate_TypedefMapWithValidations validates an instance of TypedefMapWithValidations according
+// to declarative validation rules in the API schema.
+func Validate_TypedefMapWithValidations(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TypedefMapWithValidations) (errs field.ErrorList) {
+
+	return errs
+}
+
+// Validate_TypedefSliceWithValidations validates an instance of TypedefSliceWithValidations according
+// to declarative validation rules in the API schema.
+func Validate_TypedefSliceWithValidations(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TypedefSliceWithValidations) (errs field.ErrorList) {
+
+	return errs
+}
+
+// Validate_ValidatedKeyType validates an instance of ValidatedKeyType according
+// to declarative validation rules in the API schema.
+func Validate_ValidatedKeyType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ValidatedKeyType) (errs field.ErrorList) {
+
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ValidatedKeyType"); len(e) != 0 {
+		errs = append(errs, e...)
 	}
 
 	return errs
