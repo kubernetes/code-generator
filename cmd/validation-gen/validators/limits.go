@@ -303,6 +303,9 @@ func (maxPropertiesTagValidator) GetValidations(context Context, tag codetags.Ta
 	if intVal < 0 {
 		return result, fmt.Errorf("must be greater than or equal to zero")
 	}
+	if intVal > 100000 {
+		return result, fmt.Errorf("must be less than or equal to 100000")
+	}
 	// Note: maxProperties short-circuits other validations.
 	result.AddFunction(Function(maxPropertiesTagName, ShortCircuit, maxPropertiesValidator, intVal))
 	return result, nil
@@ -316,7 +319,7 @@ func (mptv maxPropertiesTagValidator) Docs() TagDoc {
 		Description:    "maxProperties provides a limit on properties of an object as defined by JSON schema. In Kubernetes it may only be used to constrain the number of elements on a field defined as a golang map.",
 		Payloads: []TagPayloadDoc{{
 			Description: "<non-negative integer>",
-			Docs:        "This map must have no more than X properties.",
+			Docs:        "This map must have no more than X properties (where X <= 100000).",
 		}},
 		PayloadsType:     codetags.ValueTypeInt,
 		PayloadsRequired: true,
