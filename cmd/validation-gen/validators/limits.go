@@ -313,7 +313,7 @@ func (mptv maxPropertiesTagValidator) Docs() TagDoc {
 		Tag:            mptv.TagName(),
 		StabilityLevel: TagStabilityLevelBeta,
 		Scopes:         sets.List(mptv.ValidScopes()),
-		Description:    "Indicates that a map has a limit on its size.",
+		Description:    "maxProperties provides a limit on properties of an object as defined by JSON schema. In Kubernetes it may only be used to constrain the number of elements on a field defined as a golang map.",
 		Payloads: []TagPayloadDoc{{
 			Description: "<non-negative integer>",
 			Docs:        "This map must have no more than X properties.",
