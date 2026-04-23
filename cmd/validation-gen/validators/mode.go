@@ -29,8 +29,8 @@ import (
 )
 
 const (
-	discriminatorTagName = "k8s:discriminator"
-	memberTagName        = "k8s:member"
+	modeDiscriminatorTagName = "k8s:modeDiscriminator"
+	ifModeTagName            = "k8s:ifMode"
 )
 
 // validGroupNameRegex restricts discriminator group names to identifiers that
@@ -38,8 +38,8 @@ const (
 var validGroupNameRegex = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*$`)
 
 func init() {
-	RegisterTagValidator(&discriminatorTagValidator{discriminatorDefinitions})
-	RegisterTagValidator(&memberTagValidator{discriminatorDefinitions, nil})
+	RegisterTagValidator(&modeDiscriminatorTagValidator{discriminatorDefinitions})
+	RegisterTagValidator(&ifModeTagValidator{discriminatorDefinitions, nil})
 	RegisterTypeValidator(&discriminatorFieldValidator{discriminatorDefinitions})
 	RegisterFieldValidator(&discriminatorFieldValidator{discriminatorDefinitions})
 }
@@ -83,34 +83,34 @@ func (mg discriminatorGroups) getOrCreate(name string) *discriminatorGroup {
 	return g
 }
 
-type discriminatorTagValidator struct {
+type modeDiscriminatorTagValidator struct {
 	shared map[string]discriminatorGroups
 }
 
-func (mtv *discriminatorTagValidator) Init(_ Config) {}
+func (mdtv *modeDiscriminatorTagValidator) Init(_ Config) {}
 
-func (mtv *discriminatorTagValidator) TagName() string {
-	return discriminatorTagName
+func (mdtv *modeDiscriminatorTagValidator) TagName() string {
+	return modeDiscriminatorTagName
 }
 
-func (mtv *discriminatorTagValidator) ValidScopes() sets.Set[Scope] {
+func (mdtv *modeDiscriminatorTagValidator) ValidScopes() sets.Set[Scope] {
 	return sets.New(ScopeField)
 }
 
-func (mtv *discriminatorTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
+func (mdtv *modeDiscriminatorTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
 	if util.NativeType(context.Type).Kind == types.Pointer {
 		return Validations{}, fmt.Errorf("can only be used on non-pointer types")
 	}
 
-	if t := util.NonPointer(util.NativeType(context.Type)); t.Kind != types.Builtin || (t.Name.Name != "string" && t.Name.Name != "bool" && !types.IsInteger(t)) {
-		return Validations{}, fmt.Errorf("can only be used on string, bool or integer types (%s)", rootTypeString(context.Type, t))
+	if t := util.NonPointer(util.NativeType(context.Type)); t.Kind != types.Builtin || (t.Name.Name != "string" && t.Name.Name != "bool") {
+		return Validations{}, fmt.Errorf("can only be used on string or bool types (%s)", rootTypeString(context.Type, t))
 	}
 
-	if mtv.shared[context.ParentPath.String()] == nil {
-		mtv.shared[context.ParentPath.String()] = make(discriminatorGroups)
+	if mdtv.shared[context.ParentPath.String()] == nil {
+		mdtv.shared[context.ParentPath.String()] = make(discriminatorGroups)
 	}
 	groupName := ""
-	if nameArg, ok := tag.NamedArg("name"); ok {
+	if nameArg, ok := tag.NamedArg("modality"); ok {
 		groupName = nameArg.Value
 	}
 	if groupName != "" && !validGroupNameRegex.MatchString(groupName) {
@@ -119,7 +119,7 @@ func (mtv *discriminatorTagValidator) GetValidations(context Context, tag codeta
 	if groupName == "default" {
 		return Validations{}, fmt.Errorf("discriminator group name %q is reserved", groupName)
 	}
-	group := mtv.shared[context.ParentPath.String()].getOrCreate(groupName)
+	group := mdtv.shared[context.ParentPath.String()].getOrCreate(groupName)
 	if group.discriminatorMember != nil && group.discriminatorMember != context.Member {
 		return Validations{}, fmt.Errorf("duplicate discriminator: %q", groupName)
 	}
@@ -128,14 +128,14 @@ func (mtv *discriminatorTagValidator) GetValidations(context Context, tag codeta
 	return Validations{}, nil
 }
 
-func (mtv *discriminatorTagValidator) Docs() TagDoc {
+func (mdtv *modeDiscriminatorTagValidator) Docs() TagDoc {
 	return TagDoc{
-		Tag:            mtv.TagName(),
+		Tag:            mdtv.TagName(),
 		StabilityLevel: TagStabilityLevelAlpha,
-		Scopes:         sets.List(mtv.ValidScopes()),
+		Scopes:         sets.List(mdtv.ValidScopes()),
 		Description:    "Indicates that this field is a discriminator for state-based validation.",
 		Args: []TagArgDoc{{
-			Name:        "name",
+			Name:        "modality",
 			Description: "<string>",
 			Docs:        "the name of the discriminator group, if more than one exists",
 			Type:        codetags.ArgTypeString,
@@ -143,30 +143,30 @@ func (mtv *discriminatorTagValidator) Docs() TagDoc {
 	}
 }
 
-type memberTagValidator struct {
+type ifModeTagValidator struct {
 	shared    map[string]discriminatorGroups
 	validator TagValidationExtractor
 }
 
-func (mtv *memberTagValidator) Init(cfg Config) {
-	mtv.validator = cfg.TagValidator
+func (imtv *ifModeTagValidator) Init(cfg Config) {
+	imtv.validator = cfg.TagValidator
 }
 
-func (mtv *memberTagValidator) TagName() string {
-	return memberTagName
+func (imtv *ifModeTagValidator) TagName() string {
+	return ifModeTagName
 }
 
-func (mtv *memberTagValidator) ValidScopes() sets.Set[Scope] {
+func (imtv *ifModeTagValidator) ValidScopes() sets.Set[Scope] {
 	return sets.New(ScopeField)
 }
 
-func (mtv *memberTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
+func (imtv *ifModeTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
 	if tag.ValueTag == nil {
 		return Validations{}, fmt.Errorf("missing required payload")
 	}
 
 	groupName := ""
-	if modeArg, ok := tag.NamedArg("discriminator"); ok {
+	if modeArg, ok := tag.NamedArg("modality"); ok {
 		groupName = modeArg.Value
 	}
 	if groupName == "default" {
@@ -174,19 +174,19 @@ func (mtv *memberTagValidator) GetValidations(context Context, tag codetags.Tag)
 	}
 
 	value := ""
-	if valArg, ok := tag.NamedArg("value"); ok {
+	if valArg, ok := tag.NamedArg("mode"); ok {
 		value = valArg.Value
 	} else if len(tag.Args) > 0 && tag.Args[0].Name == "" {
 		// Positional argument
 		value = tag.Args[0].Value
 	} else {
-		return Validations{}, fmt.Errorf("missing required value")
+		return Validations{}, fmt.Errorf("missing required mode")
 	}
 
-	if mtv.shared[context.ParentPath.String()] == nil {
-		mtv.shared[context.ParentPath.String()] = make(discriminatorGroups)
+	if imtv.shared[context.ParentPath.String()] == nil {
+		imtv.shared[context.ParentPath.String()] = make(discriminatorGroups)
 	}
-	group := mtv.shared[context.ParentPath.String()].getOrCreate(groupName)
+	group := imtv.shared[context.ParentPath.String()].getOrCreate(groupName)
 
 	fieldName := context.Member.Name
 	if rules, ok := group.members[fieldName]; ok {
@@ -199,7 +199,7 @@ func (mtv *memberTagValidator) GetValidations(context Context, tag codetags.Tag)
 		}
 	}
 
-	payloadValidations, err := mtv.validator.ExtractTagValidations(context, *tag.ValueTag)
+	payloadValidations, err := imtv.validator.ExtractTagValidations(context, *tag.ValueTag)
 	if err != nil {
 		return Validations{}, err
 	}
@@ -213,26 +213,26 @@ func (mtv *memberTagValidator) GetValidations(context Context, tag codetags.Tag)
 	return Validations{}, nil
 }
 
-func (mtv *memberTagValidator) Docs() TagDoc {
+func (imtv *ifModeTagValidator) Docs() TagDoc {
 	return TagDoc{
-		Tag:            mtv.TagName(),
+		Tag:            imtv.TagName(),
 		StabilityLevel: TagStabilityLevelAlpha,
-		Scopes:         sets.List(mtv.ValidScopes()),
-		Description:    "Indicates that this field's validation depends on a discriminator.",
+		Scopes:         sets.List(imtv.ValidScopes()),
+		Description:    "Indicates that this field's validation depends on a mode discriminator.",
 		Args: []TagArgDoc{{
 			Name:        "", // positional
 			Description: "<string>",
-			Docs:        "the value of the discriminator for which this validation applies",
+			Docs:        "the value of the mode discriminator for which this validation applies",
 			Type:        codetags.ArgTypeString,
 		}, {
-			Name:        "discriminator",
+			Name:        "modality",
 			Description: "<string>",
 			Docs:        "the name of the discriminator group",
 			Type:        codetags.ArgTypeString,
 		}, {
-			Name:        "value",
+			Name:        "mode",
 			Description: "<string>",
-			Docs:        "the value of the discriminator for which this validation applies",
+			Docs:        "the mode value for which this validation applies",
 			Type:        codetags.ArgTypeString,
 		}},
 		PayloadsType:     codetags.ValueTypeTag,
@@ -424,7 +424,7 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 		equivArg = Identifier(validateSemanticDeepEqual)
 	}
 
-	fn := Function(discriminatorTagName, DefaultFlags, discriminatedValidator,
+	fn := Function(modeDiscriminatorTagName, DefaultFlags, discriminatedValidator,
 		Literal(fmt.Sprintf("%q", jsonName)),
 		getValue,
 		getDiscriminator,
@@ -496,13 +496,6 @@ func convertDiscriminatorValue(val string, discType *types.Type) (any, error) {
 		}
 		return b, nil
 	default:
-		if types.IsInteger(nt) {
-			i, err := util.ParseInt(val)
-			if err != nil {
-				return nil, fmt.Errorf("cannot parse %q as integer: %w", val, err)
-			}
-			return int(i), nil
-		}
 		return nil, fmt.Errorf("unsupported discriminator type: %s", nt.Name.Name)
 	}
 }
