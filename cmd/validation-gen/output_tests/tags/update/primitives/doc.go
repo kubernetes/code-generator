@@ -19,7 +19,7 @@ limitations under the License.
 
 // This is a test package for the +k8s:update tag.
 // +k8s:validation-gen-nolint
-package update
+package primitives
 
 import "k8s.io/code-generator/cmd/validation-gen/testscheme"
 
