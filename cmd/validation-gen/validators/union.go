@@ -103,13 +103,8 @@ func (udtv unionDiscriminatorTagValidator) GetValidations(context Context, tag c
 	if err != nil {
 		return Validations{}, err
 	}
-	return Validations{
-		Deferred: []DeferredGen{
-			Deferred(ParentContext, func() (Validations, error) {
-				return getUnionValidations(udtv.shared, context)
-			}),
-		},
-	}, nil
+	// Configure descriminator for the union. Validations are emitted by the union member validator.
+	return Validations{}, nil
 }
 
 func (udtv unionDiscriminatorTagValidator) Docs() TagDoc {
