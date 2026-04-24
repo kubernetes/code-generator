@@ -104,6 +104,8 @@ func Validate_MyListStruct(ctx context.Context, op operation.Operation, fldPath 
 				return nil
 			}
 			// call field-attached validations
+			// lists with map semantics require unique keys
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStruct_tasks_, func(list []Task) bool {
 				for i := range list {
 					if list[i].Name == "failed" {
@@ -119,8 +121,6 @@ func Validate_MyListStruct(ctx context.Context, op operation.Operation, fldPath 
 				}
 				return false
 			}).MarkAlpha()...)
-			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			return
 		}(fldPath.Child("tasks"), obj.Tasks, safe.Field(oldObj, func(oldObj *MyListStruct) []Task { return oldObj.Tasks }), oldObj != nil)...)
 
@@ -142,6 +142,8 @@ func Validate_MyListStructBeta(ctx context.Context, op operation.Operation, fldP
 				return nil
 			}
 			// call field-attached validations
+			// lists with map semantics require unique keys
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStructBeta_tasksBeta_, func(list []Task) bool {
 				for i := range list {
 					if list[i].Name == "failed" {
@@ -157,8 +159,6 @@ func Validate_MyListStructBeta(ctx context.Context, op operation.Operation, fldP
 				}
 				return false
 			}).MarkBeta()...)
-			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			return
 		}(fldPath.Child("tasksBeta"), obj.TasksBeta, safe.Field(oldObj, func(oldObj *MyListStructBeta) []Task { return oldObj.TasksBeta }), oldObj != nil)...)
 
