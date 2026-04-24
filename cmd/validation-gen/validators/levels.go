@@ -56,10 +56,6 @@ func (levelTagValidator) ValidScopes() sets.Set[Scope] {
 	return levelTagsValidScopes
 }
 
-// LateTagValidator indicates that this validator has to run AFTER the listType
-// and listMapKey tags.
-func (levelTagValidator) LateTagValidator() {}
-
 func (ltv *levelTagValidator) GetValidations(context Context, tag codetags.Tag) (Validations, error) {
 	if tag.ValueType != codetags.ValueTypeTag || tag.ValueTag == nil {
 		return Validations{}, fmt.Errorf("requires a validation tag as its value payload")

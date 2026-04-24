@@ -130,8 +130,8 @@ func Validate_MixedStruct(ctx context.Context, op operation.Operation, fldPath *
 				return nil
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			return
 		}(fldPath.Child("intField"), &obj.IntField, safe.Field(oldObj, func(oldObj *MixedStruct) *int { return &oldObj.IntField }), oldObj != nil)...)
 
@@ -143,8 +143,8 @@ func Validate_MixedStruct(ctx context.Context, op operation.Operation, fldPath *
 				return nil
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()...)
+			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			return
 		}(fldPath.Child("intFieldBeta"), &obj.IntFieldBeta, safe.Field(oldObj, func(oldObj *MixedStruct) *int { return &oldObj.IntFieldBeta }), oldObj != nil)...)
 
@@ -157,11 +157,11 @@ func Validate_MixedStruct(ctx context.Context, op operation.Operation, fldPath *
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 3).MarkAlpha(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 3).MarkAlpha(); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
@@ -180,11 +180,11 @@ func Validate_MixedStruct(ctx context.Context, op operation.Operation, fldPath *
 			}
 			// call field-attached validations
 			earlyReturn := false
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 3).MarkBeta(); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}
-			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 3).MarkBeta(); len(e) != 0 {
+			if e := validate.MaxItems(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
 				errs = append(errs, e...)
 				earlyReturn = true
 			}

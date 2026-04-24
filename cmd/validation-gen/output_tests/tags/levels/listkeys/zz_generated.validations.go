@@ -102,7 +102,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
 			return
 		}(fldPath.Child("standardListTypeMixedKeys1"), obj.StandardListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeys1 }), oldObj != nil)...)
 
@@ -115,7 +115,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
 			return
 		}(fldPath.Child("standardListTypeMixedKeys2"), obj.StandardListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeys2 }), oldObj != nil)...)
 
@@ -128,7 +128,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkAlpha()...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkAlpha()...)
 			return
 		}(fldPath.Child("alphaListTypeMixedKeys1"), obj.AlphaListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.AlphaListTypeMixedKeys1 }), oldObj != nil)...)
 
@@ -141,7 +141,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkAlpha()...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkAlpha()...)
 			return
 		}(fldPath.Child("alphaListTypeMixedKeys2"), obj.AlphaListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.AlphaListTypeMixedKeys2 }), oldObj != nil)...)
 
@@ -154,7 +154,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
 			return
 		}(fldPath.Child("standardListTypeMixedKeysBeta1"), obj.StandardListTypeMixedKeysBeta1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeysBeta1 }), oldObj != nil)...)
 
@@ -167,7 +167,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
 			return
 		}(fldPath.Child("standardListTypeMixedKeysBeta2"), obj.StandardListTypeMixedKeysBeta2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeysBeta2 }), oldObj != nil)...)
 
@@ -180,7 +180,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkBeta()...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkBeta()...)
 			return
 		}(fldPath.Child("betaListTypeMixedKeys1"), obj.BetaListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.BetaListTypeMixedKeys1 }), oldObj != nil)...)
 
@@ -193,7 +193,7 @@ func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath
 			}
 			// call field-attached validations
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkBeta()...)
+			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkBeta()...)
 			return
 		}(fldPath.Child("betaListTypeMixedKeys2"), obj.BetaListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.BetaListTypeMixedKeys2 }), oldObj != nil)...)
 

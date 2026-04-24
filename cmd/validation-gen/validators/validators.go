@@ -54,61 +54,6 @@ type TagValidator interface {
 	Docs() TagDoc
 }
 
-// LateTagValidator is an optional extension to TagValidator. Any TagValidator
-// which implements this interface will be evaluated after all TagValidators
-// which do not.
-type LateTagValidator interface {
-	LateTagValidator()
-}
-
-// TypeValidator describes a validator which runs on every type definition.
-// To be findable by validation-gen, a TypeValidator must be registered - see
-// RegisterTypeValidator.
-//
-// TypeValidators are always processed after TagValidators, and after the type
-// has been fully processed (including all child fields and their types). This
-// means that they can "finish" work with data that was collected by
-// TagValidators.
-//
-// TypeValidators MUST NOT depend on other TypeValidators having been run
-// already.
-type TypeValidator interface {
-	// Init initializes the implementation.  This will be called exactly once.
-	Init(cfg Config)
-
-	// Name returns a unique name for this validator.  This is used for sorting
-	// and logging.
-	Name() string
-
-	// GetValidations returns any validations imposed by this validator for the
-	// given context.
-	GetValidations(context Context) (Validations, error)
-}
-
-// FieldValidator describes a validator which runs on every field definition.
-// To be findable by validation-gen, a FieldValidator must be registered - see
-// RegisterFieldValidator.
-//
-// FieldValidators are always processed after TagValidators and TypeValidators,
-// and after the field has been fully processed (including all child fields).
-// This means that they can "finish" work with data that was collected by
-// TagValidators.
-//
-// FieldValidators MUST NOT depend on other FieldValidators having been run
-// already.
-type FieldValidator interface {
-	// Init initializes the implementation.  This will be called exactly once.
-	Init(cfg Config)
-
-	// Name returns a unique name for this validator.  This is used for sorting
-	// and logging.
-	Name() string
-
-	// GetValidations returns any validations imposed by this validator for the
-	// given context.
-	GetValidations(context Context) (Validations, error)
-}
-
 // Config carries optional configuration information for use by validators.
 type Config struct {
 	// GengoContext provides gengo's generator Context.  This allows validators
