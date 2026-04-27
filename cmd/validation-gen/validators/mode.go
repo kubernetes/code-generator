@@ -40,8 +40,6 @@ var validGroupNameRegex = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*$`)
 func init() {
 	RegisterTagValidator(&modeDiscriminatorTagValidator{discriminatorDefinitions})
 	RegisterTagValidator(&ifModeTagValidator{discriminatorDefinitions, nil})
-	RegisterTypeValidator(&discriminatorFieldValidator{discriminatorDefinitions})
-	RegisterFieldValidator(&discriminatorFieldValidator{discriminatorDefinitions})
 }
 
 // discriminatorDefinitions stores all discriminator definitions found by tag validators.
@@ -125,6 +123,7 @@ func (mdtv *modeDiscriminatorTagValidator) GetValidations(context Context, tag c
 	}
 	group.discriminatorMember = context.Member
 
+	// configures descriminator metadata, Validations are emitted by  modeDiscriminatorTagValidator.
 	return Validations{}, nil
 }
 
@@ -210,7 +209,13 @@ func (imtv *ifModeTagValidator) GetValidations(context Context, tag codetags.Tag
 		stabilityLevel: context.StabilityLevel,
 	})
 
-	return Validations{}, nil
+	return Validations{
+		Deferred: []DeferredGen{
+			Deferred(ParentContext, func() (Validations, error) {
+				return getDiscriminatorValidations(imtv.shared, context)
+			}),
+		},
+	}, nil
 }
 
 func (imtv *ifModeTagValidator) Docs() TagDoc {
@@ -240,26 +245,20 @@ func (imtv *ifModeTagValidator) Docs() TagDoc {
 	}
 }
 
-type discriminatorFieldValidator struct {
-	shared map[string]discriminatorGroups
-}
+func getDiscriminatorValidations(shared map[string]discriminatorGroups, context Context) (Validations, error) {
+	structPath := context.ParentPath.String()
 
-func (discriminatorFieldValidator) Init(_ Config) {}
-
-func (discriminatorFieldValidator) Name() string {
-	return "discriminatorFieldValidator"
-}
-
-func (mtfv *discriminatorFieldValidator) GetValidations(context Context) (Validations, error) {
 	// Extract the most concrete type possible.
-	if k := util.NonPointer(util.NativeType(context.Type)).Kind; k != types.Struct {
+	if k := util.NonPointer(util.NativeType(context.ParentType)).Kind; k != types.Struct {
 		return Validations{}, nil
 	}
 
-	groups, ok := mtfv.shared[context.Path.String()]
+	groups, ok := shared[structPath]
 	if !ok || len(groups) == 0 {
 		return Validations{}, nil
 	}
+	// deleting to ensure we don't process the same struct twice.
+	delete(shared, structPath)
 
 	var result Validations
 
@@ -281,7 +280,6 @@ func (mtfv *discriminatorFieldValidator) GetValidations(context Context) (Valida
 			}
 			continue
 		}
-
 		fieldNames := make([]string, 0, len(group.members))
 		for name := range group.members {
 			fieldNames = append(fieldNames, name)
@@ -290,7 +288,7 @@ func (mtfv *discriminatorFieldValidator) GetValidations(context Context) (Valida
 
 		for _, fn := range fieldNames {
 			rules := group.members[fn]
-			v, err := mtfv.generateMemberFieldValidation(context, group, rules)
+			v, err := generateMemberFieldValidation(context.ParentType, group, rules)
 			if err != nil {
 				return Validations{}, err
 			}
@@ -301,7 +299,7 @@ func (mtfv *discriminatorFieldValidator) GetValidations(context Context) (Valida
 	return result, nil
 }
 
-func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context Context, group *discriminatorGroup, rules *fieldMemberRules) (Validations, error) {
+func generateMemberFieldValidation(structType *types.Type, group *discriminatorGroup, rules *fieldMemberRules) (Validations, error) {
 	fieldType := rules.member.Type
 
 	// Use the nilable form to handle missing values.
@@ -319,7 +317,7 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	}
 
 	// Default validation is Forbidden
-	defaultForbidden, err := mtfv.getForbiddenValidation(fieldType)
+	defaultForbidden, err := getForbiddenValidation(fieldType)
 	if err != nil {
 		return Validations{}, err
 	}
@@ -350,8 +348,6 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 	}
 	slices.Sort(values)
 
-	discriminatorType := group.discriminatorMember.Type
-
 	// When all rules share the same stability level, the default-forbidden
 	// (which fires for unrecognized discriminator values) should also be marked
 	// with that level so its errors carry the same stability annotation.
@@ -368,6 +364,7 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 		defaultForbidden = mwf
 	}
 
+	discriminatorType := group.discriminatorMember.Type
 	var discriminatedRules []any
 	for _, val := range values {
 		wrapper := MultiWrapperFunction{
@@ -402,14 +399,14 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 
 	// getValue extractor
 	getValue := FunctionLiteral{
-		Parameters: []ParamResult{{Name: "obj", Type: types.PointerTo(context.Type)}},
+		Parameters: []ParamResult{{Name: "obj", Type: types.PointerTo(structType)}},
 		Results:    []ParamResult{{Type: nilableFieldType}},
 		Body:       fmt.Sprintf("return %sobj.%s", fieldExprPrefix, rules.member.Name),
 	}
 
 	// getDiscriminator extractor
 	getDiscriminator := FunctionLiteral{
-		Parameters: []ParamResult{{Name: "obj", Type: types.PointerTo(context.Type)}},
+		Parameters: []ParamResult{{Name: "obj", Type: types.PointerTo(structType)}},
 		Results:    []ParamResult{{Type: discriminatorType}},
 		Body:       fmt.Sprintf("return obj.%s", group.discriminatorMember.Name),
 	}
@@ -432,7 +429,10 @@ func (mtfv *discriminatorFieldValidator) generateMemberFieldValidation(context C
 		defaultForbidden,
 		rulesSlice,
 	)
-
+	// Stability levels are already set on the wrapped validation functions, so
+	// skip the level wrapping in the upstream. Processing the stability level
+	// in the upstream will override the stability levels of the wrapped validators.
+	fn.StabilityLevelSelfManaged = true
 	return Validations{Functions: []FunctionGen{fn}}, nil
 }
 
@@ -448,7 +448,7 @@ func uniformStabilityLevel(rules []memberRule) ValidationStabilityLevel {
 	return level
 }
 
-func (mtfv *discriminatorFieldValidator) getForbiddenValidation(t *types.Type) (any, error) {
+func getForbiddenValidation(t *types.Type) (any, error) {
 	var forbidden types.Name
 	nt := util.NativeType(t)
 	switch nt.Kind {
