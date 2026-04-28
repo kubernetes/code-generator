@@ -979,8 +979,8 @@ func (g *genValidations) emitRegisterFunction(c *generator.Context, schemeRegist
 		// This uses a typed nil pointer, rather than a real instance because
 		// we need the type information, but not an instance of the type.
 		sw.Do("// type $.rootType|name$\n", targs)
-		sw.Do("scheme.AddValidationFunc(", targs)
-		sw.Do("    ($.typePfx$$.rootType|raw$)(nil), ", targs)
+		sw.Do("scheme.AddValidationFunc(\n", targs)
+		sw.Do("    ($.typePfx$$.rootType|raw$)(nil),\n", targs)
 		sw.Do("    func(ctx $.context.Context$, op $.operation.Operation|raw$, obj, oldObj interface{}) $.field.ErrorList|raw$ {\n", targs)
 
 		sw.Do("switch op.Request.SubresourcePath() {\n", nil)
@@ -992,17 +992,17 @@ func (g *genValidations) emitRegisterFunction(c *generator.Context, schemeRegist
 			sw.Do("$.$", s)
 		}
 		sw.Do(":\n", nil)
-		sw.Do("    return $.rootType|objectvalidationfn$(", targs)
+		sw.Do("    return $.rootType|objectvalidationfn$(\n", targs)
 		sw.Do("               ctx, ", targs)
 		sw.Do("               op, ", targs)
-		sw.Do("               nil /* fldPath */, ", targs)
-		sw.Do("               obj.($.typePfx$$.rootType|raw$), ", targs)
+		sw.Do("               nil /* fldPath */,\n", targs)
+		sw.Do("               obj.($.typePfx$$.rootType|raw$),\n", targs)
 		sw.Do("               $.safe.Cast|raw$[$.typePfx$$.rootType|raw$](oldObj))\n", targs)
 		sw.Do("  }\n", targs)
-		sw.Do("  return $.field.ErrorList|raw${", targs)
+		sw.Do("  return $.field.ErrorList|raw${\n", targs)
 		sw.Do("      $.field.InternalError|raw$(", targs)
 		sw.Do("          nil, ", targs)
-		sw.Do("          $.fmt.Errorf|raw$(\"no validation found for %T, subresource: %v\", obj, op.Request.SubresourcePath()))", targs)
+		sw.Do("          $.fmt.Errorf|raw$(\"no validation found for %T, subresource: %v\", obj, op.Request.SubresourcePath())),\n", targs)
 		sw.Do("  }\n", targs)
 		sw.Do("})\n", targs)
 	}
