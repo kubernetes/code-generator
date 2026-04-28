@@ -76,9 +76,11 @@ func Validate_UpdateListStruct(
 
 	// field UpdateListStruct.TypeMeta has no validation
 
-	// field UpdateListStruct.StringSliceNoSet
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.StringSliceNoSet
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -93,11 +95,19 @@ func Validate_UpdateListStruct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("stringSliceNoSet"), obj.StringSliceNoSet, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.StringSliceNoSet }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.StringSliceNoSet
+			})
+		errs = append(errs, fn(fldPath.Child("stringSliceNoSet"), obj.StringSliceNoSet, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.StringSliceNoUnset
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.StringSliceNoUnset
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -112,11 +122,19 @@ func Validate_UpdateListStruct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("stringSliceNoUnset"), obj.StringSliceNoUnset, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.StringSliceNoUnset }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.StringSliceNoUnset
+			})
+		errs = append(errs, fn(fldPath.Child("stringSliceNoUnset"), obj.StringSliceNoUnset, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.StringSetNoAdd
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.StringSetNoAdd
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -133,11 +151,19 @@ func Validate_UpdateListStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("stringSetNoAdd"), obj.StringSetNoAdd, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.StringSetNoAdd }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.StringSetNoAdd
+			})
+		errs = append(errs, fn(fldPath.Child("stringSetNoAdd"), obj.StringSetNoAdd, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.StringSetNoRemove
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.StringSetNoRemove
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -154,11 +180,19 @@ func Validate_UpdateListStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("stringSetNoRemove"), obj.StringSetNoRemove, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.StringSetNoRemove }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.StringSetNoRemove
+			})
+		errs = append(errs, fn(fldPath.Child("stringSetNoRemove"), obj.StringSetNoRemove, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.StringSetFrozenShape
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.StringSetFrozenShape
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -175,11 +209,19 @@ func Validate_UpdateListStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("stringSetFrozenShape"), obj.StringSetFrozenShape, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.StringSetFrozenShape }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.StringSetFrozenShape
+			})
+		errs = append(errs, fn(fldPath.Child("stringSetFrozenShape"), obj.StringSetFrozenShape, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.MapListNoAdd
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []UpdateItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.MapListNoAdd
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []UpdateItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -196,11 +238,19 @@ func Validate_UpdateListStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("mapListNoAdd"), obj.MapListNoAdd, safe.Field(oldObj, func(oldObj *UpdateListStruct) []UpdateItem { return oldObj.MapListNoAdd }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []UpdateItem {
+				return oldObj.MapListNoAdd
+			})
+		errs = append(errs, fn(fldPath.Child("mapListNoAdd"), obj.MapListNoAdd, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.MapListFrozenShape
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []UpdateItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.MapListFrozenShape
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []UpdateItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -217,11 +267,19 @@ func Validate_UpdateListStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("mapListFrozenShape"), obj.MapListFrozenShape, safe.Field(oldObj, func(oldObj *UpdateListStruct) []UpdateItem { return oldObj.MapListFrozenShape }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []UpdateItem {
+				return oldObj.MapListFrozenShape
+			})
+		errs = append(errs, fn(fldPath.Child("mapListFrozenShape"), obj.MapListFrozenShape, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.CompositeKeyList
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []CompositeKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.CompositeKeyList
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []CompositeKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -238,11 +296,19 @@ func Validate_UpdateListStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a CompositeKeyItem, b CompositeKeyItem) bool { return a.Name == b.Name && a.Priority == b.Priority })...)
 			return
-		}(fldPath.Child("compositeKeyList"), obj.CompositeKeyList, safe.Field(oldObj, func(oldObj *UpdateListStruct) []CompositeKeyItem { return oldObj.CompositeKeyList }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []CompositeKeyItem {
+				return oldObj.CompositeKeyList
+			})
+		errs = append(errs, fn(fldPath.Child("compositeKeyList"), obj.CompositeKeyList, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.AtomicUniqueSetNoAdd
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.AtomicUniqueSetNoAdd
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -259,11 +325,19 @@ func Validate_UpdateListStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("atomicUniqueSetNoAdd"), obj.AtomicUniqueSetNoAdd, safe.Field(oldObj, func(oldObj *UpdateListStruct) []string { return oldObj.AtomicUniqueSetNoAdd }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []string {
+				return oldObj.AtomicUniqueSetNoAdd
+			})
+		errs = append(errs, fn(fldPath.Child("atomicUniqueSetNoAdd"), obj.AtomicUniqueSetNoAdd, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.AtomicUniqueMapFrozenShape
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []UpdateItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.AtomicUniqueMapFrozenShape
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []UpdateItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -280,11 +354,19 @@ func Validate_UpdateListStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("atomicUniqueMapFrozenShape"), obj.AtomicUniqueMapFrozenShape, safe.Field(oldObj, func(oldObj *UpdateListStruct) []UpdateItem { return oldObj.AtomicUniqueMapFrozenShape }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []UpdateItem {
+				return oldObj.AtomicUniqueMapFrozenShape
+			})
+		errs = append(errs, fn(fldPath.Child("atomicUniqueMapFrozenShape"), obj.AtomicUniqueMapFrozenShape, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.NonComparableSetFrozenShape
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []NonComparableItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.NonComparableSetFrozenShape
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []NonComparableItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -301,11 +383,19 @@ func Validate_UpdateListStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.SemanticDeepEqual)...)
 			return
-		}(fldPath.Child("nonComparableSetFrozenShape"), obj.NonComparableSetFrozenShape, safe.Field(oldObj, func(oldObj *UpdateListStruct) []NonComparableItem { return oldObj.NonComparableSetFrozenShape }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []NonComparableItem {
+				return oldObj.NonComparableSetFrozenShape
+			})
+		errs = append(errs, fn(fldPath.Child("nonComparableSetFrozenShape"), obj.NonComparableSetFrozenShape, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.TypedefFrozenList
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj FrozenUserList, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.TypedefFrozenList
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj FrozenUserList,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -322,11 +412,19 @@ func Validate_UpdateListStruct(
 			// call the type's validation function
 			errs = append(errs, Validate_FrozenUserList(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("typedefFrozenList"), obj.TypedefFrozenList, safe.Field(oldObj, func(oldObj *UpdateListStruct) FrozenUserList { return oldObj.TypedefFrozenList }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) FrozenUserList {
+				return oldObj.TypedefFrozenList
+			})
+		errs = append(errs, fn(fldPath.Child("typedefFrozenList"), obj.TypedefFrozenList, oldVal, oldObj != nil)...)
+	}
 
-	// field UpdateListStruct.EachValNoModifyList
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []UpdateItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field UpdateListStruct.EachValNoModifyList
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []UpdateItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -345,7 +443,13 @@ func Validate_UpdateListStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("eachValNoModifyList"), obj.EachValNoModifyList, safe.Field(oldObj, func(oldObj *UpdateListStruct) []UpdateItem { return oldObj.EachValNoModifyList }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *UpdateListStruct) []UpdateItem {
+				return oldObj.EachValNoModifyList
+			})
+		errs = append(errs, fn(fldPath.Child("eachValNoModifyList"), obj.EachValNoModifyList, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

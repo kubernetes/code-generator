@@ -85,9 +85,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Max0Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -95,11 +97,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 0)...)
 			return
-		}(fldPath.Child("max0Field"), &obj.Max0Field, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.Max0Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.Max0Field
+			})
+		errs = append(errs, fn(fldPath.Child("max0Field"), &obj.Max0Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0PtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0PtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -107,11 +117,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 0)...)
 			return
-		}(fldPath.Child("max0PtrField"), obj.Max0PtrField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.Max0PtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.Max0PtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max0PtrField"), obj.Max0PtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -119,11 +137,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 10)...)
 			return
-		}(fldPath.Child("max10Field"), &obj.Max10Field, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.Max10Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.Max10Field
+			})
+		errs = append(errs, fn(fldPath.Child("max10Field"), &obj.Max10Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10PtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10PtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -131,11 +157,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 10)...)
 			return
-		}(fldPath.Child("max10PtrField"), obj.Max10PtrField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.Max10PtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.Max10PtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max10PtrField"), obj.Max10PtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0UnvalidatedTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *UnvalidatedStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0UnvalidatedTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *UnvalidatedStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -143,11 +177,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 0)...)
 			return
-		}(fldPath.Child("max0UnvalidatedTypedefField"), &obj.Max0UnvalidatedTypedefField, safe.Field(oldObj, func(oldObj *Struct) *UnvalidatedStringType { return &oldObj.Max0UnvalidatedTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *UnvalidatedStringType {
+				return &oldObj.Max0UnvalidatedTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max0UnvalidatedTypedefField"), &obj.Max0UnvalidatedTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0UnvalidatedTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *UnvalidatedStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0UnvalidatedTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *UnvalidatedStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -155,11 +197,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 0)...)
 			return
-		}(fldPath.Child("max0UnvalidatedTypedefPtrField"), obj.Max0UnvalidatedTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *UnvalidatedStringType { return oldObj.Max0UnvalidatedTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *UnvalidatedStringType {
+				return oldObj.Max0UnvalidatedTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max0UnvalidatedTypedefPtrField"), obj.Max0UnvalidatedTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10UnvalidatedTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *UnvalidatedStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10UnvalidatedTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *UnvalidatedStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -167,11 +217,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 10)...)
 			return
-		}(fldPath.Child("max10UnvalidatedTypedefField"), &obj.Max10UnvalidatedTypedefField, safe.Field(oldObj, func(oldObj *Struct) *UnvalidatedStringType { return &oldObj.Max10UnvalidatedTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *UnvalidatedStringType {
+				return &oldObj.Max10UnvalidatedTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max10UnvalidatedTypedefField"), &obj.Max10UnvalidatedTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10UnvalidatedTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *UnvalidatedStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10UnvalidatedTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *UnvalidatedStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -179,11 +237,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.MaxBytes(ctx, op, fldPath, obj, oldObj, 10)...)
 			return
-		}(fldPath.Child("max10UnvalidatedTypedefPtrField"), obj.Max10UnvalidatedTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *UnvalidatedStringType { return oldObj.Max10UnvalidatedTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *UnvalidatedStringType {
+				return oldObj.Max10UnvalidatedTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max10UnvalidatedTypedefPtrField"), obj.Max10UnvalidatedTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0ValidatedTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Max0Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0ValidatedTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Max0Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -191,11 +257,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Max0Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("max0ValidatedTypedefField"), &obj.Max0ValidatedTypedefField, safe.Field(oldObj, func(oldObj *Struct) *Max0Type { return &oldObj.Max0ValidatedTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Max0Type {
+				return &oldObj.Max0ValidatedTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max0ValidatedTypedefField"), &obj.Max0ValidatedTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0ValidatedTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Max0Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0ValidatedTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Max0Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -203,11 +277,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Max0Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("max0ValidatedTypedefPtrField"), obj.Max0ValidatedTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *Max0Type { return oldObj.Max0ValidatedTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Max0Type {
+				return oldObj.Max0ValidatedTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max0ValidatedTypedefPtrField"), obj.Max0ValidatedTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10ValidatedTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Max10Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10ValidatedTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Max10Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -215,11 +297,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Max10Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("max10ValidatedTypedefField"), &obj.Max10ValidatedTypedefField, safe.Field(oldObj, func(oldObj *Struct) *Max10Type { return &oldObj.Max10ValidatedTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Max10Type {
+				return &oldObj.Max10ValidatedTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max10ValidatedTypedefField"), &obj.Max10ValidatedTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10ValidatedTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Max10Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10ValidatedTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Max10Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -227,7 +317,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Max10Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("max10ValidatedTypedefPtrField"), obj.Max10ValidatedTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *Max10Type { return oldObj.Max10ValidatedTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Max10Type {
+				return oldObj.Max10ValidatedTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("max10ValidatedTypedefPtrField"), obj.Max10ValidatedTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

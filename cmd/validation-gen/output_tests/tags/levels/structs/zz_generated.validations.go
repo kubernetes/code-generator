@@ -79,9 +79,11 @@ func Validate_ConditionalStruct(
 
 	// field ConditionalStruct.TypeMeta has no validation
 
-	// field ConditionalStruct.ConditionalField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ConditionalStruct.ConditionalField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -91,11 +93,19 @@ func Validate_ConditionalStruct(
 				return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
 			}).MarkAlpha()...)
 			return
-		}(fldPath.Child("conditionalField"), &obj.ConditionalField, safe.Field(oldObj, func(oldObj *ConditionalStruct) *int { return &oldObj.ConditionalField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ConditionalStruct) *int {
+				return &oldObj.ConditionalField
+			})
+		errs = append(errs, fn(fldPath.Child("conditionalField"), &obj.ConditionalField, oldVal, oldObj != nil)...)
+	}
 
-	// field ConditionalStruct.ConditionalFieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ConditionalStruct.ConditionalFieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -105,11 +115,19 @@ func Validate_ConditionalStruct(
 				return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
 			}).MarkBeta()...)
 			return
-		}(fldPath.Child("conditionalFieldBeta"), &obj.ConditionalFieldBeta, safe.Field(oldObj, func(oldObj *ConditionalStruct) *int { return &oldObj.ConditionalFieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ConditionalStruct) *int {
+				return &oldObj.ConditionalFieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("conditionalFieldBeta"), &obj.ConditionalFieldBeta, oldVal, oldObj != nil)...)
+	}
 
-	// field ConditionalStruct.RecursiveAlpha
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ConditionalStruct.RecursiveAlpha
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -117,11 +135,19 @@ func Validate_ConditionalStruct(
 			// call field-attached validations
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkAlpha()...)
 			return
-		}(fldPath.Child("recursiveAlpha"), &obj.RecursiveAlpha, safe.Field(oldObj, func(oldObj *ConditionalStruct) *int { return &oldObj.RecursiveAlpha }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ConditionalStruct) *int {
+				return &oldObj.RecursiveAlpha
+			})
+		errs = append(errs, fn(fldPath.Child("recursiveAlpha"), &obj.RecursiveAlpha, oldVal, oldObj != nil)...)
+	}
 
-	// field ConditionalStruct.RecursiveBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ConditionalStruct.RecursiveBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -129,7 +155,13 @@ func Validate_ConditionalStruct(
 			// call field-attached validations
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkBeta()...)
 			return
-		}(fldPath.Child("recursiveBeta"), &obj.RecursiveBeta, safe.Field(oldObj, func(oldObj *ConditionalStruct) *int { return &oldObj.RecursiveBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ConditionalStruct) *int {
+				return &oldObj.RecursiveBeta
+			})
+		errs = append(errs, fn(fldPath.Child("recursiveBeta"), &obj.RecursiveBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }
@@ -142,9 +174,11 @@ func Validate_MixedStruct(
 
 	// field MixedStruct.TypeMeta has no validation
 
-	// field MixedStruct.IntField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MixedStruct.IntField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -153,11 +187,19 @@ func Validate_MixedStruct(
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			return
-		}(fldPath.Child("intField"), &obj.IntField, safe.Field(oldObj, func(oldObj *MixedStruct) *int { return &oldObj.IntField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MixedStruct) *int {
+				return &oldObj.IntField
+			})
+		errs = append(errs, fn(fldPath.Child("intField"), &obj.IntField, oldVal, oldObj != nil)...)
+	}
 
-	// field MixedStruct.IntFieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MixedStruct.IntFieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -166,11 +208,19 @@ func Validate_MixedStruct(
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()...)
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
 			return
-		}(fldPath.Child("intFieldBeta"), &obj.IntFieldBeta, safe.Field(oldObj, func(oldObj *MixedStruct) *int { return &oldObj.IntFieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MixedStruct) *int {
+				return &oldObj.IntFieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("intFieldBeta"), &obj.IntFieldBeta, oldVal, oldObj != nil)...)
+	}
 
-	// field MixedStruct.ListField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MixedStruct.ListField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -189,11 +239,19 @@ func Validate_MixedStruct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("listField"), obj.ListField, safe.Field(oldObj, func(oldObj *MixedStruct) []string { return oldObj.ListField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MixedStruct) []string {
+				return oldObj.ListField
+			})
+		errs = append(errs, fn(fldPath.Child("listField"), obj.ListField, oldVal, oldObj != nil)...)
+	}
 
-	// field MixedStruct.ListFieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MixedStruct.ListFieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -212,7 +270,13 @@ func Validate_MixedStruct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("listFieldBeta"), obj.ListFieldBeta, safe.Field(oldObj, func(oldObj *MixedStruct) []string { return oldObj.ListFieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MixedStruct) []string {
+				return oldObj.ListFieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("listFieldBeta"), obj.ListFieldBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

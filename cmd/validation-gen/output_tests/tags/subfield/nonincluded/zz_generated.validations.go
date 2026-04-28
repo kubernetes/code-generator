@@ -62,9 +62,11 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	// field Struct.StructType
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *other.StructType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StructType
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *other.StructType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -76,7 +78,13 @@ func Validate_Struct(
 				})...)
 			}()
 			return
-		}(safe.Value(fldPath, func() *field.Path { return fldPath.Child("other.StructType") }), &obj.StructType, safe.Field(oldObj, func(oldObj *Struct) *other.StructType { return &oldObj.StructType }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *other.StructType {
+				return &oldObj.StructType
+			})
+		errs = append(errs, fn(safe.Value(fldPath, func() *field.Path { return fldPath.Child("other.StructType") }), &obj.StructType, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

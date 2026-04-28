@@ -74,9 +74,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.FullyQualifiedNameField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.FullyQualifiedNameField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -84,11 +86,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.ResourceFullyQualifiedName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("fullyQualifiedNameField"), &obj.FullyQualifiedNameField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.FullyQualifiedNameField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.FullyQualifiedNameField
+			})
+		errs = append(errs, fn(fldPath.Child("fullyQualifiedNameField"), &obj.FullyQualifiedNameField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.FullyQualifiedNamePtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.FullyQualifiedNamePtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -96,11 +106,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.ResourceFullyQualifiedName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("fullyQualifiedNamePtrField"), obj.FullyQualifiedNamePtrField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.FullyQualifiedNamePtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.FullyQualifiedNamePtrField
+			})
+		errs = append(errs, fn(fldPath.Child("fullyQualifiedNamePtrField"), obj.FullyQualifiedNamePtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.FullyQualifiedNameTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *FullyQualifiedNameStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.FullyQualifiedNameTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *FullyQualifiedNameStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -108,7 +126,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_FullyQualifiedNameStringType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("fullyQualifiedNameTypedefField"), &obj.FullyQualifiedNameTypedefField, safe.Field(oldObj, func(oldObj *Struct) *FullyQualifiedNameStringType { return &oldObj.FullyQualifiedNameTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *FullyQualifiedNameStringType {
+				return &oldObj.FullyQualifiedNameTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("fullyQualifiedNameTypedefField"), &obj.FullyQualifiedNameTypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

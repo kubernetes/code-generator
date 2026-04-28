@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Max0Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -81,11 +83,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("max0Field"), obj.Max0Field, safe.Field(oldObj, func(oldObj *Struct) []int { return oldObj.Max0Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []int {
+				return oldObj.Max0Field
+			})
+		errs = append(errs, fn(fldPath.Child("max0Field"), obj.Max0Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -100,11 +110,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("max10Field"), obj.Max10Field, safe.Field(oldObj, func(oldObj *Struct) []int { return oldObj.Max10Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []int {
+				return oldObj.Max10Field
+			})
+		errs = append(errs, fn(fldPath.Child("max10Field"), obj.Max10Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max0TypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []IntType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max0TypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -119,11 +137,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("max0TypedefField"), obj.Max0TypedefField, safe.Field(oldObj, func(oldObj *Struct) []IntType { return oldObj.Max0TypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []IntType {
+				return oldObj.Max0TypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max0TypedefField"), obj.Max0TypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Max10TypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []IntType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Max10TypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -138,7 +164,13 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("max10TypedefField"), obj.Max10TypedefField, safe.Field(oldObj, func(oldObj *Struct) []IntType { return oldObj.Max10TypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []IntType {
+				return oldObj.Max10TypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("max10TypedefField"), obj.Max10TypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

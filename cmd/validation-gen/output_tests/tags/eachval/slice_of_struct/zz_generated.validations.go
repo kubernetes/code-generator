@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.ListField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -76,11 +78,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListField[*]")
 			})...)
 			return
-		}(fldPath.Child("listField"), obj.ListField, safe.Field(oldObj, func(oldObj *Struct) []OtherStruct { return oldObj.ListField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherStruct {
+				return oldObj.ListField
+			})
+		errs = append(errs, fn(fldPath.Child("listField"), obj.ListField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ListTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherTypedefStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherTypedefStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -90,11 +100,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListTypedefField[*]")
 			})...)
 			return
-		}(fldPath.Child("listTypedefField"), obj.ListTypedefField, safe.Field(oldObj, func(oldObj *Struct) []OtherTypedefStruct { return oldObj.ListTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherTypedefStruct {
+				return oldObj.ListTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("listTypedefField"), obj.ListTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ListNonComparableField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []NonComparableStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListNonComparableField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []NonComparableStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -104,7 +122,13 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListNonComparableField[*]")
 			})...)
 			return
-		}(fldPath.Child("listNonComparableField"), obj.ListNonComparableField, safe.Field(oldObj, func(oldObj *Struct) []NonComparableStruct { return oldObj.ListNonComparableField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []NonComparableStruct {
+				return oldObj.ListNonComparableField
+			})
+		errs = append(errs, fn(fldPath.Child("listNonComparableField"), obj.ListNonComparableField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

@@ -142,9 +142,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.TypedefItems
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj ItemList, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.TypedefItems
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj ItemList,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -152,11 +154,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ItemList(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("typedefItems"), obj.TypedefItems, safe.Field(oldObj, func(oldObj *Struct) ItemList { return oldObj.TypedefItems }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) ItemList {
+				return oldObj.TypedefItems
+			})
+		errs = append(errs, fn(fldPath.Child("typedefItems"), obj.TypedefItems, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.NestedTypedefItems
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj ItemListAlias, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.NestedTypedefItems
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj ItemListAlias,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -164,11 +174,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ItemListAlias(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("nestedTypedefItems"), obj.NestedTypedefItems, safe.Field(oldObj, func(oldObj *Struct) ItemListAlias { return oldObj.NestedTypedefItems }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) ItemListAlias {
+				return oldObj.NestedTypedefItems
+			})
+		errs = append(errs, fn(fldPath.Child("nestedTypedefItems"), obj.NestedTypedefItems, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.DualItems
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj DualItemList, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.DualItems
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj DualItemList,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -182,11 +200,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_DualItemList(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("dualItems"), obj.DualItems, safe.Field(oldObj, func(oldObj *Struct) DualItemList { return oldObj.DualItems }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) DualItemList {
+				return oldObj.DualItems
+			})
+		errs = append(errs, fn(fldPath.Child("dualItems"), obj.DualItems, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ConflictingItems
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj ConflictingItemList, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ConflictingItems
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj ConflictingItemList,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -200,7 +226,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ConflictingItemList(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("conflictingItems"), obj.ConflictingItems, safe.Field(oldObj, func(oldObj *Struct) ConflictingItemList { return oldObj.ConflictingItems }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) ConflictingItemList {
+				return oldObj.ConflictingItems
+			})
+		errs = append(errs, fn(fldPath.Child("conflictingItems"), obj.ConflictingItems, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

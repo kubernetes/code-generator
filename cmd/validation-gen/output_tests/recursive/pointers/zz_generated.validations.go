@@ -92,9 +92,11 @@ func Validate_T1(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T1) (errs field.ErrorList) {
 
-	// field T1.PT1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T1, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T1.PT1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T1,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -110,11 +112,19 @@ func Validate_T1(
 			// call the type's validation function
 			errs = append(errs, Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("pt1"), obj.PT1, safe.Field(oldObj, func(oldObj *T1) *T1 { return oldObj.PT1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) *T1 {
+				return oldObj.PT1
+			})
+		errs = append(errs, fn(fldPath.Child("pt1"), obj.PT1, oldVal, oldObj != nil)...)
+	}
 
-	// field T1.T2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T2, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T1.T2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T2,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -122,11 +132,19 @@ func Validate_T1(
 			// call the type's validation function
 			errs = append(errs, Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("t2"), &obj.T2, safe.Field(oldObj, func(oldObj *T1) *T2 { return &oldObj.T2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) *T2 {
+				return &oldObj.T2
+			})
+		errs = append(errs, fn(fldPath.Child("t2"), &obj.T2, oldVal, oldObj != nil)...)
+	}
 
-	// field T1.PT2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T2, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T1.PT2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T2,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -142,7 +160,13 @@ func Validate_T1(
 			// call the type's validation function
 			errs = append(errs, Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("pt2"), obj.PT2, safe.Field(oldObj, func(oldObj *T1) *T2 { return oldObj.PT2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) *T2 {
+				return oldObj.PT2
+			})
+		errs = append(errs, fn(fldPath.Child("pt2"), obj.PT2, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }
@@ -153,9 +177,11 @@ func Validate_T2(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T2) (errs field.ErrorList) {
 
-	// field T2.PT1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T1, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T2.PT1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T1,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -171,11 +197,19 @@ func Validate_T2(
 			// call the type's validation function
 			errs = append(errs, Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("pt1"), obj.PT1, safe.Field(oldObj, func(oldObj *T2) *T1 { return oldObj.PT1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T2) *T1 {
+				return oldObj.PT1
+			})
+		errs = append(errs, fn(fldPath.Child("pt1"), obj.PT1, oldVal, oldObj != nil)...)
+	}
 
-	// field T2.PT2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T2, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T2.PT2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T2,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -191,11 +225,19 @@ func Validate_T2(
 			// call the type's validation function
 			errs = append(errs, Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("pt2"), obj.PT2, safe.Field(oldObj, func(oldObj *T2) *T2 { return oldObj.PT2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T2) *T2 {
+				return oldObj.PT2
+			})
+		errs = append(errs, fn(fldPath.Child("pt2"), obj.PT2, oldVal, oldObj != nil)...)
+	}
 
-	// field T2.PT3
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *T3, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T2.PT3
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *T3,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -211,7 +253,13 @@ func Validate_T2(
 			// call the type's validation function
 			errs = append(errs, Validate_T3(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("pt3"), obj.PT3, safe.Field(oldObj, func(oldObj *T2) *T3 { return oldObj.PT3 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T2) *T3 {
+				return oldObj.PT3
+			})
+		errs = append(errs, fn(fldPath.Child("pt3"), obj.PT3, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

@@ -63,9 +63,11 @@ func Validate_MyType(
 
 	// field MyType.TypeMeta has no validation
 
-	// field MyType.NameField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MyType.NameField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -80,11 +82,19 @@ func Validate_MyType(
 			}
 			errs = append(errs, validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("nameField"), &obj.NameField, safe.Field(oldObj, func(oldObj *MyType) *string { return &oldObj.NameField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MyType) *string {
+				return &oldObj.NameField
+			})
+		errs = append(errs, fn(fldPath.Child("nameField"), &obj.NameField, oldVal, oldObj != nil)...)
+	}
 
-	// field MyType.NamePtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MyType.NamePtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -99,11 +109,19 @@ func Validate_MyType(
 			}
 			errs = append(errs, validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("namePtrField"), obj.NamePtrField, safe.Field(oldObj, func(oldObj *MyType) *string { return oldObj.NamePtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MyType) *string {
+				return oldObj.NamePtrField
+			})
+		errs = append(errs, fn(fldPath.Child("namePtrField"), obj.NamePtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field MyType.NameTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *NameStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field MyType.NameTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *NameStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -111,7 +129,13 @@ func Validate_MyType(
 			// call the type's validation function
 			errs = append(errs, Validate_NameStringType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("nameTypedefField"), &obj.NameTypedefField, safe.Field(oldObj, func(oldObj *MyType) *NameStringType { return &oldObj.NameTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *MyType) *NameStringType {
+				return &oldObj.NameTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("nameTypedefField"), &obj.NameTypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

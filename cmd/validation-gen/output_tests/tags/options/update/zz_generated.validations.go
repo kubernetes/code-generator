@@ -63,9 +63,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.ImmutableEnabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ImmutableEnabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -80,11 +82,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("immutableEnabled"), &obj.ImmutableEnabled, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.ImmutableEnabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.ImmutableEnabled
+			})
+		errs = append(errs, fn(fldPath.Child("immutableEnabled"), &obj.ImmutableEnabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ImmutableDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ImmutableDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -99,11 +109,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("immutableDisabled"), &obj.ImmutableDisabled, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.ImmutableDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.ImmutableDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("immutableDisabled"), &obj.ImmutableDisabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.UpdateNoModifyEnabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.UpdateNoModifyEnabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -120,11 +138,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("updateNoModifyEnabled"), &obj.UpdateNoModifyEnabled, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.UpdateNoModifyEnabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.UpdateNoModifyEnabled
+			})
+		errs = append(errs, fn(fldPath.Child("updateNoModifyEnabled"), &obj.UpdateNoModifyEnabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.UpdateNoModifyDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.UpdateNoModifyDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -141,7 +167,13 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("updateNoModifyDisabled"), &obj.UpdateNoModifyDisabled, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.UpdateNoModifyDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.UpdateNoModifyDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("updateNoModifyDisabled"), &obj.UpdateNoModifyDisabled, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

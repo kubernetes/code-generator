@@ -77,9 +77,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.ListField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -90,11 +92,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListField[*]")
 			})...)
 			return
-		}(fldPath.Child("listField"), obj.ListField, safe.Field(oldObj, func(oldObj *Struct) []string { return oldObj.ListField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []string {
+				return oldObj.ListField
+			})
+		errs = append(errs, fn(fldPath.Child("listField"), obj.ListField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ListTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []StringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []StringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -107,7 +117,13 @@ func Validate_Struct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_StringType)...)
 			return
-		}(fldPath.Child("listTypedefField"), obj.ListTypedefField, safe.Field(oldObj, func(oldObj *Struct) []StringType { return oldObj.ListTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []StringType {
+				return oldObj.ListTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("listTypedefField"), obj.ListTypedefField, oldVal, oldObj != nil)...)
+	}
 
 	// field Struct.UnvalidatedListField has no validation
 	return errs

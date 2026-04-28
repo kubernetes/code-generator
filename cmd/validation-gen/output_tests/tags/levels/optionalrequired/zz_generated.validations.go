@@ -63,9 +63,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.RequiredField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.RequiredField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -80,11 +82,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("requiredField"), obj.RequiredField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.RequiredField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.RequiredField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredField"), obj.RequiredField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.RequiredFieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.RequiredFieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -99,7 +109,13 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("requiredFieldBeta"), obj.RequiredFieldBeta, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.RequiredFieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.RequiredFieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("requiredFieldBeta"), obj.RequiredFieldBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

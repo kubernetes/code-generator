@@ -135,9 +135,11 @@ func Validate_OtherStruct(
 
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct")...)
 
-	// field OtherStruct.StringField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field OtherStruct.StringField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -145,7 +147,13 @@ func Validate_OtherStruct(
 			// call field-attached validations
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field OtherStruct.StringField")...)
 			return
-		}(fldPath.Child("stringField"), &obj.StringField, safe.Field(oldObj, func(oldObj *OtherStruct) *string { return &oldObj.StringField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *OtherStruct) *string {
+				return &oldObj.StringField
+			})
+		errs = append(errs, fn(fldPath.Child("stringField"), &obj.StringField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }
@@ -158,9 +166,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.StructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -170,11 +180,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_OtherStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("structField"), &obj.StructField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return &oldObj.StructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return &oldObj.StructField
+			})
+		errs = append(errs, fn(fldPath.Child("structField"), &obj.StructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.StructPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StructPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -192,11 +210,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_OtherStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("structPtrField"), obj.StructPtrField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return oldObj.StructPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return oldObj.StructPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("structPtrField"), obj.StructPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.OpaqueStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.OpaqueStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -204,11 +230,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.OpaqueStructField")...)
 			return
-		}(fldPath.Child("opaqueStructField"), &obj.OpaqueStructField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return &oldObj.OpaqueStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return &oldObj.OpaqueStructField
+			})
+		errs = append(errs, fn(fldPath.Child("opaqueStructField"), &obj.OpaqueStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.OpaqueStructPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.OpaqueStructPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -224,11 +258,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.OpaqueStructPtrField")...)
 			return
-		}(fldPath.Child("opaqueStructPtrField"), obj.OpaqueStructPtrField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return oldObj.OpaqueStructPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return oldObj.OpaqueStructPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("opaqueStructPtrField"), obj.OpaqueStructPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.SliceOfStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.SliceOfStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -241,11 +283,19 @@ func Validate_Struct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_OtherStruct)...)
 			return
-		}(fldPath.Child("sliceOfStructField"), obj.SliceOfStructField, safe.Field(oldObj, func(oldObj *Struct) []OtherStruct { return oldObj.SliceOfStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherStruct {
+				return oldObj.SliceOfStructField
+			})
+		errs = append(errs, fn(fldPath.Child("sliceOfStructField"), obj.SliceOfStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.SliceOfOpaqueStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.SliceOfOpaqueStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -256,11 +306,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceOfOpaqueStructField vals")
 			})...)
 			return
-		}(fldPath.Child("sliceOfOpaqueStructField"), obj.SliceOfOpaqueStructField, safe.Field(oldObj, func(oldObj *Struct) []OtherStruct { return oldObj.SliceOfOpaqueStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherStruct {
+				return oldObj.SliceOfOpaqueStructField
+			})
+		errs = append(errs, fn(fldPath.Child("sliceOfOpaqueStructField"), obj.SliceOfOpaqueStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ListMapOfStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListMapOfStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -275,11 +333,19 @@ func Validate_Struct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, func(a OtherStruct, b OtherStruct) bool { return a.StringField == b.StringField }, validate.DirectEqual, Validate_OtherStruct)...)
 			return
-		}(fldPath.Child("listMapOfStructField"), obj.ListMapOfStructField, safe.Field(oldObj, func(oldObj *Struct) []OtherStruct { return oldObj.ListMapOfStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherStruct {
+				return oldObj.ListMapOfStructField
+			})
+		errs = append(errs, fn(fldPath.Child("listMapOfStructField"), obj.ListMapOfStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ListMapOfOpaqueStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ListMapOfOpaqueStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -292,11 +358,19 @@ func Validate_Struct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a OtherStruct, b OtherStruct) bool { return a.StringField == b.StringField })...)
 			return
-		}(fldPath.Child("listMapOfOpaqueStructField"), obj.ListMapOfOpaqueStructField, safe.Field(oldObj, func(oldObj *Struct) []OtherStruct { return oldObj.ListMapOfOpaqueStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []OtherStruct {
+				return oldObj.ListMapOfOpaqueStructField
+			})
+		errs = append(errs, fn(fldPath.Child("listMapOfOpaqueStructField"), obj.ListMapOfOpaqueStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapOfStringToStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[OtherString]OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapOfStringToStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[OtherString]OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -314,11 +388,19 @@ func Validate_Struct(
 			// iterate the map and call the value type's validation function
 			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct)...)
 			return
-		}(fldPath.Child("mapOfStringToStructField"), obj.MapOfStringToStructField, safe.Field(oldObj, func(oldObj *Struct) map[OtherString]OtherStruct { return oldObj.MapOfStringToStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[OtherString]OtherStruct {
+				return oldObj.MapOfStringToStructField
+			})
+		errs = append(errs, fn(fldPath.Child("mapOfStringToStructField"), obj.MapOfStringToStructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapOfStringToOpaqueStructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[OtherString]OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapOfStringToOpaqueStructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[OtherString]OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -332,7 +414,13 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapOfStringToOpaqueStructField vals")
 			})...)
 			return
-		}(fldPath.Child("mapOfStringToOpaqueStructField"), obj.MapOfStringToOpaqueStructField, safe.Field(oldObj, func(oldObj *Struct) map[OtherString]OtherStruct { return oldObj.MapOfStringToOpaqueStructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[OtherString]OtherStruct {
+				return oldObj.MapOfStringToOpaqueStructField
+			})
+		errs = append(errs, fn(fldPath.Child("mapOfStringToOpaqueStructField"), obj.MapOfStringToOpaqueStructField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

@@ -66,9 +66,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Tasks
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []Task, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Tasks
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []Task,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -92,7 +94,13 @@ func Validate_Struct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("tasks"), obj.Tasks, safe.Field(oldObj, func(oldObj *Struct) []Task { return oldObj.Tasks }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []Task {
+				return oldObj.Tasks
+			})
+		errs = append(errs, fn(fldPath.Child("tasks"), obj.Tasks, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

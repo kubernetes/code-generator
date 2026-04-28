@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.MapField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -76,11 +78,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "Struct.MapField(keys)")
 			})...)
 			return
-		}(fldPath.Child("mapField"), obj.MapField, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapField
+			})
+		errs = append(errs, fn(fldPath.Child("mapField"), obj.MapField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[UnvalidatedStringType]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[UnvalidatedStringType]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -90,11 +100,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "Struct.MapTypedefField(keys)")
 			})...)
 			return
-		}(fldPath.Child("mapTypedefField"), obj.MapTypedefField, safe.Field(oldObj, func(oldObj *Struct) map[UnvalidatedStringType]string { return oldObj.MapTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[UnvalidatedStringType]string {
+				return oldObj.MapTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("mapTypedefField"), obj.MapTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapValidatedTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[ValidatedStringType]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapValidatedTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[ValidatedStringType]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -106,11 +124,19 @@ func Validate_Struct(
 			// iterate the map and call the key type's validation function
 			errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_ValidatedStringType)...)
 			return
-		}(fldPath.Child("mapValidatedTypedefField"), obj.MapValidatedTypedefField, safe.Field(oldObj, func(oldObj *Struct) map[ValidatedStringType]string { return oldObj.MapValidatedTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[ValidatedStringType]string {
+				return oldObj.MapValidatedTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("mapValidatedTypedefField"), obj.MapValidatedTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapTypeField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj UnvalidatedMapType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapTypeField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj UnvalidatedMapType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -120,11 +146,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "Struct.MapTypeField(keys)")
 			})...)
 			return
-		}(fldPath.Child("mapTypeField"), obj.MapTypeField, safe.Field(oldObj, func(oldObj *Struct) UnvalidatedMapType { return oldObj.MapTypeField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) UnvalidatedMapType {
+				return oldObj.MapTypeField
+			})
+		errs = append(errs, fn(fldPath.Child("mapTypeField"), obj.MapTypeField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ValidatedMapTypeField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj ValidatedMapType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ValidatedMapTypeField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj ValidatedMapType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -136,7 +170,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ValidatedMapType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("validatedMapTypeField"), obj.ValidatedMapTypeField, safe.Field(oldObj, func(oldObj *Struct) ValidatedMapType { return oldObj.ValidatedMapTypeField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) ValidatedMapType {
+				return oldObj.ValidatedMapTypeField
+			})
+		errs = append(errs, fn(fldPath.Child("validatedMapTypeField"), obj.ValidatedMapTypeField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

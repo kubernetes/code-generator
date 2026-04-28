@@ -74,9 +74,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.ShortNameField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ShortNameField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -84,11 +86,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.ShortName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("shortNameField"), &obj.ShortNameField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.ShortNameField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.ShortNameField
+			})
+		errs = append(errs, fn(fldPath.Child("shortNameField"), &obj.ShortNameField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ShortNamePtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ShortNamePtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -96,11 +106,19 @@ func Validate_Struct(
 			// call field-attached validations
 			errs = append(errs, validate.ShortName(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("shortNamePtrField"), obj.ShortNamePtrField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.ShortNamePtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.ShortNamePtrField
+			})
+		errs = append(errs, fn(fldPath.Child("shortNamePtrField"), obj.ShortNamePtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ShortNameTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *ShortNameStringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ShortNameTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *ShortNameStringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -108,7 +126,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ShortNameStringType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("shortNameTypedefField"), &obj.ShortNameTypedefField, safe.Field(oldObj, func(oldObj *Struct) *ShortNameStringType { return &oldObj.ShortNameTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *ShortNameStringType {
+				return &oldObj.ShortNameTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("shortNameTypedefField"), &obj.ShortNameTypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

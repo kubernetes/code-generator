@@ -63,9 +63,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.ObjectMeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *ObjectMeta, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ObjectMeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *ObjectMeta,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -77,11 +79,19 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("metadata"), &obj.ObjectMeta, safe.Field(oldObj, func(oldObj *Struct) *ObjectMeta { return &oldObj.ObjectMeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *ObjectMeta {
+				return &oldObj.ObjectMeta
+			})
+		errs = append(errs, fn(fldPath.Child("metadata"), &obj.ObjectMeta, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ObjectMetaDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *ObjectMeta, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ObjectMetaDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *ObjectMeta,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -93,7 +103,13 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("metadataDisabled"), &obj.ObjectMetaDisabled, safe.Field(oldObj, func(oldObj *Struct) *ObjectMeta { return &oldObj.ObjectMetaDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *ObjectMeta {
+				return &oldObj.ObjectMetaDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("metadataDisabled"), &obj.ObjectMetaDisabled, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

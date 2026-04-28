@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.StructField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StructField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -103,11 +105,19 @@ func Validate_Struct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("structField"), &obj.StructField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return &oldObj.StructField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return &oldObj.StructField
+			})
+		errs = append(errs, fn(fldPath.Child("structField"), &obj.StructField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.StructPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StructPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -144,7 +154,13 @@ func Validate_Struct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("structPtrField"), obj.StructPtrField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return oldObj.StructPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return oldObj.StructPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("structPtrField"), obj.StructPtrField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

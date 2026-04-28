@@ -67,9 +67,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.UnionField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Union, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.UnionField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Union,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -77,11 +79,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Union(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("unionField"), &obj.UnionField, safe.Field(oldObj, func(oldObj *Struct) *Union { return &oldObj.UnionField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Union {
+				return &oldObj.UnionField
+			})
+		errs = append(errs, fn(fldPath.Child("unionField"), &obj.UnionField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.UnionFieldDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *UnionDisabled, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.UnionFieldDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *UnionDisabled,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -89,11 +99,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_UnionDisabled(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("unionFieldDisabled"), &obj.UnionFieldDisabled, safe.Field(oldObj, func(oldObj *Struct) *UnionDisabled { return &oldObj.UnionFieldDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *UnionDisabled {
+				return &oldObj.UnionFieldDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("unionFieldDisabled"), &obj.UnionFieldDisabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ZeroOrOneOfField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *ZeroOrOneOf, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ZeroOrOneOfField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *ZeroOrOneOf,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -101,11 +119,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ZeroOrOneOf(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("zeroOrOneOfField"), &obj.ZeroOrOneOfField, safe.Field(oldObj, func(oldObj *Struct) *ZeroOrOneOf { return &oldObj.ZeroOrOneOfField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *ZeroOrOneOf {
+				return &oldObj.ZeroOrOneOfField
+			})
+		errs = append(errs, fn(fldPath.Child("zeroOrOneOfField"), &obj.ZeroOrOneOfField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ZeroOrOneOfFieldDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *ZeroOrOneOfDisabled, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ZeroOrOneOfFieldDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *ZeroOrOneOfDisabled,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -113,11 +139,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_ZeroOrOneOfDisabled(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("zeroOrOneOfFieldDisabled"), &obj.ZeroOrOneOfFieldDisabled, safe.Field(oldObj, func(oldObj *Struct) *ZeroOrOneOfDisabled { return &oldObj.ZeroOrOneOfFieldDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *ZeroOrOneOfDisabled {
+				return &oldObj.ZeroOrOneOfFieldDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("zeroOrOneOfFieldDisabled"), &obj.ZeroOrOneOfFieldDisabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ZeroOrOneOfItem
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []Task, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ZeroOrOneOfItem
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []Task,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -143,11 +177,19 @@ func Validate_Struct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("zeroOrOneOfItem"), obj.ZeroOrOneOfItem, safe.Field(oldObj, func(oldObj *Struct) []Task { return oldObj.ZeroOrOneOfItem }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []Task {
+				return oldObj.ZeroOrOneOfItem
+			})
+		errs = append(errs, fn(fldPath.Child("zeroOrOneOfItem"), obj.ZeroOrOneOfItem, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.ZeroOrOneOfItemDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []Task, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.ZeroOrOneOfItemDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []Task,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -173,7 +215,13 @@ func Validate_Struct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
 			return
-		}(fldPath.Child("zeroOrOneOfItemDisabled"), obj.ZeroOrOneOfItemDisabled, safe.Field(oldObj, func(oldObj *Struct) []Task { return oldObj.ZeroOrOneOfItemDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []Task {
+				return oldObj.ZeroOrOneOfItemDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("zeroOrOneOfItemDisabled"), obj.ZeroOrOneOfItemDisabled, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

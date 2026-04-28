@@ -66,9 +66,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Subfield
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *SubStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Subfield
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *SubStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -80,11 +82,19 @@ func Validate_Struct(
 				}).MarkAlpha()...)
 			}()
 			return
-		}(fldPath.Child("subfield"), &obj.Subfield, safe.Field(oldObj, func(oldObj *Struct) *SubStruct { return &oldObj.Subfield }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *SubStruct {
+				return &oldObj.Subfield
+			})
+		errs = append(errs, fn(fldPath.Child("subfield"), &obj.Subfield, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.SubfieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *SubStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.SubfieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *SubStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -96,11 +106,19 @@ func Validate_Struct(
 				}).MarkBeta()...)
 			}()
 			return
-		}(fldPath.Child("subfieldBeta"), &obj.SubfieldBeta, safe.Field(oldObj, func(oldObj *Struct) *SubStruct { return &oldObj.SubfieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *SubStruct {
+				return &oldObj.SubfieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("subfieldBeta"), &obj.SubfieldBeta, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.UnionField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *SubUnion, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.UnionField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *SubUnion,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -118,7 +136,13 @@ func Validate_Struct(
 				return obj.Z2 != nil
 			}).MarkAlpha()...)
 			return
-		}(fldPath.Child("unionField"), &obj.UnionField, safe.Field(oldObj, func(oldObj *Struct) *SubUnion { return &oldObj.UnionField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *SubUnion {
+				return &oldObj.UnionField
+			})
+		errs = append(errs, fn(fldPath.Child("unionField"), &obj.UnionField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

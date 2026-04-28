@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.MapField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -76,11 +78,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField")
 			})...)
 			return
-		}(fldPath.Child("mapField"), obj.MapField, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapField
+			})
+		errs = append(errs, fn(fldPath.Child("mapField"), obj.MapField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapFieldDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapFieldDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -90,11 +100,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapFieldDisabled")
 			})...)
 			return
-		}(fldPath.Child("mapFieldDisabled"), obj.MapFieldDisabled, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapFieldDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapFieldDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("mapFieldDisabled"), obj.MapFieldDisabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapFieldEachKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapFieldEachKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -106,11 +124,19 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("mapFieldEachKey"), obj.MapFieldEachKey, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapFieldEachKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapFieldEachKey
+			})
+		errs = append(errs, fn(fldPath.Child("mapFieldEachKey"), obj.MapFieldEachKey, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapFieldEachKeyDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapFieldEachKeyDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -122,11 +148,19 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("mapFieldEachKeyDisabled"), obj.MapFieldEachKeyDisabled, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapFieldEachKeyDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapFieldEachKeyDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("mapFieldEachKeyDisabled"), obj.MapFieldEachKeyDisabled, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapFieldEachVal
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapFieldEachVal
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -138,11 +172,19 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("mapFieldEachVal"), obj.MapFieldEachVal, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapFieldEachVal }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapFieldEachVal
+			})
+		errs = append(errs, fn(fldPath.Child("mapFieldEachVal"), obj.MapFieldEachVal, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapFieldEachValDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapFieldEachValDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -154,7 +196,13 @@ func Validate_Struct(
 				})
 			})...)
 			return
-		}(fldPath.Child("mapFieldEachValDisabled"), obj.MapFieldEachValDisabled, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapFieldEachValDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapFieldEachValDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("mapFieldEachValDisabled"), obj.MapFieldEachValDisabled, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

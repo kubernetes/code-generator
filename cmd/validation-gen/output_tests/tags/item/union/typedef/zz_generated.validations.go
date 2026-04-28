@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Tasks
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj TaskList, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Tasks
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj TaskList,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -74,7 +76,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_TaskList(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("tasks"), obj.Tasks, safe.Field(oldObj, func(oldObj *Struct) TaskList { return oldObj.Tasks }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) TaskList {
+				return oldObj.Tasks
+			})
+		errs = append(errs, fn(fldPath.Child("tasks"), obj.Tasks, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

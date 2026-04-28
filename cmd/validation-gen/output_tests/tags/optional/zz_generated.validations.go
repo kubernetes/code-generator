@@ -119,9 +119,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.StringField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StringField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -136,11 +138,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringField")...)
 			return
-		}(fldPath.Child("stringField"), &obj.StringField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.StringField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.StringField
+			})
+		errs = append(errs, fn(fldPath.Child("stringField"), &obj.StringField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.StringPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StringPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -155,11 +165,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringPtrField")...)
 			return
-		}(fldPath.Child("stringPtrField"), obj.StringPtrField, safe.Field(oldObj, func(oldObj *Struct) *string { return oldObj.StringPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return oldObj.StringPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("stringPtrField"), obj.StringPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.StringTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *StringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StringTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *StringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -176,11 +194,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_StringType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("stringTypedefField"), &obj.StringTypedefField, safe.Field(oldObj, func(oldObj *Struct) *StringType { return &oldObj.StringTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *StringType {
+				return &oldObj.StringTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("stringTypedefField"), &obj.StringTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.StringTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *StringType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.StringTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *StringType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -197,11 +223,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_StringType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("stringTypedefPtrField"), obj.StringTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *StringType { return oldObj.StringTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *StringType {
+				return oldObj.StringTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("stringTypedefPtrField"), obj.StringTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.IntField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.IntField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -216,11 +250,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntField")...)
 			return
-		}(fldPath.Child("intField"), &obj.IntField, safe.Field(oldObj, func(oldObj *Struct) *int { return &oldObj.IntField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *int {
+				return &oldObj.IntField
+			})
+		errs = append(errs, fn(fldPath.Child("intField"), &obj.IntField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.IntPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.IntPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -235,11 +277,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntPtrField")...)
 			return
-		}(fldPath.Child("intPtrField"), obj.IntPtrField, safe.Field(oldObj, func(oldObj *Struct) *int { return oldObj.IntPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *int {
+				return oldObj.IntPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("intPtrField"), obj.IntPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.IntTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *IntType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.IntTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -256,11 +306,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("intTypedefField"), &obj.IntTypedefField, safe.Field(oldObj, func(oldObj *Struct) *IntType { return &oldObj.IntTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *IntType {
+				return &oldObj.IntTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("intTypedefField"), &obj.IntTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.IntTypedefPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *IntType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.IntTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -277,11 +335,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("intTypedefPtrField"), obj.IntTypedefPtrField, safe.Field(oldObj, func(oldObj *Struct) *IntType { return oldObj.IntTypedefPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *IntType {
+				return oldObj.IntTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("intTypedefPtrField"), obj.IntTypedefPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.OtherStructPtrField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *OtherStruct, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.OtherStructPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *OtherStruct,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -298,11 +364,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_OtherStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("otherStructPtrField"), obj.OtherStructPtrField, safe.Field(oldObj, func(oldObj *Struct) *OtherStruct { return oldObj.OtherStructPtrField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *OtherStruct {
+				return oldObj.OtherStructPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("otherStructPtrField"), obj.OtherStructPtrField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.SliceField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.SliceField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -317,11 +391,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceField")...)
 			return
-		}(fldPath.Child("sliceField"), obj.SliceField, safe.Field(oldObj, func(oldObj *Struct) []string { return oldObj.SliceField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []string {
+				return oldObj.SliceField
+			})
+		errs = append(errs, fn(fldPath.Child("sliceField"), obj.SliceField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.SliceTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj SliceType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.SliceTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj SliceType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -338,11 +420,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_SliceType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("sliceTypedefField"), obj.SliceTypedefField, safe.Field(oldObj, func(oldObj *Struct) SliceType { return oldObj.SliceTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) SliceType {
+				return oldObj.SliceTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("sliceTypedefField"), obj.SliceTypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj map[string]string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj map[string]string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -357,11 +447,19 @@ func Validate_Struct(
 			}
 			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField")...)
 			return
-		}(fldPath.Child("mapField"), obj.MapField, safe.Field(oldObj, func(oldObj *Struct) map[string]string { return oldObj.MapField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) map[string]string {
+				return oldObj.MapField
+			})
+		errs = append(errs, fn(fldPath.Child("mapField"), obj.MapField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.MapTypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj MapType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.MapTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj MapType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -378,7 +476,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_MapType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("mapTypedefField"), obj.MapTypedefField, safe.Field(oldObj, func(oldObj *Struct) MapType { return oldObj.MapTypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) MapType {
+				return oldObj.MapTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("mapTypedefField"), obj.MapTypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

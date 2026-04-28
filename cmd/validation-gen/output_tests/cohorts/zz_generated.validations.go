@@ -95,9 +95,11 @@ func Validate_T(
 
 	// field T.TypeMeta has no validation
 
-	// field T.S
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field T.S
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -135,7 +137,13 @@ func Validate_T(
 				errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 Regular")...)
 			}()
 			return
-		}(fldPath.Child("s"), &obj.S, safe.Field(oldObj, func(oldObj *T) *string { return &oldObj.S }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T) *string {
+				return &oldObj.S
+			})
+		errs = append(errs, fn(fldPath.Child("s"), &obj.S, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

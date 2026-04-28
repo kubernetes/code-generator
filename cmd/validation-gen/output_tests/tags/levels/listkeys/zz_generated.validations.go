@@ -64,9 +64,11 @@ func Validate_ListKeyStruct(
 
 	// field ListKeyStruct.TypeMeta has no validation
 
-	// field ListKeyStruct.AlphaListTypeStandardKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.AlphaListTypeStandardKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -75,11 +77,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key }).MarkAlpha()...)
 			return
-		}(fldPath.Child("alphaListTypeStandardKey"), obj.AlphaListTypeStandardKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.AlphaListTypeStandardKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.AlphaListTypeStandardKey
+			})
+		errs = append(errs, fn(fldPath.Child("alphaListTypeStandardKey"), obj.AlphaListTypeStandardKey, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeAlphaKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeAlphaKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -88,11 +98,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
 			return
-		}(fldPath.Child("standardListTypeAlphaKey"), obj.StandardListTypeAlphaKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.StandardListTypeAlphaKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.StandardListTypeAlphaKey
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeAlphaKey"), obj.StandardListTypeAlphaKey, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.AlphaListTypeAlphaKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.AlphaListTypeAlphaKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -101,11 +119,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key }).MarkAlpha()...)
 			return
-		}(fldPath.Child("alphaListTypeAlphaKey"), obj.AlphaListTypeAlphaKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.AlphaListTypeAlphaKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.AlphaListTypeAlphaKey
+			})
+		errs = append(errs, fn(fldPath.Child("alphaListTypeAlphaKey"), obj.AlphaListTypeAlphaKey, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeMixedKeys1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeMixedKeys1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -114,11 +140,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
 			return
-		}(fldPath.Child("standardListTypeMixedKeys1"), obj.StandardListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeys1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.StandardListTypeMixedKeys1
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeMixedKeys1"), obj.StandardListTypeMixedKeys1, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeMixedKeys2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeMixedKeys2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -127,11 +161,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
 			return
-		}(fldPath.Child("standardListTypeMixedKeys2"), obj.StandardListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeys2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.StandardListTypeMixedKeys2
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeMixedKeys2"), obj.StandardListTypeMixedKeys2, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.AlphaListTypeMixedKeys1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.AlphaListTypeMixedKeys1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -140,11 +182,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkAlpha()...)
 			return
-		}(fldPath.Child("alphaListTypeMixedKeys1"), obj.AlphaListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.AlphaListTypeMixedKeys1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.AlphaListTypeMixedKeys1
+			})
+		errs = append(errs, fn(fldPath.Child("alphaListTypeMixedKeys1"), obj.AlphaListTypeMixedKeys1, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.AlphaListTypeMixedKeys2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.AlphaListTypeMixedKeys2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -153,11 +203,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkAlpha()...)
 			return
-		}(fldPath.Child("alphaListTypeMixedKeys2"), obj.AlphaListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.AlphaListTypeMixedKeys2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.AlphaListTypeMixedKeys2
+			})
+		errs = append(errs, fn(fldPath.Child("alphaListTypeMixedKeys2"), obj.AlphaListTypeMixedKeys2, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeMixedKeysBeta1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeMixedKeysBeta1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -166,11 +224,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 })...)
 			return
-		}(fldPath.Child("standardListTypeMixedKeysBeta1"), obj.StandardListTypeMixedKeysBeta1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeysBeta1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.StandardListTypeMixedKeysBeta1
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeMixedKeysBeta1"), obj.StandardListTypeMixedKeysBeta1, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeMixedKeysBeta2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeMixedKeysBeta2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -179,11 +245,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 })...)
 			return
-		}(fldPath.Child("standardListTypeMixedKeysBeta2"), obj.StandardListTypeMixedKeysBeta2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.StandardListTypeMixedKeysBeta2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.StandardListTypeMixedKeysBeta2
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeMixedKeysBeta2"), obj.StandardListTypeMixedKeysBeta2, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.BetaListTypeMixedKeys1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.BetaListTypeMixedKeys1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -192,11 +266,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key1 == b.Key1 && a.Key2 == b.Key2 }).MarkBeta()...)
 			return
-		}(fldPath.Child("betaListTypeMixedKeys1"), obj.BetaListTypeMixedKeys1, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.BetaListTypeMixedKeys1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.BetaListTypeMixedKeys1
+			})
+		errs = append(errs, fn(fldPath.Child("betaListTypeMixedKeys1"), obj.BetaListTypeMixedKeys1, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.BetaListTypeMixedKeys2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MultiKeyItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.BetaListTypeMixedKeys2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MultiKeyItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -205,11 +287,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MultiKeyItem, b MultiKeyItem) bool { return a.Key2 == b.Key2 && a.Key1 == b.Key1 }).MarkBeta()...)
 			return
-		}(fldPath.Child("betaListTypeMixedKeys2"), obj.BetaListTypeMixedKeys2, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MultiKeyItem { return oldObj.BetaListTypeMixedKeys2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MultiKeyItem {
+				return oldObj.BetaListTypeMixedKeys2
+			})
+		errs = append(errs, fn(fldPath.Child("betaListTypeMixedKeys2"), obj.BetaListTypeMixedKeys2, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.BetaListTypeStandardKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.BetaListTypeStandardKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -218,11 +308,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key }).MarkBeta()...)
 			return
-		}(fldPath.Child("betaListTypeStandardKey"), obj.BetaListTypeStandardKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.BetaListTypeStandardKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.BetaListTypeStandardKey
+			})
+		errs = append(errs, fn(fldPath.Child("betaListTypeStandardKey"), obj.BetaListTypeStandardKey, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.StandardListTypeBetaKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.StandardListTypeBetaKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -231,11 +329,19 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key })...)
 			return
-		}(fldPath.Child("standardListTypeBetaKey"), obj.StandardListTypeBetaKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.StandardListTypeBetaKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.StandardListTypeBetaKey
+			})
+		errs = append(errs, fn(fldPath.Child("standardListTypeBetaKey"), obj.StandardListTypeBetaKey, oldVal, oldObj != nil)...)
+	}
 
-	// field ListKeyStruct.BetaListTypeBetaKey
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListKeyStruct.BetaListTypeBetaKey
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -244,7 +350,13 @@ func Validate_ListKeyStruct(
 			// lists with map semantics require unique keys
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a MapItem, b MapItem) bool { return a.Key == b.Key }).MarkBeta()...)
 			return
-		}(fldPath.Child("betaListTypeBetaKey"), obj.BetaListTypeBetaKey, safe.Field(oldObj, func(oldObj *ListKeyStruct) []MapItem { return oldObj.BetaListTypeBetaKey }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListKeyStruct) []MapItem {
+				return oldObj.BetaListTypeBetaKey
+			})
+		errs = append(errs, fn(fldPath.Child("betaListTypeBetaKey"), obj.BetaListTypeBetaKey, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

@@ -170,9 +170,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.DiscriminatorField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Discriminator, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.DiscriminatorField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Discriminator,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -180,11 +182,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Discriminator(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("discriminatorField"), &obj.DiscriminatorField, safe.Field(oldObj, func(oldObj *Struct) *Discriminator { return &oldObj.DiscriminatorField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Discriminator {
+				return &oldObj.DiscriminatorField
+			})
+		errs = append(errs, fn(fldPath.Child("discriminatorField"), &obj.DiscriminatorField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.DiscriminatorFieldDisabled
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *DiscriminatorDisabled, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.DiscriminatorFieldDisabled
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *DiscriminatorDisabled,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -192,7 +202,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_DiscriminatorDisabled(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("discriminatorFieldDisabled"), &obj.DiscriminatorFieldDisabled, safe.Field(oldObj, func(oldObj *Struct) *DiscriminatorDisabled { return &oldObj.DiscriminatorFieldDisabled }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *DiscriminatorDisabled {
+				return &oldObj.DiscriminatorFieldDisabled
+			})
+		errs = append(errs, fn(fldPath.Child("discriminatorFieldDisabled"), &obj.DiscriminatorFieldDisabled, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

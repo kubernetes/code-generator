@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.XEnabledField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.XEnabledField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -76,11 +78,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.XEnabledField")
 			})...)
 			return
-		}(fldPath.Child("xEnabledField"), &obj.XEnabledField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.XEnabledField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.XEnabledField
+			})
+		errs = append(errs, fn(fldPath.Child("xEnabledField"), &obj.XEnabledField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.XDisabledField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.XDisabledField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -90,11 +100,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.XDisabledField")
 			})...)
 			return
-		}(fldPath.Child("xDisabledField"), &obj.XDisabledField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.XDisabledField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.XDisabledField
+			})
+		errs = append(errs, fn(fldPath.Child("xDisabledField"), &obj.XDisabledField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.YEnabledField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.YEnabledField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -104,11 +122,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.YEnabledField")
 			})...)
 			return
-		}(fldPath.Child("yEnabledField"), &obj.YEnabledField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.YEnabledField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.YEnabledField
+			})
+		errs = append(errs, fn(fldPath.Child("yEnabledField"), &obj.YEnabledField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.YDisabledField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.YDisabledField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -118,11 +144,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.YDisabledField")
 			})...)
 			return
-		}(fldPath.Child("yDisabledField"), &obj.YDisabledField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.YDisabledField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.YDisabledField
+			})
+		errs = append(errs, fn(fldPath.Child("yDisabledField"), &obj.YDisabledField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.XYMixedField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.XYMixedField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *string,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -135,11 +169,19 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.XYMixedField/X")
 			})...)
 			return
-		}(fldPath.Child("xyMixedField"), &obj.XYMixedField, safe.Field(oldObj, func(oldObj *Struct) *string { return &oldObj.XYMixedField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *string {
+				return &oldObj.XYMixedField
+			})
+		errs = append(errs, fn(fldPath.Child("xyMixedField"), &obj.XYMixedField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.NilableAliasField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj MySlice, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.NilableAliasField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj MySlice,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -149,7 +191,13 @@ func Validate_Struct(
 				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.NilableAliasField")
 			})...)
 			return
-		}(fldPath.Child("nilableAliasField"), obj.NilableAliasField, safe.Field(oldObj, func(oldObj *Struct) MySlice { return oldObj.NilableAliasField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) MySlice {
+				return oldObj.NilableAliasField
+			})
+		errs = append(errs, fn(fldPath.Child("nilableAliasField"), obj.NilableAliasField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

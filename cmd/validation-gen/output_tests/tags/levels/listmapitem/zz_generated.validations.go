@@ -64,9 +64,11 @@ func Validate_ListMapItemStruct(
 
 	// field ListMapItemStruct.TypeMeta has no validation
 
-	// field ListMapItemStruct.StandardItem
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.StandardItem
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -82,11 +84,19 @@ func Validate_ListMapItemStruct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("standardItem"), obj.StandardItem, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.StandardItem }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.StandardItem
+			})
+		errs = append(errs, fn(fldPath.Child("standardItem"), obj.StandardItem, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.AlphaItemTag
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.AlphaItemTag
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -102,11 +112,19 @@ func Validate_ListMapItemStruct(
 				}).MarkAlpha()...)
 			}()
 			return
-		}(fldPath.Child("alphaItemTag"), obj.AlphaItemTag, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.AlphaItemTag }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.AlphaItemTag
+			})
+		errs = append(errs, fn(fldPath.Child("alphaItemTag"), obj.AlphaItemTag, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.AlphaValidation
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.AlphaValidation
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -122,11 +140,19 @@ func Validate_ListMapItemStruct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("alphaValidation"), obj.AlphaValidation, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.AlphaValidation }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.AlphaValidation
+			})
+		errs = append(errs, fn(fldPath.Child("alphaValidation"), obj.AlphaValidation, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.DoubleAlpha
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.DoubleAlpha
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -142,11 +168,19 @@ func Validate_ListMapItemStruct(
 				}).MarkAlpha()...)
 			}()
 			return
-		}(fldPath.Child("doubleAlpha"), obj.DoubleAlpha, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.DoubleAlpha }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.DoubleAlpha
+			})
+		errs = append(errs, fn(fldPath.Child("doubleAlpha"), obj.DoubleAlpha, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.BetaItemTag
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.BetaItemTag
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -162,11 +196,19 @@ func Validate_ListMapItemStruct(
 				}).MarkBeta()...)
 			}()
 			return
-		}(fldPath.Child("betaItemTag"), obj.BetaItemTag, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.BetaItemTag }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.BetaItemTag
+			})
+		errs = append(errs, fn(fldPath.Child("betaItemTag"), obj.BetaItemTag, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.BetaValidation
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.BetaValidation
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -182,11 +224,19 @@ func Validate_ListMapItemStruct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("betaValidation"), obj.BetaValidation, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.BetaValidation }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.BetaValidation
+			})
+		errs = append(errs, fn(fldPath.Child("betaValidation"), obj.BetaValidation, oldVal, oldObj != nil)...)
+	}
 
-	// field ListMapItemStruct.DoubleBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []MapItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListMapItemStruct.DoubleBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []MapItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -202,7 +252,13 @@ func Validate_ListMapItemStruct(
 				}).MarkBeta()...)
 			}()
 			return
-		}(fldPath.Child("doubleBeta"), obj.DoubleBeta, safe.Field(oldObj, func(oldObj *ListMapItemStruct) []MapItem { return oldObj.DoubleBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListMapItemStruct) []MapItem {
+				return oldObj.DoubleBeta
+			})
+		errs = append(errs, fn(fldPath.Child("doubleBeta"), obj.DoubleBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

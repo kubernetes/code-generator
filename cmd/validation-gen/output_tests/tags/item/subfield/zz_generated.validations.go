@@ -64,9 +64,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.Items
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []Item, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Items
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []Item,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -82,11 +84,19 @@ func Validate_Struct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("items"), obj.Items, safe.Field(oldObj, func(oldObj *Struct) []Item { return oldObj.Items }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []Item {
+				return oldObj.Items
+			})
+		errs = append(errs, fn(fldPath.Child("items"), obj.Items, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.RatchetItems
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []RatchetItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.RatchetItems
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []RatchetItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -102,7 +112,13 @@ func Validate_Struct(
 				})...)
 			}()
 			return
-		}(fldPath.Child("ratchetItems"), obj.RatchetItems, safe.Field(oldObj, func(oldObj *Struct) []RatchetItem { return oldObj.RatchetItems }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) []RatchetItem {
+				return oldObj.RatchetItems
+			})
+		errs = append(errs, fn(fldPath.Child("ratchetItems"), obj.RatchetItems, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

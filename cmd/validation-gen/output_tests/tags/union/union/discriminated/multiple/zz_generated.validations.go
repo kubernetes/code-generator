@@ -100,9 +100,11 @@ func Validate_Struct(
 	// field Struct.TypeMeta has no validation
 	// field Struct.D1 has no validation
 
-	// field Struct.U1M1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *M1, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.U1M1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *M1,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -116,11 +118,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("u1m1"), obj.U1M1, safe.Field(oldObj, func(oldObj *Struct) *M1 { return oldObj.U1M1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *M1 {
+				return oldObj.U1M1
+			})
+		errs = append(errs, fn(fldPath.Child("u1m1"), obj.U1M1, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.U1M2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *M2, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.U1M2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *M2,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -134,13 +144,21 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("u1m2"), obj.U1M2, safe.Field(oldObj, func(oldObj *Struct) *M2 { return oldObj.U1M2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *M2 {
+				return oldObj.U1M2
+			})
+		errs = append(errs, fn(fldPath.Child("u1m2"), obj.U1M2, oldVal, oldObj != nil)...)
+	}
 
 	// field Struct.D2 has no validation
 
-	// field Struct.U2M1
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *M1, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.U2M1
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *M1,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -154,11 +172,19 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("u2m1"), obj.U2M1, safe.Field(oldObj, func(oldObj *Struct) *M1 { return oldObj.U2M1 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *M1 {
+				return oldObj.U2M1
+			})
+		errs = append(errs, fn(fldPath.Child("u2m1"), obj.U2M1, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.U2M2
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *M2, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.U2M2
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *M2,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -172,7 +198,13 @@ func Validate_Struct(
 				return // do not proceed
 			}
 			return
-		}(fldPath.Child("u2m2"), obj.U2M2, safe.Field(oldObj, func(oldObj *Struct) *M2 { return oldObj.U2M2 }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *M2 {
+				return oldObj.U2M2
+			})
+		errs = append(errs, fn(fldPath.Child("u2m2"), obj.U2M2, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

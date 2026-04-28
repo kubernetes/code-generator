@@ -1278,22 +1278,16 @@ func (g *genValidations) emitValidationForChild(c *generator.Context, thisChild 
 				if didSome {
 					sw.Do("\n", nil)
 				}
-				sw.Do("// field $.inType|raw$.$.fieldName$\n", targs)
-				sw.Do("errs = append(errs,\n", targs)
-				sw.Do("  func(fldPath *$.field.Path|raw$, obj, oldObj $.fieldTypePfx$$.fieldType|raw$, oldValueCorrelated bool) (errs $.field.ErrorList|raw$) {\n", targs)
+				sw.Do("{ // field $.inType|raw$.$.fieldName$\n", targs)
+				sw.Do("    fn := func(\n", targs)
+				sw.Do("        fldPath *$.field.Path|raw$,\n", targs)
+				sw.Do("        obj, oldObj $.fieldTypePfx$$.fieldType|raw$,\n", targs)
+				sw.Do("        oldValueCorrelated bool) (errs $.field.ErrorList|raw$) {\n", targs)
 				if err := sw.Merge(buf, bufsw); err != nil {
 					panic(fmt.Sprintf("failed to merge buffer: %v", err))
 				}
-				sw.Do("    return\n", targs)
-				sw.Do("  }(", targs)
-				if len(fld.jsonName) > 0 {
-					sw.Do("fldPath.Child(\"$.fieldJSON$\"), ", targs)
-				} else {
-					// If there is an embedded field in a root-type, fldPath
-					// will be nil, and we need SOMETHING for the field path.
-					sw.Do("$.safe.Value|raw$(fldPath, func() *$.field.Path|raw$ { return fldPath.Child(\"$.fieldType|raw$\") }), ", targs)
-				}
-				sw.Do("    $.fieldExprPfx$obj.$.fieldName$, ", targs)
+				sw.Do("            return\n", targs)
+				sw.Do("    }\n", targs)
 				// safe.Field returns a nil if the old object does not have a correlatable
 				// value, such as a map.
 				// This is ambiguous with the case where the field exists and is nil.
@@ -1312,11 +1306,20 @@ func (g *genValidations) emitValidationForChild(c *generator.Context, thisChild 
 				// This bit is not currently propagated down to deeper levels of
 				// validation, but since the code generator only ever looks one level
 				// down, this is sufficient for now.
-				sw.Do("    $.safe.Field|raw$(oldObj, ", targs)
-				sw.Do("        func(oldObj *$.inType|raw$) $.fieldTypePfx$$.fieldType|raw$ {", targs)
-				sw.Do("            return $.fieldExprPfx$oldObj.$.fieldName$", targs)
-				sw.Do("        }), oldObj != nil", targs)
-				sw.Do("    )...)\n", targs)
+				sw.Do("    oldVal := $.safe.Field|raw$(oldObj,\n", targs)
+				sw.Do("        func(oldObj *$.inType|raw$) $.fieldTypePfx$$.fieldType|raw$ {\n", targs)
+				sw.Do("            return $.fieldExprPfx$oldObj.$.fieldName$\n", targs)
+				sw.Do("        })\n", targs)
+				sw.Do("    errs = append(errs, fn(", targs)
+				if len(fld.jsonName) > 0 {
+					sw.Do("fldPath.Child(\"$.fieldJSON$\"), ", targs)
+				} else {
+					// If there is an embedded field in a root-type, fldPath
+					// will be nil, and we need SOMETHING for the field path.
+					sw.Do("$.safe.Value|raw$(fldPath, func() *$.field.Path|raw$ { return fldPath.Child(\"$.fieldType|raw$\") }), ", targs)
+				}
+				sw.Do("    $.fieldExprPfx$obj.$.fieldName$, oldVal, oldObj != nil)...)\n", targs)
+				sw.Do("}\n", targs)
 				sw.Do("\n", nil)
 			} else {
 				targs := targs.WithArgs(generator.Args{

@@ -62,9 +62,11 @@ func Validate_ComplexSetItem(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ComplexSetItem) (errs field.ErrorList) {
 
-	// field ComplexSetItem.Value
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ComplexSetItem.Value
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -72,7 +74,13 @@ func Validate_ComplexSetItem(
 			// call field-attached validations
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
 			return
-		}(fldPath.Child("value"), &obj.Value, safe.Field(oldObj, func(oldObj *ComplexSetItem) *int { return &oldObj.Value }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ComplexSetItem) *int {
+				return &oldObj.Value
+			})
+		errs = append(errs, fn(fldPath.Child("value"), &obj.Value, oldVal, oldObj != nil)...)
+	}
 
 	// field ComplexSetItem.StringVal has no validation
 	return errs
@@ -84,9 +92,11 @@ func Validate_ComplexSetItemBeta(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ComplexSetItemBeta) (errs field.ErrorList) {
 
-	// field ComplexSetItemBeta.Value
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ComplexSetItemBeta.Value
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *int,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -94,7 +104,13 @@ func Validate_ComplexSetItemBeta(
 			// call field-attached validations
 			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()...)
 			return
-		}(fldPath.Child("value"), &obj.Value, safe.Field(oldObj, func(oldObj *ComplexSetItemBeta) *int { return &oldObj.Value }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ComplexSetItemBeta) *int {
+				return &oldObj.Value
+			})
+		errs = append(errs, fn(fldPath.Child("value"), &obj.Value, oldVal, oldObj != nil)...)
+	}
 
 	// field ComplexSetItemBeta.StringVal has no validation
 	return errs
@@ -108,9 +124,11 @@ func Validate_ListSetStruct(
 
 	// field ListSetStruct.TypeMeta has no validation
 
-	// field ListSetStruct.Set
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []ComplexSetItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.Set
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []ComplexSetItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -121,11 +139,19 @@ func Validate_ListSetStruct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, Validate_ComplexSetItem)...)
 			return
-		}(fldPath.Child("set"), obj.Set, safe.Field(oldObj, func(oldObj *ListSetStruct) []ComplexSetItem { return oldObj.Set }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []ComplexSetItem {
+				return oldObj.Set
+			})
+		errs = append(errs, fn(fldPath.Child("set"), obj.Set, oldVal, oldObj != nil)...)
+	}
 
-	// field ListSetStruct.BetaSet
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []ComplexSetItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.BetaSet
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []ComplexSetItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -136,11 +162,19 @@ func Validate_ListSetStruct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, Validate_ComplexSetItem)...)
 			return
-		}(fldPath.Child("betaSet"), obj.BetaSet, safe.Field(oldObj, func(oldObj *ListSetStruct) []ComplexSetItem { return oldObj.BetaSet }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []ComplexSetItem {
+				return oldObj.BetaSet
+			})
+		errs = append(errs, fn(fldPath.Child("betaSet"), obj.BetaSet, oldVal, oldObj != nil)...)
+	}
 
-	// field ListSetStruct.ChainedSubfieldSet
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []SimpleSetItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.ChainedSubfieldSet
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []SimpleSetItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -154,11 +188,19 @@ func Validate_ListSetStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("chainedSubfieldSet"), obj.ChainedSubfieldSet, safe.Field(oldObj, func(oldObj *ListSetStruct) []SimpleSetItem { return oldObj.ChainedSubfieldSet }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []SimpleSetItem {
+				return oldObj.ChainedSubfieldSet
+			})
+		errs = append(errs, fn(fldPath.Child("chainedSubfieldSet"), obj.ChainedSubfieldSet, oldVal, oldObj != nil)...)
+	}
 
-	// field ListSetStruct.SetBetaItem
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []ComplexSetItemBeta, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.SetBetaItem
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []ComplexSetItemBeta,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -169,11 +211,19 @@ func Validate_ListSetStruct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, Validate_ComplexSetItemBeta)...)
 			return
-		}(fldPath.Child("setBetaItem"), obj.SetBetaItem, safe.Field(oldObj, func(oldObj *ListSetStruct) []ComplexSetItemBeta { return oldObj.SetBetaItem }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []ComplexSetItemBeta {
+				return oldObj.SetBetaItem
+			})
+		errs = append(errs, fn(fldPath.Child("setBetaItem"), obj.SetBetaItem, oldVal, oldObj != nil)...)
+	}
 
-	// field ListSetStruct.BetaSetBetaItem
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []ComplexSetItemBeta, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.BetaSetBetaItem
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []ComplexSetItemBeta,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -184,11 +234,19 @@ func Validate_ListSetStruct(
 			// iterate the list and call the type's validation function
 			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, nil, Validate_ComplexSetItemBeta)...)
 			return
-		}(fldPath.Child("betaSetBetaItem"), obj.BetaSetBetaItem, safe.Field(oldObj, func(oldObj *ListSetStruct) []ComplexSetItemBeta { return oldObj.BetaSetBetaItem }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []ComplexSetItemBeta {
+				return oldObj.BetaSetBetaItem
+			})
+		errs = append(errs, fn(fldPath.Child("betaSetBetaItem"), obj.BetaSetBetaItem, oldVal, oldObj != nil)...)
+	}
 
-	// field ListSetStruct.ChainedSubfieldSetBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj []SimpleSetItem, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field ListSetStruct.ChainedSubfieldSetBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj []SimpleSetItem,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -202,7 +260,13 @@ func Validate_ListSetStruct(
 			// lists with set semantics require unique values
 			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual)...)
 			return
-		}(fldPath.Child("chainedSubfieldSetBeta"), obj.ChainedSubfieldSetBeta, safe.Field(oldObj, func(oldObj *ListSetStruct) []SimpleSetItem { return oldObj.ChainedSubfieldSetBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *ListSetStruct) []SimpleSetItem {
+				return oldObj.ChainedSubfieldSetBeta
+			})
+		errs = append(errs, fn(fldPath.Child("chainedSubfieldSetBeta"), obj.ChainedSubfieldSetBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

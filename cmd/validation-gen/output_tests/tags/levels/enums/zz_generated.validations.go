@@ -90,9 +90,11 @@ func Validate_Struct(
 
 	// field Struct.TypeMeta has no validation
 
-	// field Struct.EnumField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *Enum, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.EnumField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *Enum,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -100,11 +102,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Enum(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("enumField"), &obj.EnumField, safe.Field(oldObj, func(oldObj *Struct) *Enum { return &oldObj.EnumField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *Enum {
+				return &oldObj.EnumField
+			})
+		errs = append(errs, fn(fldPath.Child("enumField"), &obj.EnumField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.EnumFieldBeta
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj *BetaEnum, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.EnumFieldBeta
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *BetaEnum,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {
 				return nil
@@ -112,7 +122,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_BetaEnum(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("enumFieldBeta"), &obj.EnumFieldBeta, safe.Field(oldObj, func(oldObj *Struct) *BetaEnum { return &oldObj.EnumFieldBeta }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) *BetaEnum {
+				return &oldObj.EnumFieldBeta
+			})
+		errs = append(errs, fn(fldPath.Child("enumFieldBeta"), &obj.EnumFieldBeta, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }

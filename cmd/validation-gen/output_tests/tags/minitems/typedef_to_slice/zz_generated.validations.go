@@ -109,9 +109,11 @@ func Validate_Struct(
 	// field Struct.TypeMeta has no validation
 	// field Struct.UnvalidatedField has no validation
 
-	// field Struct.Min0Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj Min0Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Min0Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj Min0Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -119,11 +121,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Min0Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("min0Field"), obj.Min0Field, safe.Field(oldObj, func(oldObj *Struct) Min0Type { return oldObj.Min0Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) Min0Type {
+				return oldObj.Min0Field
+			})
+		errs = append(errs, fn(fldPath.Child("min0Field"), obj.Min0Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Min10Field
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj Min10Type, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Min10Field
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj Min10Type,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -131,11 +141,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Min10Type(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("min10Field"), obj.Min10Field, safe.Field(oldObj, func(oldObj *Struct) Min10Type { return oldObj.Min10Field }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) Min10Type {
+				return oldObj.Min10Field
+			})
+		errs = append(errs, fn(fldPath.Child("min10Field"), obj.Min10Field, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Min0TypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj Min0TypedefType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Min0TypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj Min0TypedefType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -143,11 +161,19 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Min0TypedefType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("min0TypedefField"), obj.Min0TypedefField, safe.Field(oldObj, func(oldObj *Struct) Min0TypedefType { return oldObj.Min0TypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) Min0TypedefType {
+				return oldObj.Min0TypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("min0TypedefField"), obj.Min0TypedefField, oldVal, oldObj != nil)...)
+	}
 
-	// field Struct.Min10TypedefField
-	errs = append(errs,
-		func(fldPath *field.Path, obj, oldObj Min10TypedefType, oldValueCorrelated bool) (errs field.ErrorList) {
+	{ // field Struct.Min10TypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj Min10TypedefType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
 			// don't revalidate unchanged data
 			if oldValueCorrelated && op.Type == operation.Update && equality.Semantic.DeepEqual(obj, oldObj) {
 				return nil
@@ -155,7 +181,13 @@ func Validate_Struct(
 			// call the type's validation function
 			errs = append(errs, Validate_Min10TypedefType(ctx, op, fldPath, obj, oldObj)...)
 			return
-		}(fldPath.Child("min10TypedefField"), obj.Min10TypedefField, safe.Field(oldObj, func(oldObj *Struct) Min10TypedefType { return oldObj.Min10TypedefField }), oldObj != nil)...)
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *Struct) Min10TypedefType {
+				return oldObj.Min10TypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("min10TypedefField"), obj.Min10TypedefField, oldVal, oldObj != nil)...)
+	}
 
 	return errs
 }
