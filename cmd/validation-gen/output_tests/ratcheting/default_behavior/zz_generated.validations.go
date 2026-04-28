@@ -137,9 +137,13 @@ func Validate_AliasMapKeyType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj AliasMapKeyType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapKeyType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapKeyType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 	// iterate the map and call the key type's validation function
-	errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_S)...)
+	if e := validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_S); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -150,9 +154,13 @@ func Validate_AliasMapValueType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj AliasMapValueType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapValueType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapValueType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 	// iterate the map and call the value type's validation function
-	errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_S)...)
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_S); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -163,7 +171,9 @@ func Validate_DirectComparableStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *DirectComparableStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type DirectComparableStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type DirectComparableStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field DirectComparableStruct.IntField
 		fn := func(
@@ -177,7 +187,9 @@ func Validate_DirectComparableStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -211,7 +223,9 @@ func Validate_MixComparableStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonComparable")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonComparable"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -230,7 +244,9 @@ func Validate_MySlice(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj MySlice) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MySlice")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MySlice"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -241,7 +257,9 @@ func Validate_NestedDirectComparableStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *NestedDirectComparableStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedDirectComparableStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedDirectComparableStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field NestedDirectComparableStruct.DirectComparableStructField
 		fn := func(
@@ -255,7 +273,9 @@ func Validate_NestedDirectComparableStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_DirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -276,7 +296,9 @@ func Validate_NestedNonDirectComparableStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *NestedNonDirectComparableStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedNonDirectComparableStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedNonDirectComparableStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field NestedNonDirectComparableStruct.NonDirectComparableStructField
 		fn := func(
@@ -290,7 +312,9 @@ func Validate_NestedNonDirectComparableStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -311,7 +335,9 @@ func Validate_NonDirectComparableStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *NonDirectComparableStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NonDirectComparableStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NonDirectComparableStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field NonDirectComparableStruct.IntPtrField
 		fn := func(
@@ -325,7 +351,9 @@ func Validate_NonDirectComparableStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -344,7 +372,9 @@ func Validate_S(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *S) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type S")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type S"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -369,7 +399,9 @@ func Validate_StructEmbedded(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field DirectComparableStruct")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field DirectComparableStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_DirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -393,7 +425,9 @@ func Validate_StructEmbedded(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonDirectComparableStruct")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonDirectComparableStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -417,7 +451,9 @@ func Validate_StructEmbedded(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NestedDirectComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NestedDirectComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NestedDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -441,7 +477,9 @@ func Validate_StructEmbedded(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NestedNonDirectComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NestedNonDirectComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NestedNonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -476,9 +514,13 @@ func Validate_StructMap(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field mapKeyField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field mapKeyField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// iterate the map and call the key type's validation function
-			errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_S)...)
+			if e := validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_S); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -500,9 +542,13 @@ func Validate_StructMap(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field mapValueField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field mapValueField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// iterate the map and call the value type's validation function
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_S)...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_S); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -524,7 +570,9 @@ func Validate_StructMap(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field aliasMapKeyTypeField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field aliasMapKeyTypeField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_AliasMapKeyType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -548,7 +596,9 @@ func Validate_StructMap(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field aliasMapValueTypeField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field aliasMapValueTypeField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_AliasMapValueType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -583,7 +633,9 @@ func Validate_StructPrimitive(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -612,7 +664,9 @@ func Validate_StructPrimitive(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field intPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -645,9 +699,13 @@ func Validate_StructSlice(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field sliceField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field sliceField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_S)...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_S); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -669,7 +727,9 @@ func Validate_StructSlice(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field typedefSliceField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field typedefSliceField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_MySlice(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -704,7 +764,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_DirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -728,7 +790,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -752,7 +816,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field directComparableStructPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_DirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -776,7 +842,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field nonDirectComparableStructPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -800,7 +868,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field DirectComparableStruct")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field DirectComparableStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_DirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -824,7 +894,9 @@ func Validate_StructStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonDirectComparableStruct")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field NonDirectComparableStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_NonDirectComparableStruct(ctx, op, fldPath, obj, oldObj)...)
 			return

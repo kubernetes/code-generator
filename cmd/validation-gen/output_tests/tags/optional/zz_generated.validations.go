@@ -62,7 +62,9 @@ func Validate_IntType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *IntType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type IntType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type IntType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -73,7 +75,9 @@ func Validate_MapType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj MapType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -84,7 +88,9 @@ func Validate_OtherStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *OtherStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -95,7 +101,9 @@ func Validate_SliceType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj SliceType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type SliceType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type SliceType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -106,7 +114,9 @@ func Validate_StringType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *StringType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -138,7 +148,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -167,7 +179,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -196,7 +210,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringTypedefField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringTypedefField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_StringType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -227,7 +243,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringTypedefPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringTypedefPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_StringType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -258,7 +276,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -287,7 +307,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -316,7 +338,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntTypedefField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntTypedefField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -347,7 +371,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntTypedefPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.IntTypedefPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -378,7 +404,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.OtherStructPtrField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.OtherStructPtrField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_OtherStruct(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -409,7 +437,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -438,7 +468,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceTypedefField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.SliceTypedefField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_SliceType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -469,7 +501,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -498,7 +532,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_MapType(ctx, op, fldPath, obj, oldObj)...)
 			return

@@ -62,7 +62,9 @@ func Validate_OtherStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *OtherStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -73,7 +75,9 @@ func Validate_OtherTypedefStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *OtherTypedefStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherTypedefStruct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherTypedefStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -84,7 +88,9 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type Struct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type Struct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Struct.TypeMeta has no validation
 
@@ -100,12 +106,19 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField")...)
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherStruct) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField[*]")
-			})...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherStruct) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// iterate the map and call the value type's validation function
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct)...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -127,12 +140,19 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField")...)
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherTypedefStruct) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField[*]")
-			})...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherTypedefStruct) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// iterate the map and call the value type's validation function
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherTypedefStruct)...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherTypedefStruct); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

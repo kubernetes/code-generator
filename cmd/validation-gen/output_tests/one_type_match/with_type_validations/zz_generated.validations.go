@@ -61,7 +61,9 @@ func Validate_T1(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T1) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field T1.TypeMeta has no validation
 	return errs

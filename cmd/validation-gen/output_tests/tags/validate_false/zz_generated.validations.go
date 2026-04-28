@@ -75,7 +75,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringField")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.StringField"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

@@ -63,17 +63,21 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_zerooroneof_zerooroneof_custom_members_Struct_, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M1 != nil
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M2 != nil
-	})...)
+	if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_zerooroneof_zerooroneof_custom_members_Struct_,
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M1 != nil
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M2 != nil
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Struct.TypeMeta has no validation
 	// field Struct.NonUnionField has no validation

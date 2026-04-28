@@ -61,7 +61,9 @@ func Validate_Max0Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Max0Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0)...)
+	if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -72,7 +74,9 @@ func Validate_Max10Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Max10Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10)...)
+	if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -97,7 +101,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -119,7 +125,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -141,7 +149,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -163,7 +173,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -185,7 +197,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -207,7 +221,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -229,7 +245,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -251,7 +269,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10)...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

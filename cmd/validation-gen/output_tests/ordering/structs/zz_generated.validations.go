@@ -178,7 +178,9 @@ func Validate_T01(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T01) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01, no flags")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01, no flags"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field T01.TypeMeta has no validation
 
@@ -194,7 +196,9 @@ func Validate_T01(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.S, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.S, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -216,7 +220,9 @@ func Validate_T01(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.PS, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.PS, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -238,7 +244,9 @@ func Validate_T01(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.T, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.T, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -262,7 +270,9 @@ func Validate_T01(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.PT, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01.PT, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -431,7 +441,9 @@ func Validate_T03(
 	if earlyReturn {
 		return // do not proceed
 	}
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03, no flags")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03, no flags"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field T03.TypeMeta has no validation
 
@@ -455,7 +467,9 @@ func Validate_T03(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.S, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.S, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -485,7 +499,9 @@ func Validate_T03(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PS, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PS, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -515,7 +531,9 @@ func Validate_T03(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.T, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.T, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -547,7 +565,9 @@ func Validate_T03(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PT, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03.PT, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -580,9 +600,15 @@ func Validate_TMultiple(
 	if earlyReturn {
 		return // do not proceed
 	}
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, no flags 1")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, no flags 2")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, no flags 1"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, no flags 2"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field TMultiple.TypeMeta has no validation
 
@@ -610,9 +636,15 @@ func Validate_TMultiple(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, no flags 1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, no flags 2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, no flags 1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.S, no flags 2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -646,9 +678,15 @@ func Validate_TMultiple(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, no flags 1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, no flags 2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, no flags 1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PS, no flags 2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -682,9 +720,15 @@ func Validate_TMultiple(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, no flags 1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, no flags 2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, no flags 1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.T, no flags 2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -720,9 +764,15 @@ func Validate_TMultiple(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, no flags 1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, no flags 2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, no flags 1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T0, string payload"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple.PT, no flags 2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_Tother(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -755,7 +805,9 @@ func Validate_Tother(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "Tother, no flags")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "Tother, no flags"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

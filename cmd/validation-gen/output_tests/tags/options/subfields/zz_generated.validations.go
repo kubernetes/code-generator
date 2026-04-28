@@ -75,11 +75,16 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ObjectMeta) field.ErrorList {
-				return validate.Subfield(ctx, op, fldPath, obj, oldObj, "xEnabledField", func(o *ObjectMeta) *string { return &o.XEnabledField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ObjectMeta.XEnabledField")
-				})
-			})...)
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ObjectMeta) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "xEnabledField",
+						func(o *ObjectMeta) *string { return &o.XEnabledField }, validate.DirectEqualPtr,
+						func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ObjectMeta.XEnabledField")
+						})
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -101,11 +106,16 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ObjectMeta) field.ErrorList {
-				return validate.Subfield(ctx, op, fldPath, obj, oldObj, "xDisabledField", func(o *ObjectMeta) *string { return &o.XDisabledField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ObjectMetaDisabled.XDisabledField")
-				})
-			})...)
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ObjectMeta) field.ErrorList {
+					return validate.Subfield(ctx, op, fldPath, obj, oldObj, "xDisabledField",
+						func(o *ObjectMeta) *string { return &o.XDisabledField }, validate.DirectEqualPtr,
+						func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ObjectMetaDisabled.XDisabledField")
+						})
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

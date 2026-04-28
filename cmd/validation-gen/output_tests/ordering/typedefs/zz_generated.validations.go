@@ -106,7 +106,9 @@ func Validate_E01(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *E01) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E01, no flags")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E01, no flags"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -143,7 +145,9 @@ func Validate_E03(
 	if earlyReturn {
 		return // do not proceed
 	}
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E03, no flags")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E03, no flags"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -166,9 +170,15 @@ func Validate_EMultiple(
 	if earlyReturn {
 		return // do not proceed
 	}
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, no flags 1")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E0, string payload")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, no flags 2")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, no flags 1"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E0, string payload"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, no flags 2"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

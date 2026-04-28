@@ -153,23 +153,30 @@ func Validate_MyListStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStruct_tasks_, func(list []Task) bool {
-				for i := range list {
-					if list[i].Name == "failed" {
-						return true
+			if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStruct_tasks_,
+				func(list []Task) bool {
+					for i := range list {
+						if list[i].Name == "failed" {
+							return true
+						}
 					}
-				}
-				return false
-			}, func(list []Task) bool {
-				for i := range list {
-					if list[i].Name == "succeeded" {
-						return true
+					return false
+				},
+				func(list []Task) bool {
+					for i := range list {
+						if list[i].Name == "succeeded" {
+							return true
+						}
 					}
-				}
-				return false
-			}).MarkAlpha()...)
+					return false
+				}).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
+			if e := validate.Unique(ctx, op, fldPath, obj, oldObj,
+				func(a Task, b Task) bool { return a.Name == b.Name }); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -204,23 +211,30 @@ func Validate_MyListStructBeta(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStructBeta_tasksBeta_, func(list []Task) bool {
-				for i := range list {
-					if list[i].Name == "failed" {
-						return true
+			if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyListStructBeta_tasksBeta_,
+				func(list []Task) bool {
+					for i := range list {
+						if list[i].Name == "failed" {
+							return true
+						}
 					}
-				}
-				return false
-			}, func(list []Task) bool {
-				for i := range list {
-					if list[i].Name == "succeeded" {
-						return true
+					return false
+				},
+				func(list []Task) bool {
+					for i := range list {
+						if list[i].Name == "succeeded" {
+							return true
+						}
 					}
-				}
-				return false
-			}).MarkBeta()...)
+					return false
+				}).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Task, b Task) bool { return a.Name == b.Name })...)
+			if e := validate.Unique(ctx, op, fldPath, obj, oldObj,
+				func(a Task, b Task) bool { return a.Name == b.Name }); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -241,17 +255,21 @@ func Validate_MyStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *MyStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStruct_, func(obj *MyStruct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.Z1 != nil
-	}, func(obj *MyStruct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.Z2 != nil
-	}).MarkAlpha()...)
+	if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStruct_,
+		func(obj *MyStruct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.Z1 != nil
+		},
+		func(obj *MyStruct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.Z2 != nil
+		}).MarkAlpha(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field MyStruct.TypeMeta has no validation
 
@@ -322,17 +340,21 @@ func Validate_MyStructBeta(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *MyStructBeta) (errs field.ErrorList) {
 
-	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStructBeta_, func(obj *MyStructBeta) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.Z1Beta != nil
-	}, func(obj *MyStructBeta) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.Z2Beta != nil
-	}).MarkBeta()...)
+	if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStructBeta_,
+		func(obj *MyStructBeta) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.Z1Beta != nil
+		},
+		func(obj *MyStructBeta) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.Z2Beta != nil
+		}).MarkBeta(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field MyStructBeta.TypeMeta has no validation
 
@@ -403,22 +425,27 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_Struct_, func(obj *Struct) string {
-		if obj == nil {
-			return ""
-		}
-		return string(obj.D)
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M1 != nil
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M2 != nil
-	}).MarkAlpha()...)
+	if e := validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_Struct_,
+		func(obj *Struct) string {
+			if obj == nil {
+				return ""
+			}
+			return string(obj.D)
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M1 != nil
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M2 != nil
+		}).MarkAlpha(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Struct.TypeMeta has no validation
 	// field Struct.D has no validation
@@ -490,22 +517,27 @@ func Validate_UnionStructBeta(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *UnionStructBeta) (errs field.ErrorList) {
 
-	errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_UnionStructBeta_, func(obj *UnionStructBeta) string {
-		if obj == nil {
-			return ""
-		}
-		return string(obj.DBeta)
-	}, func(obj *UnionStructBeta) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M1Beta != nil
-	}, func(obj *UnionStructBeta) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M2Beta != nil
-	}).MarkBeta()...)
+	if e := validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_UnionStructBeta_,
+		func(obj *UnionStructBeta) string {
+			if obj == nil {
+				return ""
+			}
+			return string(obj.DBeta)
+		},
+		func(obj *UnionStructBeta) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M1Beta != nil
+		},
+		func(obj *UnionStructBeta) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M2Beta != nil
+		}).MarkBeta(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field UnionStructBeta.TypeMeta has no validation
 	// field UnionStructBeta.DBeta has no validation

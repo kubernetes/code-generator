@@ -62,46 +62,66 @@ func Validate_Discriminator(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Discriminator) (errs field.ErrorList) {
 
-	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) field.ErrorList {
-		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *Discriminator) *string { return obj.FieldA }, func(obj *Discriminator) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-			errs := field.ErrorList{}
-			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-			return errs
-		}, []validate.DiscriminatedRule[*string, string]{
-			{
-				Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+	if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", true,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) field.ErrorList {
+			return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA",
+				func(obj *Discriminator) *string { return obj.FieldA },
+				func(obj *Discriminator) string { return obj.Discriminator }, validate.DirectEqualPtr,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					errs := field.ErrorList{}
-					earlyReturn := false
-					if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
-						earlyReturn = true
-					}
-					if earlyReturn {
-						return errs
-					}
+					errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
 					return errs
-				}},
-		})
-	})...)
-	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) field.ErrorList {
-		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *Discriminator) *string { return obj.FieldB }, func(obj *Discriminator) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-			errs := field.ErrorList{}
-			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-			return errs
-		}, []validate.DiscriminatedRule[*string, string]{
-			{
-				Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+				},
+				[]validate.DiscriminatedRule[*string, string]{
+
+					{
+						Value: "A",
+						Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							errs := field.ErrorList{}
+							earlyReturn := false
+							if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+								earlyReturn = true
+							}
+							if earlyReturn {
+								return errs
+							}
+							return errs
+						},
+					},
+				})
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", true,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) field.ErrorList {
+			return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB",
+				func(obj *Discriminator) *string { return obj.FieldB },
+				func(obj *Discriminator) string { return obj.Discriminator }, validate.DirectEqualPtr,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					errs := field.ErrorList{}
-					earlyReturn := false
-					if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
-						earlyReturn = true
-					}
-					if earlyReturn {
-						return errs
-					}
+					errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
 					return errs
-				}},
-		})
-	})...)
+				},
+				[]validate.DiscriminatedRule[*string, string]{
+
+					{
+						Value: "B",
+						Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							errs := field.ErrorList{}
+							earlyReturn := false
+							if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+								earlyReturn = true
+							}
+							if earlyReturn {
+								return errs
+							}
+							return errs
+						},
+					},
+				})
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Discriminator.Discriminator has no validation
 	// field Discriminator.FieldA has no validation
@@ -115,46 +135,66 @@ func Validate_DiscriminatorDisabled(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *DiscriminatorDisabled) (errs field.ErrorList) {
 
-	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) field.ErrorList {
-		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *DiscriminatorDisabled) *string { return obj.FieldA }, func(obj *DiscriminatorDisabled) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-			errs := field.ErrorList{}
-			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-			return errs
-		}, []validate.DiscriminatedRule[*string, string]{
-			{
-				Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+	if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", false,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) field.ErrorList {
+			return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA",
+				func(obj *DiscriminatorDisabled) *string { return obj.FieldA },
+				func(obj *DiscriminatorDisabled) string { return obj.Discriminator }, validate.DirectEqualPtr,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					errs := field.ErrorList{}
-					earlyReturn := false
-					if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
-						earlyReturn = true
-					}
-					if earlyReturn {
-						return errs
-					}
+					errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
 					return errs
-				}},
-		})
-	})...)
-	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) field.ErrorList {
-		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *DiscriminatorDisabled) *string { return obj.FieldB }, func(obj *DiscriminatorDisabled) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-			errs := field.ErrorList{}
-			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-			return errs
-		}, []validate.DiscriminatedRule[*string, string]{
-			{
-				Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+				},
+				[]validate.DiscriminatedRule[*string, string]{
+
+					{
+						Value: "A",
+						Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							errs := field.ErrorList{}
+							earlyReturn := false
+							if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+								earlyReturn = true
+							}
+							if earlyReturn {
+								return errs
+							}
+							return errs
+						},
+					},
+				})
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", false,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) field.ErrorList {
+			return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB",
+				func(obj *DiscriminatorDisabled) *string { return obj.FieldB },
+				func(obj *DiscriminatorDisabled) string { return obj.Discriminator }, validate.DirectEqualPtr,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 					errs := field.ErrorList{}
-					earlyReturn := false
-					if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
-						earlyReturn = true
-					}
-					if earlyReturn {
-						return errs
-					}
+					errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
 					return errs
-				}},
-		})
-	})...)
+				},
+				[]validate.DiscriminatedRule[*string, string]{
+
+					{
+						Value: "B",
+						Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+							errs := field.ErrorList{}
+							earlyReturn := false
+							if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+								earlyReturn = true
+							}
+							if earlyReturn {
+								return errs
+							}
+							return errs
+						},
+					},
+				})
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field DiscriminatorDisabled.Discriminator has no validation
 	// field DiscriminatorDisabled.FieldA has no validation

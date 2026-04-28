@@ -76,7 +76,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PS")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PS"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -98,7 +100,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PI")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PI"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -120,7 +124,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PB")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PB"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -142,7 +148,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PF")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PF"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -164,7 +172,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PT2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.PT2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -201,7 +211,9 @@ func Validate_T2(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PS")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PS"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -223,7 +235,9 @@ func Validate_T2(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PI")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PI"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -245,7 +259,9 @@ func Validate_T2(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PB")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PB"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -267,7 +283,9 @@ func Validate_T2(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PF")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.PF"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

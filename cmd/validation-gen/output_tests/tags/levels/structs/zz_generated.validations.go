@@ -91,9 +91,12 @@ func Validate_ConditionalStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "MyFeature", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
-				return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
-			}).MarkAlpha()...)
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "MyFeature", true,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
+				}).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -115,9 +118,12 @@ func Validate_ConditionalStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "MyFeature", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
-				return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
-			}).MarkBeta()...)
+			if e := validate.IfOption(ctx, op, fldPath, obj, oldObj, "MyFeature", true,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 10)
+				}).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -139,7 +145,9 @@ func Validate_ConditionalStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkAlpha()...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -161,7 +169,9 @@ func Validate_ConditionalStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkBeta()...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 20).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -194,8 +204,12 @@ func Validate_MixedStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -217,8 +231,12 @@ func Validate_MixedStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()...)
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 5); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

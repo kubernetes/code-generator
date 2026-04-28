@@ -62,9 +62,12 @@ func Validate_ListType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj ListType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListType[*]")
-	})...)
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListType[*]")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -75,9 +78,12 @@ func Validate_ListTypedefType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj ListTypedefType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
-		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListTypedefType[*]")
-	})...)
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
+			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListTypedefType[*]")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -102,9 +108,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListField[*]")
-			})...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_ListType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -128,9 +137,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListTypedefField[*]")
-			})...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.ListTypedefField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_ListTypedefType(ctx, op, fldPath, obj, oldObj)...)
 			return

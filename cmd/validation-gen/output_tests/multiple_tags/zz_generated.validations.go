@@ -61,10 +61,18 @@ func Validate_T1(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T1) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #1")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #2")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #3")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type T1 #0")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #1"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #2"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1 #3"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type T1 #0"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field T1.TypeMeta has no validation
 
@@ -80,10 +88,18 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #2")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #3")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.S true")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.S false #3"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.S true"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -105,10 +121,18 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #2")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #3")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.T2 true")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.T2 false #3"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.T2 true"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -129,9 +153,15 @@ func Validate_T2(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T2) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T2 false #1")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T2 false #2")...)
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type T2 true")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T2 false #1"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T2 false #2"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type T2 true"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field T2.S
 		fn := func(
@@ -145,9 +175,15 @@ func Validate_T2(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.S false #1")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.S false #2")...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T2.S true")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.S false #1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T2.S false #2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T2.S true"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

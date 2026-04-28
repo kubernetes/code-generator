@@ -62,7 +62,9 @@ func Validate_Min0Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj Min0Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinItems(ctx, op, fldPath, obj, oldObj, 0)...)
+	if e := validate.MinItems(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -73,7 +75,9 @@ func Validate_Min0TypedefType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj Min0TypedefType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinItems(ctx, op, fldPath, obj, oldObj, 0)...)
+	if e := validate.MinItems(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -84,7 +88,9 @@ func Validate_Min10Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj Min10Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinItems(ctx, op, fldPath, obj, oldObj, 10)...)
+	if e := validate.MinItems(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -95,7 +101,9 @@ func Validate_Min10TypedefType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj Min10TypedefType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinItems(ctx, op, fldPath, obj, oldObj, 10)...)
+	if e := validate.MinItems(ctx, op, fldPath, obj, oldObj, 10); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

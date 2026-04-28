@@ -78,10 +78,14 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			func() { // cohort inner
-				errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "inner", func(o *SubStruct) *int { return &o.Inner }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
-					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)
-				}).MarkAlpha()...)
+			func() { // cohort = "inner"
+				if e := validate.Subfield(ctx, op, fldPath, obj, oldObj, "inner",
+					func(o *SubStruct) *int { return &o.Inner }, validate.DirectEqualPtr,
+					func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)
+					}).MarkAlpha(); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
 			return
 		}
@@ -104,10 +108,14 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			func() { // cohort inner
-				errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "inner", func(o *SubStruct) *int { return &o.Inner }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
-					return validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)
-				}).MarkBeta()...)
+			func() { // cohort = "inner"
+				if e := validate.Subfield(ctx, op, fldPath, obj, oldObj, "inner",
+					func(o *SubStruct) *int { return &o.Inner }, validate.DirectEqualPtr,
+					func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
+						return validate.Minimum(ctx, op, fldPath, obj, oldObj, 5)
+					}).MarkBeta(); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
 			return
 		}
@@ -130,17 +138,21 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_subfields_Struct_unionField_, func(obj *SubUnion) bool {
-				if obj == nil {
-					return false
-				}
-				return obj.Z1 != nil
-			}, func(obj *SubUnion) bool {
-				if obj == nil {
-					return false
-				}
-				return obj.Z2 != nil
-			}).MarkAlpha()...)
+			if e := validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_subfields_Struct_unionField_,
+				func(obj *SubUnion) bool {
+					if obj == nil {
+						return false
+					}
+					return obj.Z1 != nil
+				},
+				func(obj *SubUnion) bool {
+					if obj == nil {
+						return false
+					}
+					return obj.Z2 != nil
+				}).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

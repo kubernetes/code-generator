@@ -64,32 +64,39 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_union_union_discriminated_simple_Struct_, func(obj *Struct) string {
-		if obj == nil {
-			return ""
-		}
-		return string(obj.D)
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M1 != nil
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return obj.M2 != nil
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return len(obj.M3) != 0
-	}, func(obj *Struct) bool {
-		if obj == nil {
-			return false
-		}
-		return len(obj.M4) != 0
-	})...)
+	if e := validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_union_union_discriminated_simple_Struct_,
+		func(obj *Struct) string {
+			if obj == nil {
+				return ""
+			}
+			return string(obj.D)
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M1 != nil
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return obj.M2 != nil
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return len(obj.M3) != 0
+		},
+		func(obj *Struct) bool {
+			if obj == nil {
+				return false
+			}
+			return len(obj.M4) != 0
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Struct.TypeMeta has no validation
 	// field Struct.D has no validation

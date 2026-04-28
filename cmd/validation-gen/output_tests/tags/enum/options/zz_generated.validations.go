@@ -72,22 +72,54 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 }
 
 var exclusionsForConditionalEnum = []validate.EnumExclusion[ConditionalEnum]{
+
 	{
-		Value: ConditionalA, Option: "FeatureA", ExcludeWhen: true},
+		Value:       ConditionalA,
+		Option:      "FeatureA",
+		ExcludeWhen: true,
+	},
+
 	{
-		Value: ConditionalB, Option: "FeatureB", ExcludeWhen: false},
+		Value:       ConditionalB,
+		Option:      "FeatureB",
+		ExcludeWhen: false,
+	},
+
 	{
-		Value: ConditionalD, Option: "FeatureA", ExcludeWhen: true},
+		Value:       ConditionalD,
+		Option:      "FeatureA",
+		ExcludeWhen: true,
+	},
+
 	{
-		Value: ConditionalD, Option: "FeatureB", ExcludeWhen: true},
+		Value:       ConditionalD,
+		Option:      "FeatureB",
+		ExcludeWhen: true,
+	},
+
 	{
-		Value: ConditionalE, Option: "FeatureC", ExcludeWhen: false},
+		Value:       ConditionalE,
+		Option:      "FeatureC",
+		ExcludeWhen: false,
+	},
+
 	{
-		Value: ConditionalE, Option: "FeatureD", ExcludeWhen: false},
+		Value:       ConditionalE,
+		Option:      "FeatureD",
+		ExcludeWhen: false,
+	},
+
 	{
-		Value: ConditionalF, Option: "FeatureC", ExcludeWhen: false},
+		Value:       ConditionalF,
+		Option:      "FeatureC",
+		ExcludeWhen: false,
+	},
+
 	{
-		Value: ConditionalF, Option: "FeatureD", ExcludeWhen: true},
+		Value:       ConditionalF,
+		Option:      "FeatureD",
+		ExcludeWhen: true,
+	},
 }
 var symbolsForConditionalEnum = sets.New(ConditionalA, ConditionalB, ConditionalC, ConditionalD, ConditionalE, ConditionalF)
 
@@ -97,7 +129,9 @@ func Validate_ConditionalEnum(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ConditionalEnum) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForConditionalEnum, exclusionsForConditionalEnum)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForConditionalEnum, exclusionsForConditionalEnum); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -165,7 +199,9 @@ func Validate_Enum0(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum0) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum0, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum0, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -178,7 +214,9 @@ func Validate_Enum1(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum1) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum1, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum1, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -191,7 +229,9 @@ func Validate_Enum2(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum2) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum2, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum2, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -204,7 +244,9 @@ func Validate_EnumWithExclude(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *EnumWithExclude) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnumWithExclude, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnumWithExclude, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

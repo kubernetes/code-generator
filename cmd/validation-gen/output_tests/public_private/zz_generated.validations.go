@@ -73,7 +73,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.Public")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.Public"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

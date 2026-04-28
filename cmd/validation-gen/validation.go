@@ -1396,7 +1396,7 @@ func emitCallsToValidators(c *generator.Context, validations []validators.Functi
 	for _, validations := range cohorts {
 		cohortName := validations[0].Cohort
 		if cohortName != "" {
-			sw.Do("func() { // cohort $.$\n", cohortName)
+			sw.Do("func() { // cohort = \"$.$\"\n", cohortName)
 		}
 
 		hasShortCircuits := false
@@ -1436,7 +1436,7 @@ func emitCallsToValidators(c *generator.Context, validations []validators.Functi
 				sw.Do("(ctx, op, fldPath, obj, oldObj", targs)
 				for _, arg := range v.Args {
 					sw.Do(", ", nil)
-					toGolangSourceDataLiteral(sw, c, arg)
+					toGolangSourceDataLiteral(sw, c, arg, flNewlineOK)
 				}
 				sw.Do(")", targs)
 				switch v.StabilityLevel {
@@ -1498,9 +1498,11 @@ func emitCallsToValidators(c *generator.Context, validations []validators.Functi
 				if isNonError {
 					emitCall()
 				} else {
-					sw.Do("errs = append(errs, ", nil)
+					sw.Do("if e := ", nil)
 					emitCall()
-					sw.Do("...)\n", nil)
+					sw.Do("; len(e) != 0 {\n", nil)
+					sw.Do("  errs = append(errs, e...)\n", nil)
+					sw.Do("}\n", nil)
 				}
 			}
 		}
@@ -1588,7 +1590,7 @@ func (g *genValidations) emitValidationVariables(c *generator.Context, t *types.
 			}
 
 			sw.Do("var $.varName|private$ = ", targs)
-			toGolangSourceDataLiteral(sw, c, variable.Initializer)
+			toGolangSourceDataLiteral(sw, c, variable.Initializer, flNewlineOK)
 			sw.Do("\n", nil)
 		}
 	}
@@ -1602,7 +1604,20 @@ func (g *genValidations) emitValidationVariables(c *generator.Context, t *types.
 	}
 }
 
-func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context, value any) {
+const (
+	// flNewlineOK is a flag indicating that it's acceptable to emit newlines
+	// when rendering a value. This is used for complex literals which may be
+	// more readable with newlines, but should not be used for simple literals
+	// where newlines would be undesirable.
+	flNewlineOK uint64 = 1 << iota
+)
+
+// toGolangSourceDataLiteral renders the given value as a Go literal in the
+// generated source code. The value is expected to be one of a limited set of
+// types (e.g. basic types, types.Type, validators.Identifier, etc.) which are
+// commonly used as arguments to validation functions. The flags parameter can
+// be used to control certain aspects of the rendering.
+func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context, value any, flags uint64) {
 	// For safety, be strict in what values we output to visited source, and ensure strings
 	// are quoted.
 
@@ -1656,6 +1671,9 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 				targs["objTypePfx"] = ""
 			}
 
+			if flags&flNewlineOK != 0 {
+				sw.Do("\n", nil)
+			}
 			sw.Do("func(", targs)
 			sw.Do("    ctx $.context.Context|raw$, ", targs)
 			sw.Do("    op $.operation.Operation|raw$, ", targs)
@@ -1680,6 +1698,9 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 			targs["objTypePfx"] = ""
 		}
 
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		sw.Do("func(", targs)
 		sw.Do("    ctx $.context.Context|raw$, ", targs)
 		sw.Do("    op $.operation.Operation|raw$, ", targs)
@@ -1741,6 +1762,9 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 		}
 		emitFunctionCall(sw, c, v)
 	case validators.FunctionLiteral:
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		sw.Do("func(", nil)
 		for i, param := range v.Parameters {
 			if i > 0 {
@@ -1774,6 +1798,9 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 		targs := generator.Args{
 			"type": c.Universe.Type(v.Type),
 		}
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		sw.Do("$.type|raw$", targs)
 		if len(v.TypeArgs) > 0 {
 			sw.Do("[", nil)
@@ -1785,15 +1812,24 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 			}
 			sw.Do("]", nil)
 		}
-		sw.Do("{\n", nil)
+		sw.Do("{", nil)
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		for _, f := range v.Fields {
 			sw.Do(f.Name, nil)
 			sw.Do(": ", nil)
-			toGolangSourceDataLiteral(sw, c, f.Value)
-			sw.Do(", ", nil)
+			toGolangSourceDataLiteral(sw, c, f.Value, flags)
+			sw.Do(",", nil)
+			if flags&flNewlineOK != 0 {
+				sw.Do("\n", nil)
+			}
 		}
 		sw.Do("}", targs)
 	case validators.SliceLiteral:
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		sw.Do("[]", nil)
 		targs := generator.Args{
 			"type": c.Universe.Type(v.ElementType),
@@ -1809,10 +1845,21 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 			}
 			sw.Do("]", nil)
 		}
-		sw.Do("{\n", nil)
+		sw.Do("{", nil)
+		if flags&flNewlineOK != 0 {
+			sw.Do("\n", nil)
+		}
 		for _, e := range v.Elements {
-			toGolangSourceDataLiteral(sw, c, e)
-			sw.Do(",\n", nil)
+			// TODO: slice-of-struct ends up with extra newlines because we
+			// emit one after `{` and `,` plus one before a struct. We
+			// should track "isNewLine" in sw, and instead of unconditionally
+			// adding a newline after each element, call sw.NewLine() which
+			// only adds a newline if the previous write did not end with one.
+			toGolangSourceDataLiteral(sw, c, e, flags)
+			sw.Do(",", nil)
+			if flags&flNewlineOK != 0 {
+				sw.Do("\n", nil)
+			}
 		}
 		sw.Do("}", nil)
 	default:
@@ -1834,7 +1881,7 @@ func toGolangSourceDataLiteral(sw *generator.SnippetWriter, c *generator.Context
 			sw.Do("[$.arraySize$]$.itemType${", map[string]string{"arraySize": arraySize, "itemType": itemType})
 			for i := range rv.Len() {
 				val := rv.Index(i)
-				toGolangSourceDataLiteral(sw, c, val.Interface())
+				toGolangSourceDataLiteral(sw, c, val.Interface(), flags)
 				if i < rv.Len()-1 {
 					sw.Do(", ", nil)
 				}
@@ -1873,7 +1920,7 @@ func emitFunctionCall(sw *generator.SnippetWriter, c *generator.Context, v valid
 		if i != 0 {
 			sw.Do(", ", nil)
 		}
-		toGolangSourceDataLiteral(sw, c, arg)
+		toGolangSourceDataLiteral(sw, c, arg, flNewlineOK)
 	}
 	sw.Do(")", nil)
 	switch v.StabilityLevel {

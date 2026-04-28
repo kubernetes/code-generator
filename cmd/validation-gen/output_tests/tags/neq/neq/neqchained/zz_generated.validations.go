@@ -76,10 +76,14 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			func() { // cohort stringField
-				errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField", func(o *InnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-					return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-subfield")
-				})...)
+			func() { // cohort = "stringField"
+				if e := validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField",
+					func(o *InnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr,
+					func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+						return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-subfield")
+					}); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
 			return
 		}
@@ -109,10 +113,14 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			func() { // cohort stringField
-				errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField", func(o *InnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-					return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-subfield-ptr")
-				})...)
+			func() { // cohort = "stringField"
+				if e := validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField",
+					func(o *InnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr,
+					func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+						return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-subfield-ptr")
+					}); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
 			return
 		}
@@ -135,9 +143,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-slice")
-			})...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-slice")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -159,9 +170,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-map-val")
-			})...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-map-val")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -183,9 +197,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-key")
-			})...)
+			if e := validate.EachMapKey(ctx, op, fldPath, obj, oldObj,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-key")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -248,10 +265,14 @@ func Validate_ValidatedInnerStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ValidatedInnerStruct) (errs field.ErrorList) {
 
-	func() { // cohort stringField
-		errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField", func(o *ValidatedInnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-			return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef-struct")
-		})...)
+	func() { // cohort = "stringField"
+		if e := validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField",
+			func(o *ValidatedInnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr,
+			func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+				return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef-struct")
+			}); len(e) != 0 {
+			errs = append(errs, e...)
+		}
 	}()
 
 	// field ValidatedInnerStruct.StringField has no validation
@@ -264,9 +285,12 @@ func Validate_ValidatedStringSlice(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj ValidatedStringSlice) (errs field.ErrorList) {
 
-	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef")
-	})...)
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

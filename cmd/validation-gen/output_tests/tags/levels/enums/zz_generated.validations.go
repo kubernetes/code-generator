@@ -64,7 +64,9 @@ func Validate_BetaEnum(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *BetaEnum) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForBetaEnum, nil).MarkBeta()...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForBetaEnum, nil).MarkBeta(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -77,7 +79,9 @@ func Validate_Enum(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum, nil).MarkAlpha()...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum, nil).MarkAlpha(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

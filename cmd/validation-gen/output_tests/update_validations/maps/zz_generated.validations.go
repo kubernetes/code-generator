@@ -89,7 +89,9 @@ func Validate_M1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "M1.S")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "M1.S"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -120,7 +122,9 @@ func Validate_T1(
 				}
 			}
 			// iterate the map and call the value type's validation function
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_M1)...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_M1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

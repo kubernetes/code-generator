@@ -61,7 +61,9 @@ func Validate_Min10Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Min10Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+	if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -72,7 +74,9 @@ func Validate_Min2Type(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Min2Type) (errs field.ErrorList) {
 
-	errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+	if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -132,7 +136,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -161,7 +167,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -190,7 +198,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -219,7 +229,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -248,7 +260,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -277,7 +291,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -306,7 +322,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -335,7 +353,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -484,7 +504,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -513,7 +535,9 @@ func Validate_Struct(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
+			if e := validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

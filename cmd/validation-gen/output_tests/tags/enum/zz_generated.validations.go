@@ -64,7 +64,9 @@ func Validate_Enum0(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum0) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum0, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum0, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -77,7 +79,9 @@ func Validate_Enum1(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum1) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum1, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum1, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -90,7 +94,9 @@ func Validate_Enum2(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Enum2) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum2, nil)...)
+	if e := validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum2, nil); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

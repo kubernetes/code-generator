@@ -136,44 +136,62 @@ func Validate_AlphaStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *AlphaStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *AlphaStruct) *string { return obj.FieldA }, func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA",
+		func(obj *AlphaStruct) *string { return obj.FieldA },
+		func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *AlphaStruct) *string { return obj.FieldB }, func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB",
+		func(obj *AlphaStruct) *string { return obj.FieldB },
+		func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "B",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field AlphaStruct.TypeMeta has no validation
 	// field AlphaStruct.D1 has no validation
@@ -188,44 +206,62 @@ func Validate_BetaStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *BetaStruct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *BetaStruct) *string { return obj.FieldA }, func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA",
+		func(obj *BetaStruct) *string { return obj.FieldA },
+		func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB", func(obj *BetaStruct) *string { return obj.FieldB }, func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldB",
+		func(obj *BetaStruct) *string { return obj.FieldB },
+		func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "B",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field BetaStruct.TypeMeta has no validation
 	// field BetaStruct.D1 has no validation
@@ -240,44 +276,62 @@ func Validate_CrossLevels(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *CrossLevels) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a", func(obj *CrossLevels) *string { return obj.A }, func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a",
+		func(obj *CrossLevels) *string { return obj.A },
+		func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b", func(obj *CrossLevels) *string { return obj.B }, func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b",
+		func(obj *CrossLevels) *string { return obj.B },
+		func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "B",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field CrossLevels.TypeMeta has no validation
 	// field CrossLevels.Kind has no validation
@@ -292,44 +346,62 @@ func Validate_MixedLevels(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *MixedLevels) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a", func(obj *MixedLevels) *string { return obj.A }, func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a",
+		func(obj *MixedLevels) *string { return obj.A },
+		func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b", func(obj *MixedLevels) *string { return obj.B }, func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "b",
+		func(obj *MixedLevels) *string { return obj.B },
+		func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "B",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field MixedLevels.TypeMeta has no validation
 	// field MixedLevels.Mode has no validation
@@ -344,38 +416,50 @@ func Validate_SameFieldMixed(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *SameFieldMixed) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value", func(obj *SameFieldMixed) *string { return obj.Value }, func(obj *SameFieldMixed) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value",
+		func(obj *SameFieldMixed) *string { return obj.Value },
+		func(obj *SameFieldMixed) string { return obj.Mode }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-		{
-			Value: "B", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+				},
+			},
+
+			{
+				Value: "B",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
 					return errs
-				}
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field SameFieldMixed.TypeMeta has no validation
 	// field SameFieldMixed.Mode has no validation
@@ -389,26 +473,35 @@ func Validate_SameValueMixedPayloads(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *SameValueMixedPayloads) (errs field.ErrorList) {
 
-	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value", func(obj *SameValueMixedPayloads) *string { return obj.Value }, func(obj *SameValueMixedPayloads) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		errs := field.ErrorList{}
-		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
-		return errs
-	}, []validate.DiscriminatedRule[*string, string]{
-		{
-			Value: "A", Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				errs := field.ErrorList{}
-				earlyReturn := false
-				if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
-					errs = append(errs, e...)
-					earlyReturn = true
-				}
-				if earlyReturn {
+	if e := validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value",
+		func(obj *SameValueMixedPayloads) *string { return obj.Value },
+		func(obj *SameValueMixedPayloads) string { return obj.Mode }, validate.DirectEqualPtr,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			errs := field.ErrorList{}
+			errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
+			return errs
+		},
+		[]validate.DiscriminatedRule[*string, string]{
+
+			{
+				Value: "A",
+				Validation: func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					errs := field.ErrorList{}
+					earlyReturn := false
+					if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+						errs = append(errs, e...)
+						earlyReturn = true
+					}
+					if earlyReturn {
+						return errs
+					}
+					errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 3).MarkBeta()...)
 					return errs
-				}
-				errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 3).MarkBeta()...)
-				return errs
-			}},
-	})...)
+				},
+			},
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field SameValueMixedPayloads.TypeMeta has no validation
 	// field SameValueMixedPayloads.Mode has no validation

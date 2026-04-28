@@ -69,8 +69,10 @@ func Validate_T(
 	if earlyReturn {
 		return // do not proceed
 	}
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T Regular")...)
-	func() { // cohort c2
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T Regular"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+	func() { // cohort = "c2"
 		earlyReturn := false
 		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c2 ShortCircuit"); len(e) != 0 {
 			errs = append(errs, e...)
@@ -79,9 +81,11 @@ func Validate_T(
 		if earlyReturn {
 			return // do not proceed
 		}
-		errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c2 Regular")...)
+		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c2 Regular"); len(e) != 0 {
+			errs = append(errs, e...)
+		}
 	}()
-	func() { // cohort c1
+	func() { // cohort = "c1"
 		earlyReturn := false
 		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c1 ShortCircuit"); len(e) != 0 {
 			errs = append(errs, e...)
@@ -90,7 +94,9 @@ func Validate_T(
 		if earlyReturn {
 			return // do not proceed
 		}
-		errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c1 Regular")...)
+		if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T c1 Regular"); len(e) != 0 {
+			errs = append(errs, e...)
+		}
 	}()
 
 	// field T.TypeMeta has no validation
@@ -115,8 +121,10 @@ func Validate_T(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S Regular")...)
-			func() { // cohort c2
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S Regular"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			func() { // cohort = "c2"
 				earlyReturn := false
 				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c2 ShortCircuit"); len(e) != 0 {
 					errs = append(errs, e...)
@@ -125,9 +133,11 @@ func Validate_T(
 				if earlyReturn {
 					return // do not proceed
 				}
-				errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c2 Regular")...)
+				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c2 Regular"); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
-			func() { // cohort c1
+			func() { // cohort = "c1"
 				earlyReturn := false
 				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 ShortCircuit"); len(e) != 0 {
 					errs = append(errs, e...)
@@ -136,7 +146,9 @@ func Validate_T(
 				if earlyReturn {
 					return // do not proceed
 				}
-				errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 Regular")...)
+				if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T.S c1 Regular"); len(e) != 0 {
+					errs = append(errs, e...)
+				}
 			}()
 			return
 		}

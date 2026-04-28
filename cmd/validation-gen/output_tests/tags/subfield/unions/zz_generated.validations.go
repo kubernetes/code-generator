@@ -78,22 +78,27 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_subfield_unions_Struct_subfield_, func(obj *SubStruct) string {
-				if obj == nil {
-					return ""
-				}
-				return string(obj.D)
-			}, func(obj *SubStruct) bool {
-				if obj == nil {
-					return false
-				}
-				return obj.M1 != nil
-			}, func(obj *SubStruct) bool {
-				if obj == nil {
-					return false
-				}
-				return obj.M2 != nil
-			})...)
+			if e := validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_subfield_unions_Struct_subfield_,
+				func(obj *SubStruct) string {
+					if obj == nil {
+						return ""
+					}
+					return string(obj.D)
+				},
+				func(obj *SubStruct) bool {
+					if obj == nil {
+						return false
+					}
+					return obj.M1 != nil
+				},
+				func(obj *SubStruct) bool {
+					if obj == nil {
+						return false
+					}
+					return obj.M2 != nil
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

@@ -62,9 +62,12 @@ func Validate_MapType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj MapType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapType[*]")
-	})...)
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapType[*]")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -75,11 +78,16 @@ func Validate_MapTypedefType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj MapTypedefType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
-		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapTypedefType[*]")
-	})...)
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
+			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapTypedefType[*]")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 	// iterate the map and call the value type's validation function
-	errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_StringType)...)
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_StringType); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -90,7 +98,9 @@ func Validate_StringType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *StringType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -101,7 +111,9 @@ func Validate_Struct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *Struct) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type Struct")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type Struct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field Struct.TypeMeta has no validation
 
@@ -117,9 +129,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField[*]")
-			})...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_MapType(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -143,9 +158,12 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField[*]")
-			})...)
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field Struct.MapTypedefField[*]")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, Validate_MapTypedefType(ctx, op, fldPath, obj, oldObj)...)
 			return

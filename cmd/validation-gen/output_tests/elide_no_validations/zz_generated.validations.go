@@ -73,7 +73,9 @@ func Validate_HasFieldVal(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field HasFieldVal.S")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field HasFieldVal.S"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -92,7 +94,9 @@ func Validate_HasTypeVal(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *HasTypeVal) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type HasTypeVal")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type HasTypeVal"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field HasTypeVal.S has no validation
 	return errs
@@ -164,7 +168,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.HasNoValFieldVal")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field T1.HasNoValFieldVal"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

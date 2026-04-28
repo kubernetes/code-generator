@@ -77,7 +77,9 @@ func Validate_UniqueStruct(
 			}
 			// call field-attached validations
 			// lists with set semantics require unique values
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual).MarkAlpha()...)
+			if e := validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -100,7 +102,9 @@ func Validate_UniqueStruct(
 			}
 			// call field-attached validations
 			// lists with set semantics require unique values
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual).MarkBeta()...)
+			if e := validate.Unique(ctx, op, fldPath, obj, oldObj, validate.DirectEqual).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

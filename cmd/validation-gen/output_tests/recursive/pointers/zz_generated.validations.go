@@ -282,7 +282,9 @@ func Validate_T3(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T3) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T3")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T3"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	// field T3.I has no validation
 	return errs

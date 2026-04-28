@@ -75,7 +75,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-string")...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-string"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -97,7 +99,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-pointer")...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-pointer"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -119,7 +123,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef")...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -141,7 +147,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef-pointer")...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef-pointer"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -204,7 +212,9 @@ func Validate_ValidatedStringType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ValidatedStringType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-on-type")...)
+	if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-on-type"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

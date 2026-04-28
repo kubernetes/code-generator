@@ -172,7 +172,9 @@ func Validate_T2(
 				}
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_T1)...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_T1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -191,7 +193,9 @@ func Validate_T3(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *T3) (errs field.ErrorList) {
 
-	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T3")...)
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T3"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	{ // field T3.T4
 		fn := func(
@@ -236,7 +240,9 @@ func Validate_T4(
 				}
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_T3)...)
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_T3); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

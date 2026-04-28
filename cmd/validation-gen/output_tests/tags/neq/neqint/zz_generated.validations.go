@@ -75,7 +75,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 0)...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, 0); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -97,7 +99,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, -1)...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, -1); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -119,7 +123,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 42)...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, 42); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -160,7 +166,9 @@ func Validate_ValidatedIntType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ValidatedIntType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 100)...)
+	if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, 100); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

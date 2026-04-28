@@ -79,7 +79,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT1")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, primitives.Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -103,7 +105,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT1Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT1Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, primitives.Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -127,7 +131,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, primitives.Validate_T2(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -151,7 +157,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT2Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT2Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, primitives.Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -175,7 +183,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT3")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT3"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -197,7 +207,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT3Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.PrimitivesT3Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, primitives.Validate_T1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -221,7 +233,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE1")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE1"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -245,7 +259,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE1Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE1Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E1(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -269,7 +285,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE2")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE2"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E2(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -293,7 +311,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE2Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE2Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E2(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -317,7 +337,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE3")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE3"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E3(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -341,7 +363,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE3Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE3Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E3(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -365,7 +389,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE4")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE4"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E4(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -389,7 +415,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE4Ptr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.TypedefsE4Ptr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// call the type's validation function
 			errs = append(errs, typedefs.Validate_E4(ctx, op, fldPath, obj, oldObj)...)
 			return
@@ -413,7 +441,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherString")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherString"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -435,7 +465,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStringPtr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStringPtr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -457,7 +489,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherInt")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherInt"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -479,7 +513,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherIntPtr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherIntPtr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -501,7 +537,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStruct")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -523,7 +561,9 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStructPtr")...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.OtherStructPtr"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -545,10 +585,15 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct")...)
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct values")
-			})...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct values")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -570,12 +615,21 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.ListMapOfOtherStruct")...)
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField }, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct values")
-			})...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.ListMapOfOtherStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj,
+				func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField }, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.SliceOfOtherStruct values")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			// lists with map semantics require unique keys
-			errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField })...)
+			if e := validate.Unique(ctx, op, fldPath, obj, oldObj,
+				func(a other.StructType, b other.StructType) bool { return a.StringField == b.StringField }); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -597,13 +651,21 @@ func Validate_T1(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StringType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct keys")
-			})...)
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct")...)
-			errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
-				return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct values")
-			})...)
+			if e := validate.EachMapKey(ctx, op, fldPath, obj, oldObj,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StringType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct keys")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct"); len(e) != 0 {
+				errs = append(errs, e...)
+			}
+			if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual,
+				func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *other.StructType) field.ErrorList {
+					return validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "field T1.MapOfOtherStringToOtherStruct values")
+				}); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

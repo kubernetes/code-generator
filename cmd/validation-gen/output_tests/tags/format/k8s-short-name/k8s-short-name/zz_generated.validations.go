@@ -61,7 +61,9 @@ func Validate_ShortNameStringType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *ShortNameStringType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.ShortName(ctx, op, fldPath, obj, oldObj)...)
+	if e := validate.ShortName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -86,7 +88,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.ShortName(ctx, op, fldPath, obj, oldObj)...)
+			if e := validate.ShortName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -108,7 +112,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.ShortName(ctx, op, fldPath, obj, oldObj)...)
+			if e := validate.ShortName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,

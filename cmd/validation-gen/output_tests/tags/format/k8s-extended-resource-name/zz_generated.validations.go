@@ -82,7 +82,9 @@ func Validate_MyType(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj)...)
+			if e := validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -111,7 +113,9 @@ func Validate_MyType(
 			if earlyReturn {
 				return // do not proceed
 			}
-			errs = append(errs, validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj)...)
+			if e := validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -152,7 +156,9 @@ func Validate_NameStringType(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *NameStringType) (errs field.ErrorList) {
 
-	errs = append(errs, validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj)...)
+	if e := validate.ExtendedResourceName(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

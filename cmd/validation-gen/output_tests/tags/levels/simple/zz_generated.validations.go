@@ -106,7 +106,9 @@ func Validate_SpecialValidationStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 5).MarkAlpha()...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, 5).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -128,7 +130,9 @@ func Validate_SpecialValidationStruct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 5).MarkBeta()...)
+			if e := validate.NEQ(ctx, op, fldPath, obj, oldObj, 5).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -283,7 +287,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -305,7 +311,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta()...)
+			if e := validate.Minimum(ctx, op, fldPath, obj, oldObj, 10).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -327,7 +335,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 5).MarkAlpha()...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 5).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -349,7 +359,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.MaxLength(ctx, op, fldPath, obj, oldObj, 5).MarkBeta()...)
+			if e := validate.MaxLength(ctx, op, fldPath, obj, oldObj, 5).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -429,7 +441,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.UUID(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
+			if e := validate.UUID(ctx, op, fldPath, obj, oldObj).MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -451,7 +465,9 @@ func Validate_Struct(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.UUID(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
+			if e := validate.UUID(ctx, op, fldPath, obj, oldObj).MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -542,7 +558,9 @@ func Validate_StructWithValidateFalse(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "always fails").MarkAlpha()...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "always fails").MarkAlpha(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
@@ -564,7 +582,9 @@ func Validate_StructWithValidateFalse(
 				}
 			}
 			// call field-attached validations
-			errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "always fails").MarkBeta()...)
+			if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "always fails").MarkBeta(); len(e) != 0 {
+				errs = append(errs, e...)
+			}
 			return
 		}
 		oldVal := safe.Field(oldObj,
