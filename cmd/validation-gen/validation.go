@@ -1355,6 +1355,7 @@ func emitRatchetingCheck(c *generator.Context, t *types.Type, sw *generator.Snip
 		"operation": mkSymbolArgs(c, operationPkgSymbols),
 	}
 	sw.Do("// don't revalidate unchanged data\n", nil)
+	sw.Do("if oldValueCorrelated && op.Type == $.operation.Update|raw$ {\n", targs)
 	// If the type is a builtin, we can use a simpler equality check when they are not nil.
 	if util.IsDirectComparable(util.NonPointer(util.NativeType(t))) {
 		// We should never get anything but pointers here, since every other
@@ -1365,12 +1366,13 @@ func emitRatchetingCheck(c *generator.Context, t *types.Type, sw *generator.Snip
 		// - obj != nil : handle optional fields which are updated to nil
 		// - oldObj != nil : handle optional fields which are updated from nil
 		// - *obj == *oldObj : compare values
-		sw.Do("if oldValueCorrelated && op.Type == $.operation.Update|raw$ && (obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj)) {\n", targs)
+		sw.Do("  if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {\n", targs)
 	} else {
 		targs["equality"] = mkSymbolArgs(c, equalityPkgSymbols)
-		sw.Do("if oldValueCorrelated && op.Type == $.operation.Update|raw$ && $.equality.Semantic|raw$.DeepEqual(obj, oldObj) {\n", targs)
+		sw.Do("  if $.equality.Semantic|raw$.DeepEqual(obj, oldObj) {\n", targs)
 	}
-	sw.Do("   return nil\n", nil)
+	sw.Do("    return nil\n", nil)
+	sw.Do("  }\n", nil)
 	sw.Do("}\n", nil)
 }
 
