@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ConflictingItemList validates an instance of ConflictingItemList according
 // to declarative validation rules in the API schema.
-func Validate_ConflictingItemList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ConflictingItemList) (errs field.ErrorList) {
+func Validate_ConflictingItemList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ConflictingItemList) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a DualItem, b DualItem) bool { return a.ID == b.ID })...)
 	func() { // cohort {"id": "target"}
@@ -72,7 +75,10 @@ func Validate_ConflictingItemList(ctx context.Context, op operation.Operation, f
 
 // Validate_DualItemList validates an instance of DualItemList according
 // to declarative validation rules in the API schema.
-func Validate_DualItemList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj DualItemList) (errs field.ErrorList) {
+func Validate_DualItemList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj DualItemList) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a DualItem, b DualItem) bool { return a.ID == b.ID })...)
 	func() { // cohort {"id": "typedef-target"}
@@ -86,7 +92,10 @@ func Validate_DualItemList(ctx context.Context, op operation.Operation, fldPath 
 
 // Validate_ItemList validates an instance of ItemList according
 // to declarative validation rules in the API schema.
-func Validate_ItemList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ItemList) (errs field.ErrorList) {
+func Validate_ItemList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ItemList) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Item, b Item) bool { return a.Key == b.Key })...)
 	func() { // cohort {"key": "immutable"}
@@ -110,7 +119,10 @@ func Validate_ItemList(ctx context.Context, op operation.Operation, fldPath *fie
 
 // Validate_ItemListAlias validates an instance of ItemListAlias according
 // to declarative validation rules in the API schema.
-func Validate_ItemListAlias(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ItemListAlias) (errs field.ErrorList) {
+func Validate_ItemListAlias(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ItemListAlias) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a Item, b Item) bool { return a.Key == b.Key })...)
 	func() { // cohort {"key": "aliased"}
@@ -124,7 +136,10 @@ func Validate_ItemListAlias(ctx context.Context, op operation.Operation, fldPath
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.TypedefItems

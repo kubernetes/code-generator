@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ComplexSetItem validates an instance of ComplexSetItem according
 // to declarative validation rules in the API schema.
-func Validate_ComplexSetItem(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ComplexSetItem) (errs field.ErrorList) {
+func Validate_ComplexSetItem(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ComplexSetItem) (errs field.ErrorList) {
+
 	// field ComplexSetItem.Value
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -77,7 +80,10 @@ func Validate_ComplexSetItem(ctx context.Context, op operation.Operation, fldPat
 
 // Validate_ComplexSetItemBeta validates an instance of ComplexSetItemBeta according
 // to declarative validation rules in the API schema.
-func Validate_ComplexSetItemBeta(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ComplexSetItemBeta) (errs field.ErrorList) {
+func Validate_ComplexSetItemBeta(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ComplexSetItemBeta) (errs field.ErrorList) {
+
 	// field ComplexSetItemBeta.Value
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *int, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -96,7 +102,10 @@ func Validate_ComplexSetItemBeta(ctx context.Context, op operation.Operation, fl
 
 // Validate_ListSetStruct validates an instance of ListSetStruct according
 // to declarative validation rules in the API schema.
-func Validate_ListSetStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ListSetStruct) (errs field.ErrorList) {
+func Validate_ListSetStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ListSetStruct) (errs field.ErrorList) {
+
 	// field ListSetStruct.TypeMeta has no validation
 
 	// field ListSetStruct.Set

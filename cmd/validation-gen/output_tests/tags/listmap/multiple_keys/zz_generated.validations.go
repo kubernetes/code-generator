@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ListType validates an instance of ListType according
 // to declarative validation rules in the API schema.
-func Validate_ListType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ListType) (errs field.ErrorList) {
+func Validate_ListType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ListType) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a OtherStruct, b OtherStruct) bool {
 		return a.Key1Field == b.Key1Field && a.Key2Field == b.Key2Field
@@ -69,7 +72,10 @@ func Validate_ListType(ctx context.Context, op operation.Operation, fldPath *fie
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.ListField

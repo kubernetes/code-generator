@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_T validates an instance of T according
 // to declarative validation rules in the API schema.
-func Validate_T(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T) (errs field.ErrorList) {
+func Validate_T(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T ShortCircuit"); len(e) != 0 {
 		errs = append(errs, e...)

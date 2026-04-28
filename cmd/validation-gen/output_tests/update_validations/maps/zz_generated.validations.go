@@ -73,7 +73,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_M1 validates an instance of M1 according
 // to declarative validation rules in the API schema.
-func Validate_M1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *M1) (errs field.ErrorList) {
+func Validate_M1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *M1) (errs field.ErrorList) {
+
 	// field M1.S
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -91,7 +94,10 @@ func Validate_M1(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_T1 validates an instance of T1 according
 // to declarative validation rules in the API schema.
-func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T1) (errs field.ErrorList) {
+func Validate_T1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T1) (errs field.ErrorList) {
+
 	// field T1.MSM1
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj map[string]M1, oldValueCorrelated bool) (errs field.ErrorList) {

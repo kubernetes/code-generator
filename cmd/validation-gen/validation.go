@@ -1050,12 +1050,12 @@ func (g *genValidations) emitValidationFunction(c *generator.Context, t *types.T
 	}
 	sw.Do("// $.inType|objectvalidationfn$ validates an instance of $.inType|name$ according\n", targs)
 	sw.Do("// to declarative validation rules in the API schema.\n", targs)
-	sw.Do("func $.inType|objectvalidationfn$(", targs)
+	sw.Do("func $.inType|objectvalidationfn$(\n", targs)
 	sw.Do("    ctx $.context.Context|raw$, ", targs)
 	sw.Do("    op $.operation.Operation|raw$, ", targs)
-	sw.Do("    fldPath *$.field.Path|raw$, ", targs)
+	sw.Do("    fldPath *$.field.Path|raw$,\n", targs)
 	sw.Do("    obj, oldObj $.objTypePfx$$.inType|raw$) ", targs)
-	sw.Do("(errs $.field.ErrorList|raw$) {\n", targs)
+	sw.Do("(errs $.field.ErrorList|raw$) {\n\n", targs)
 	fakeChild := &childNode{
 		node:      node,
 		childType: t,

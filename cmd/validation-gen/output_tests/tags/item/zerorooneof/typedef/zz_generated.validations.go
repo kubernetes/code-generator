@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.Tasks
@@ -80,7 +83,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_TaskList validates an instance of TaskList according
 // to declarative validation rules in the API schema.
-func Validate_TaskList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj TaskList) (errs field.ErrorList) {
+func Validate_TaskList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TaskList) (errs field.ErrorList) {
+
 	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_item_zerorooneof_typedef_TaskList_, func(list TaskList) bool {
 		for i := range list {
 			if list[i].Name == "failed" {

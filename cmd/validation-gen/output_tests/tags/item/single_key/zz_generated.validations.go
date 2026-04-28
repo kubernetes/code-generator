@@ -73,7 +73,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.Items
@@ -203,7 +206,10 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_StructWithNestedTypedef validates an instance of StructWithNestedTypedef according
 // to declarative validation rules in the API schema.
-func Validate_StructWithNestedTypedef(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructWithNestedTypedef) (errs field.ErrorList) {
+func Validate_StructWithNestedTypedef(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructWithNestedTypedef) (errs field.ErrorList) {
+
 	// field StructWithNestedTypedef.TypeMeta has no validation
 
 	// field StructWithNestedTypedef.NestedItems

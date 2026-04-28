@@ -133,7 +133,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_AliasMapKeyType validates an instance of AliasMapKeyType according
 // to declarative validation rules in the API schema.
-func Validate_AliasMapKeyType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj AliasMapKeyType) (errs field.ErrorList) {
+func Validate_AliasMapKeyType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj AliasMapKeyType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapKeyType")...)
 	// iterate the map and call the key type's validation function
 	errs = append(errs, validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_S)...)
@@ -143,7 +146,10 @@ func Validate_AliasMapKeyType(ctx context.Context, op operation.Operation, fldPa
 
 // Validate_AliasMapValueType validates an instance of AliasMapValueType according
 // to declarative validation rules in the API schema.
-func Validate_AliasMapValueType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj AliasMapValueType) (errs field.ErrorList) {
+func Validate_AliasMapValueType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj AliasMapValueType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapValueType")...)
 	// iterate the map and call the value type's validation function
 	errs = append(errs, validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_S)...)
@@ -153,7 +159,10 @@ func Validate_AliasMapValueType(ctx context.Context, op operation.Operation, fld
 
 // Validate_DirectComparableStruct validates an instance of DirectComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_DirectComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DirectComparableStruct) (errs field.ErrorList) {
+func Validate_DirectComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *DirectComparableStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type DirectComparableStruct")...)
 
 	// field DirectComparableStruct.IntField
@@ -173,7 +182,10 @@ func Validate_DirectComparableStruct(ctx context.Context, op operation.Operation
 
 // Validate_MixComparableStruct validates an instance of MixComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_MixComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MixComparableStruct) (errs field.ErrorList) {
+func Validate_MixComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MixComparableStruct) (errs field.ErrorList) {
+
 	// field MixComparableStruct.TypeMeta has no validation
 	// field MixComparableStruct.Primitive has no validation
 
@@ -194,7 +206,10 @@ func Validate_MixComparableStruct(ctx context.Context, op operation.Operation, f
 
 // Validate_MySlice validates an instance of MySlice according
 // to declarative validation rules in the API schema.
-func Validate_MySlice(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj MySlice) (errs field.ErrorList) {
+func Validate_MySlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj MySlice) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MySlice")...)
 
 	return errs
@@ -202,7 +217,10 @@ func Validate_MySlice(ctx context.Context, op operation.Operation, fldPath *fiel
 
 // Validate_NestedDirectComparableStruct validates an instance of NestedDirectComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_NestedDirectComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NestedDirectComparableStruct) (errs field.ErrorList) {
+func Validate_NestedDirectComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NestedDirectComparableStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedDirectComparableStruct")...)
 
 	// field NestedDirectComparableStruct.DirectComparableStructField
@@ -226,7 +244,10 @@ func Validate_NestedDirectComparableStruct(ctx context.Context, op operation.Ope
 
 // Validate_NestedNonDirectComparableStruct validates an instance of NestedNonDirectComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_NestedNonDirectComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NestedNonDirectComparableStruct) (errs field.ErrorList) {
+func Validate_NestedNonDirectComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NestedNonDirectComparableStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NestedNonDirectComparableStruct")...)
 
 	// field NestedNonDirectComparableStruct.NonDirectComparableStructField
@@ -250,7 +271,10 @@ func Validate_NestedNonDirectComparableStruct(ctx context.Context, op operation.
 
 // Validate_NonDirectComparableStruct validates an instance of NonDirectComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_NonDirectComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NonDirectComparableStruct) (errs field.ErrorList) {
+func Validate_NonDirectComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NonDirectComparableStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NonDirectComparableStruct")...)
 
 	// field NonDirectComparableStruct.IntPtrField
@@ -270,7 +294,10 @@ func Validate_NonDirectComparableStruct(ctx context.Context, op operation.Operat
 
 // Validate_S validates an instance of S according
 // to declarative validation rules in the API schema.
-func Validate_S(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *S) (errs field.ErrorList) {
+func Validate_S(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *S) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type S")...)
 
 	return errs
@@ -278,7 +305,10 @@ func Validate_S(ctx context.Context, op operation.Operation, fldPath *field.Path
 
 // Validate_StructEmbedded validates an instance of StructEmbedded according
 // to declarative validation rules in the API schema.
-func Validate_StructEmbedded(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructEmbedded) (errs field.ErrorList) {
+func Validate_StructEmbedded(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructEmbedded) (errs field.ErrorList) {
+
 	// field StructEmbedded.TypeMeta has no validation
 
 	// field StructEmbedded.DirectComparableStruct
@@ -346,7 +376,10 @@ func Validate_StructEmbedded(ctx context.Context, op operation.Operation, fldPat
 
 // Validate_StructMap validates an instance of StructMap according
 // to declarative validation rules in the API schema.
-func Validate_StructMap(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructMap) (errs field.ErrorList) {
+func Validate_StructMap(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructMap) (errs field.ErrorList) {
+
 	// field StructMap.TypeMeta has no validation
 
 	// field StructMap.MapKeyField
@@ -410,7 +443,10 @@ func Validate_StructMap(ctx context.Context, op operation.Operation, fldPath *fi
 
 // Validate_StructPrimitive validates an instance of StructPrimitive according
 // to declarative validation rules in the API schema.
-func Validate_StructPrimitive(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructPrimitive) (errs field.ErrorList) {
+func Validate_StructPrimitive(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructPrimitive) (errs field.ErrorList) {
+
 	// field StructPrimitive.TypeMeta has no validation
 
 	// field StructPrimitive.IntField
@@ -449,7 +485,10 @@ func Validate_StructPrimitive(ctx context.Context, op operation.Operation, fldPa
 
 // Validate_StructSlice validates an instance of StructSlice according
 // to declarative validation rules in the API schema.
-func Validate_StructSlice(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructSlice) (errs field.ErrorList) {
+func Validate_StructSlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructSlice) (errs field.ErrorList) {
+
 	// field StructSlice.TypeMeta has no validation
 
 	// field StructSlice.SliceField
@@ -485,7 +524,10 @@ func Validate_StructSlice(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_StructStruct validates an instance of StructStruct according
 // to declarative validation rules in the API schema.
-func Validate_StructStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructStruct) (errs field.ErrorList) {
+func Validate_StructStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructStruct) (errs field.ErrorList) {
+
 	// field StructStruct.TypeMeta has no validation
 
 	// field StructStruct.DirectComparableStructField

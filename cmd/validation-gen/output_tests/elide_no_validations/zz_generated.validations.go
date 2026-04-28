@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_HasFieldVal validates an instance of HasFieldVal according
 // to declarative validation rules in the API schema.
-func Validate_HasFieldVal(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *HasFieldVal) (errs field.ErrorList) {
+func Validate_HasFieldVal(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *HasFieldVal) (errs field.ErrorList) {
+
 	// field HasFieldVal.S
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -75,7 +78,10 @@ func Validate_HasFieldVal(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_HasTypeVal validates an instance of HasTypeVal according
 // to declarative validation rules in the API schema.
-func Validate_HasTypeVal(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *HasTypeVal) (errs field.ErrorList) {
+func Validate_HasTypeVal(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *HasTypeVal) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type HasTypeVal")...)
 
 	// field HasTypeVal.S has no validation
@@ -84,7 +90,10 @@ func Validate_HasTypeVal(ctx context.Context, op operation.Operation, fldPath *f
 
 // Validate_T1 validates an instance of T1 according
 // to declarative validation rules in the API schema.
-func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T1) (errs field.ErrorList) {
+func Validate_T1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T1) (errs field.ErrorList) {
+
 	// field T1.TypeMeta has no validation
 
 	// field T1.HasTypeVal

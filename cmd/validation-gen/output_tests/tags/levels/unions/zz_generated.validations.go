@@ -135,7 +135,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_MyListStruct validates an instance of MyListStruct according
 // to declarative validation rules in the API schema.
-func Validate_MyListStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MyListStruct) (errs field.ErrorList) {
+func Validate_MyListStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MyListStruct) (errs field.ErrorList) {
+
 	// field MyListStruct.TypeMeta has no validation
 
 	// field MyListStruct.Tasks
@@ -173,7 +176,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_MyListStructBeta validates an instance of MyListStructBeta according
 // to declarative validation rules in the API schema.
-func Validate_MyListStructBeta(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MyListStructBeta) (errs field.ErrorList) {
+func Validate_MyListStructBeta(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MyListStructBeta) (errs field.ErrorList) {
+
 	// field MyListStructBeta.TypeMeta has no validation
 
 	// field MyListStructBeta.TasksBeta
@@ -211,7 +217,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_MyStruct validates an instance of MyStruct according
 // to declarative validation rules in the API schema.
-func Validate_MyStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MyStruct) (errs field.ErrorList) {
+func Validate_MyStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MyStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStruct_, func(obj *MyStruct) bool {
 		if obj == nil {
 			return false
@@ -269,7 +278,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_MyStructBeta validates an instance of MyStructBeta according
 // to declarative validation rules in the API schema.
-func Validate_MyStructBeta(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MyStructBeta) (errs field.ErrorList) {
+func Validate_MyStructBeta(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MyStructBeta) (errs field.ErrorList) {
+
 	errs = append(errs, validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_MyStructBeta_, func(obj *MyStructBeta) bool {
 		if obj == nil {
 			return false
@@ -327,7 +339,10 @@ var unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tag
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_Struct_, func(obj *Struct) string {
 		if obj == nil {
 			return ""
@@ -391,7 +406,10 @@ var unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tag
 
 // Validate_UnionStructBeta validates an instance of UnionStructBeta according
 // to declarative validation rules in the API schema.
-func Validate_UnionStructBeta(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UnionStructBeta) (errs field.ErrorList) {
+func Validate_UnionStructBeta(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UnionStructBeta) (errs field.ErrorList) {
+
 	errs = append(errs, validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_levels_unions_UnionStructBeta_, func(obj *UnionStructBeta) string {
 		if obj == nil {
 			return ""

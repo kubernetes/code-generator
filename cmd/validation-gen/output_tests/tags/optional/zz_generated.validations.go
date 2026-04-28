@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_IntType validates an instance of IntType according
 // to declarative validation rules in the API schema.
-func Validate_IntType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *IntType) (errs field.ErrorList) {
+func Validate_IntType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *IntType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type IntType")...)
 
 	return errs
@@ -66,7 +69,10 @@ func Validate_IntType(ctx context.Context, op operation.Operation, fldPath *fiel
 
 // Validate_MapType validates an instance of MapType according
 // to declarative validation rules in the API schema.
-func Validate_MapType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj MapType) (errs field.ErrorList) {
+func Validate_MapType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj MapType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MapType")...)
 
 	return errs
@@ -74,7 +80,10 @@ func Validate_MapType(ctx context.Context, op operation.Operation, fldPath *fiel
 
 // Validate_OtherStruct validates an instance of OtherStruct according
 // to declarative validation rules in the API schema.
-func Validate_OtherStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherStruct) (errs field.ErrorList) {
+func Validate_OtherStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OtherStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct")...)
 
 	return errs
@@ -82,7 +91,10 @@ func Validate_OtherStruct(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_SliceType validates an instance of SliceType according
 // to declarative validation rules in the API schema.
-func Validate_SliceType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj SliceType) (errs field.ErrorList) {
+func Validate_SliceType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj SliceType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type SliceType")...)
 
 	return errs
@@ -90,7 +102,10 @@ func Validate_SliceType(ctx context.Context, op operation.Operation, fldPath *fi
 
 // Validate_StringType validates an instance of StringType according
 // to declarative validation rules in the API schema.
-func Validate_StringType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) (errs field.ErrorList) {
+func Validate_StringType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StringType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType")...)
 
 	return errs
@@ -98,7 +113,10 @@ func Validate_StringType(ctx context.Context, op operation.Operation, fldPath *f
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.StringField

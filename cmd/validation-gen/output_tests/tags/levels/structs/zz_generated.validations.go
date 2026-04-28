@@ -73,7 +73,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ConditionalStruct validates an instance of ConditionalStruct according
 // to declarative validation rules in the API schema.
-func Validate_ConditionalStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ConditionalStruct) (errs field.ErrorList) {
+func Validate_ConditionalStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ConditionalStruct) (errs field.ErrorList) {
+
 	// field ConditionalStruct.TypeMeta has no validation
 
 	// field ConditionalStruct.ConditionalField
@@ -133,7 +136,10 @@ func Validate_ConditionalStruct(ctx context.Context, op operation.Operation, fld
 
 // Validate_MixedStruct validates an instance of MixedStruct according
 // to declarative validation rules in the API schema.
-func Validate_MixedStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MixedStruct) (errs field.ErrorList) {
+func Validate_MixedStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MixedStruct) (errs field.ErrorList) {
+
 	// field MixedStruct.TypeMeta has no validation
 
 	// field MixedStruct.IntField

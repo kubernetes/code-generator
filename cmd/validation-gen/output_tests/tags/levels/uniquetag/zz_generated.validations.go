@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_UniqueStruct validates an instance of UniqueStruct according
 // to declarative validation rules in the API schema.
-func Validate_UniqueStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UniqueStruct) (errs field.ErrorList) {
+func Validate_UniqueStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UniqueStruct) (errs field.ErrorList) {
+
 	// field UniqueStruct.TypeMeta has no validation
 
 	// field UniqueStruct.AlphaUniqueSet

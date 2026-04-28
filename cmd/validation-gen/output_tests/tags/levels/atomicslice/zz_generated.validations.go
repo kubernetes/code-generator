@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_AtomicSliceStruct validates an instance of AtomicSliceStruct according
 // to declarative validation rules in the API schema.
-func Validate_AtomicSliceStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *AtomicSliceStruct) (errs field.ErrorList) {
+func Validate_AtomicSliceStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *AtomicSliceStruct) (errs field.ErrorList) {
+
 	// field AtomicSliceStruct.TypeMeta has no validation
 
 	// field AtomicSliceStruct.Standard

@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ListType validates an instance of ListType according
 // to declarative validation rules in the API schema.
-func Validate_ListType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ListType) (errs field.ErrorList) {
+func Validate_ListType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ListType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListType")...)
 	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListType[*]")
@@ -69,7 +72,10 @@ func Validate_ListType(ctx context.Context, op operation.Operation, fldPath *fie
 
 // Validate_ListTypedefType validates an instance of ListTypedefType according
 // to declarative validation rules in the API schema.
-func Validate_ListTypedefType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ListTypedefType) (errs field.ErrorList) {
+func Validate_ListTypedefType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ListTypedefType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListTypedefType")...)
 	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) field.ErrorList {
 		return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type ListTypedefType[*]")
@@ -82,7 +88,10 @@ func Validate_ListTypedefType(ctx context.Context, op operation.Operation, fldPa
 
 // Validate_StringType validates an instance of StringType according
 // to declarative validation rules in the API schema.
-func Validate_StringType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StringType) (errs field.ErrorList) {
+func Validate_StringType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StringType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type StringType")...)
 
 	return errs
@@ -90,7 +99,10 @@ func Validate_StringType(ctx context.Context, op operation.Operation, fldPath *f
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type Struct")...)
 
 	// field Struct.TypeMeta has no validation

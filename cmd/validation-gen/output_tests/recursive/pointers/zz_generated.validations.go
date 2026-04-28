@@ -88,7 +88,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_T1 validates an instance of T1 according
 // to declarative validation rules in the API schema.
-func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T1) (errs field.ErrorList) {
+func Validate_T1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T1) (errs field.ErrorList) {
+
 	// field T1.PT1
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *T1, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -146,7 +149,10 @@ func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_T2 validates an instance of T2 according
 // to declarative validation rules in the API schema.
-func Validate_T2(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T2) (errs field.ErrorList) {
+func Validate_T2(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T2) (errs field.ErrorList) {
+
 	// field T2.PT1
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *T1, oldValueCorrelated bool) (errs field.ErrorList) {
@@ -212,7 +218,10 @@ func Validate_T2(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_T3 validates an instance of T3 according
 // to declarative validation rules in the API schema.
-func Validate_T3(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T3) (errs field.ErrorList) {
+func Validate_T3(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T3) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T3")...)
 
 	// field T3.I has no validation

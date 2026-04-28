@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_UpdateMapStruct validates an instance of UpdateMapStruct according
 // to declarative validation rules in the API schema.
-func Validate_UpdateMapStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UpdateMapStruct) (errs field.ErrorList) {
+func Validate_UpdateMapStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UpdateMapStruct) (errs field.ErrorList) {
+
 	// field UpdateMapStruct.TypeMeta has no validation
 
 	// field UpdateMapStruct.MapNoSet

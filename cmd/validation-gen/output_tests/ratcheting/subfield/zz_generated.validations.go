@@ -73,7 +73,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.SubStructField
@@ -102,7 +105,10 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_StructWithSubfield validates an instance of StructWithSubfield according
 // to declarative validation rules in the API schema.
-func Validate_StructWithSubfield(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructWithSubfield) (errs field.ErrorList) {
+func Validate_StructWithSubfield(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructWithSubfield) (errs field.ErrorList) {
+
 	func() { // cohort intField
 		errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "intField", func(o *StructWithSubfield) *int { return &o.IntField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *int) field.ErrorList {
 			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "field IntField")

@@ -61,7 +61,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.UnionField
@@ -179,7 +182,10 @@ var unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tag
 
 // Validate_Union validates an instance of Union according
 // to declarative validation rules in the API schema.
-func Validate_Union(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Union) (errs field.ErrorList) {
+func Validate_Union(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Union) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Union) field.ErrorList {
 		return validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_options_unions_Union_, func(obj *Union) string {
 			if obj == nil {
@@ -211,7 +217,10 @@ var unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tag
 
 // Validate_UnionDisabled validates an instance of UnionDisabled according
 // to declarative validation rules in the API schema.
-func Validate_UnionDisabled(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UnionDisabled) (errs field.ErrorList) {
+func Validate_UnionDisabled(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UnionDisabled) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UnionDisabled) field.ErrorList {
 		return validate.DiscriminatedUnion(ctx, op, fldPath, obj, oldObj, unionMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_options_unions_UnionDisabled_, func(obj *UnionDisabled) string {
 			if obj == nil {
@@ -243,7 +252,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_ZeroOrOneOf validates an instance of ZeroOrOneOf according
 // to declarative validation rules in the API schema.
-func Validate_ZeroOrOneOf(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ZeroOrOneOf) (errs field.ErrorList) {
+func Validate_ZeroOrOneOf(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ZeroOrOneOf) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ZeroOrOneOf) field.ErrorList {
 		return validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_options_unions_ZeroOrOneOf_, func(obj *ZeroOrOneOf) bool {
 			if obj == nil {
@@ -269,7 +281,10 @@ var zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tes
 
 // Validate_ZeroOrOneOfDisabled validates an instance of ZeroOrOneOfDisabled according
 // to declarative validation rules in the API schema.
-func Validate_ZeroOrOneOfDisabled(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ZeroOrOneOfDisabled) (errs field.ErrorList) {
+func Validate_ZeroOrOneOfDisabled(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ZeroOrOneOfDisabled) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureX", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ZeroOrOneOfDisabled) field.ErrorList {
 		return validate.ZeroOrOneOfUnion(ctx, op, fldPath, obj, oldObj, zeroOrOneOfMembershipFor_k8s_io_code_generator_cmd_validation_gen_output_tests_tags_options_unions_ZeroOrOneOfDisabled_, func(obj *ZeroOrOneOfDisabled) bool {
 			if obj == nil {

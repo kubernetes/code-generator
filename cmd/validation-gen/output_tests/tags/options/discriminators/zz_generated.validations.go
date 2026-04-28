@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Discriminator validates an instance of Discriminator according
 // to declarative validation rules in the API schema.
-func Validate_Discriminator(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) (errs field.ErrorList) {
+func Validate_Discriminator(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Discriminator) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", true, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Discriminator) field.ErrorList {
 		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *Discriminator) *string { return obj.FieldA }, func(obj *Discriminator) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 			errs := field.ErrorList{}
@@ -108,7 +111,10 @@ func Validate_Discriminator(ctx context.Context, op operation.Operation, fldPath
 
 // Validate_DiscriminatorDisabled validates an instance of DiscriminatorDisabled according
 // to declarative validation rules in the API schema.
-func Validate_DiscriminatorDisabled(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) (errs field.ErrorList) {
+func Validate_DiscriminatorDisabled(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *DiscriminatorDisabled) (errs field.ErrorList) {
+
 	errs = append(errs, validate.IfOption(ctx, op, fldPath, obj, oldObj, "FeatureZ", false, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *DiscriminatorDisabled) field.ErrorList {
 		return validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *DiscriminatorDisabled) *string { return obj.FieldA }, func(obj *DiscriminatorDisabled) string { return obj.Discriminator }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 			errs := field.ErrorList{}
@@ -158,7 +164,10 @@ func Validate_DiscriminatorDisabled(ctx context.Context, op operation.Operation,
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.DiscriminatorField

@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ListMapItemStruct validates an instance of ListMapItemStruct according
 // to declarative validation rules in the API schema.
-func Validate_ListMapItemStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ListMapItemStruct) (errs field.ErrorList) {
+func Validate_ListMapItemStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ListMapItemStruct) (errs field.ErrorList) {
+
 	// field ListMapItemStruct.TypeMeta has no validation
 
 	// field ListMapItemStruct.StandardItem

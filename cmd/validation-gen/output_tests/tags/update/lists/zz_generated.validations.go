@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_FrozenUserList validates an instance of FrozenUserList according
 // to declarative validation rules in the API schema.
-func Validate_FrozenUserList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj FrozenUserList) (errs field.ErrorList) {
+func Validate_FrozenUserList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj FrozenUserList) (errs field.ErrorList) {
+
 	// lists with map semantics require unique keys
 	errs = append(errs, validate.Unique(ctx, op, fldPath, obj, oldObj, func(a UpdateItem, b UpdateItem) bool { return a.Name == b.Name })...)
 
@@ -67,7 +70,10 @@ func Validate_FrozenUserList(ctx context.Context, op operation.Operation, fldPat
 
 // Validate_UpdateListStruct validates an instance of UpdateListStruct according
 // to declarative validation rules in the API schema.
-func Validate_UpdateListStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UpdateListStruct) (errs field.ErrorList) {
+func Validate_UpdateListStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UpdateListStruct) (errs field.ErrorList) {
+
 	// field UpdateListStruct.TypeMeta has no validation
 
 	// field UpdateListStruct.StringSliceNoSet

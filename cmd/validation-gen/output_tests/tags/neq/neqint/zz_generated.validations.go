@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.IntField
@@ -113,7 +116,10 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_ValidatedIntType validates an instance of ValidatedIntType according
 // to declarative validation rules in the API schema.
-func Validate_ValidatedIntType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ValidatedIntType) (errs field.ErrorList) {
+func Validate_ValidatedIntType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ValidatedIntType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.NEQ(ctx, op, fldPath, obj, oldObj, 100)...)
 
 	return errs

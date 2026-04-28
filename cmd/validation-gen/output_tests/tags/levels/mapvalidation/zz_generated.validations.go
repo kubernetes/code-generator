@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_MapValidationStruct validates an instance of MapValidationStruct according
 // to declarative validation rules in the API schema.
-func Validate_MapValidationStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MapValidationStruct) (errs field.ErrorList) {
+func Validate_MapValidationStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MapValidationStruct) (errs field.ErrorList) {
+
 	// field MapValidationStruct.TypeMeta has no validation
 
 	// field MapValidationStruct.StandardEachVal

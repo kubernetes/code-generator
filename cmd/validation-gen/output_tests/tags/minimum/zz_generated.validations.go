@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_IntType validates an instance of IntType according
 // to declarative validation rules in the API schema.
-func Validate_IntType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *IntType) (errs field.ErrorList) {
+func Validate_IntType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *IntType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Minimum(ctx, op, fldPath, obj, oldObj, 1)...)
 
 	return errs
@@ -65,7 +68,10 @@ func Validate_IntType(ctx context.Context, op operation.Operation, fldPath *fiel
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.IntField

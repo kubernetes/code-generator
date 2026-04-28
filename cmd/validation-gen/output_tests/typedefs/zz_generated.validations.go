@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_E1 validates an instance of E1 according
 // to declarative validation rules in the API schema.
-func Validate_E1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E1) (errs field.ErrorList) {
+func Validate_E1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E1) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type E1")...)
 
 	return errs
@@ -65,7 +68,10 @@ func Validate_E1(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_E2 validates an instance of E2 according
 // to declarative validation rules in the API schema.
-func Validate_E2(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E2) (errs field.ErrorList) {
+func Validate_E2(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E2) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type E2")...)
 
 	return errs
@@ -73,7 +79,10 @@ func Validate_E2(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_E3 validates an instance of E3 according
 // to declarative validation rules in the API schema.
-func Validate_E3(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E3) (errs field.ErrorList) {
+func Validate_E3(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E3) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type E3")...)
 
 	return errs
@@ -81,7 +90,10 @@ func Validate_E3(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_E4 validates an instance of E4 according
 // to declarative validation rules in the API schema.
-func Validate_E4(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E4) (errs field.ErrorList) {
+func Validate_E4(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E4) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type E4")...)
 
 	// field E4.S
@@ -101,7 +113,10 @@ func Validate_E4(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_T1 validates an instance of T1 according
 // to declarative validation rules in the API schema.
-func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T1) (errs field.ErrorList) {
+func Validate_T1(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T1) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T1")...)
 
 	// field T1.TypeMeta has no validation
@@ -251,7 +266,10 @@ func Validate_T1(ctx context.Context, op operation.Operation, fldPath *field.Pat
 
 // Validate_T2 validates an instance of T2 according
 // to declarative validation rules in the API schema.
-func Validate_T2(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T2) (errs field.ErrorList) {
+func Validate_T2(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T2) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type T2")...)
 
 	// field T2.S

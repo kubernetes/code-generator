@@ -73,7 +73,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Item validates an instance of Item according
 // to declarative validation rules in the API schema.
-func Validate_Item(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Item) (errs field.ErrorList) {
+func Validate_Item(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Item) (errs field.ErrorList) {
+
 	// field Item.Key has no validation
 
 	// field Item.Data
@@ -93,7 +96,10 @@ func Validate_Item(ctx context.Context, op operation.Operation, fldPath *field.P
 
 // Validate_ItemList validates an instance of ItemList according
 // to declarative validation rules in the API schema.
-func Validate_ItemList(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ItemList) (errs field.ErrorList) {
+func Validate_ItemList(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ItemList) (errs field.ErrorList) {
+
 	// field ItemList.TypeMeta has no validation
 
 	// field ItemList.Items
@@ -116,7 +122,10 @@ func Validate_ItemList(ctx context.Context, op operation.Operation, fldPath *fie
 
 // Validate_MixedKeyStruct validates an instance of MixedKeyStruct according
 // to declarative validation rules in the API schema.
-func Validate_MixedKeyStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MixedKeyStruct) (errs field.ErrorList) {
+func Validate_MixedKeyStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MixedKeyStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type MixedKeyStruct")...)
 
 	// field MixedKeyStruct.Key1 has no validation
@@ -127,7 +136,10 @@ func Validate_MixedKeyStruct(ctx context.Context, op operation.Operation, fldPat
 
 // Validate_NonComparableStruct validates an instance of NonComparableStruct according
 // to declarative validation rules in the API schema.
-func Validate_NonComparableStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NonComparableStruct) (errs field.ErrorList) {
+func Validate_NonComparableStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NonComparableStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NonComparableStruct")...)
 
 	// field NonComparableStruct.IntPtrField has no validation
@@ -136,7 +148,10 @@ func Validate_NonComparableStruct(ctx context.Context, op operation.Operation, f
 
 // Validate_NonComparableStructWithKey validates an instance of NonComparableStructWithKey according
 // to declarative validation rules in the API schema.
-func Validate_NonComparableStructWithKey(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NonComparableStructWithKey) (errs field.ErrorList) {
+func Validate_NonComparableStructWithKey(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NonComparableStructWithKey) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type NonComparableStructWithKey")...)
 
 	// field NonComparableStructWithKey.Key has no validation
@@ -146,7 +161,10 @@ func Validate_NonComparableStructWithKey(ctx context.Context, op operation.Opera
 
 // Validate_PtrKeyStruct validates an instance of PtrKeyStruct according
 // to declarative validation rules in the API schema.
-func Validate_PtrKeyStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *PtrKeyStruct) (errs field.ErrorList) {
+func Validate_PtrKeyStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *PtrKeyStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type PtrKeyStruct")...)
 
 	// field PtrKeyStruct.Key has no validation
@@ -156,7 +174,10 @@ func Validate_PtrKeyStruct(ctx context.Context, op operation.Operation, fldPath 
 
 // Validate_StructSlice validates an instance of StructSlice according
 // to declarative validation rules in the API schema.
-func Validate_StructSlice(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructSlice) (errs field.ErrorList) {
+func Validate_StructSlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructSlice) (errs field.ErrorList) {
+
 	// field StructSlice.TypeMeta has no validation
 
 	// field StructSlice.AtomicSliceStringField

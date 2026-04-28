@@ -132,7 +132,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_AlphaStruct validates an instance of AlphaStruct according
 // to declarative validation rules in the API schema.
-func Validate_AlphaStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *AlphaStruct) (errs field.ErrorList) {
+func Validate_AlphaStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *AlphaStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *AlphaStruct) *string { return obj.FieldA }, func(obj *AlphaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
@@ -181,7 +184,10 @@ func Validate_AlphaStruct(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_BetaStruct validates an instance of BetaStruct according
 // to declarative validation rules in the API schema.
-func Validate_BetaStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *BetaStruct) (errs field.ErrorList) {
+func Validate_BetaStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *BetaStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *BetaStruct) *string { return obj.FieldA }, func(obj *BetaStruct) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkBeta()...)
@@ -230,7 +236,10 @@ func Validate_BetaStruct(ctx context.Context, op operation.Operation, fldPath *f
 
 // Validate_CrossLevels validates an instance of CrossLevels according
 // to declarative validation rules in the API schema.
-func Validate_CrossLevels(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *CrossLevels) (errs field.ErrorList) {
+func Validate_CrossLevels(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *CrossLevels) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a", func(obj *CrossLevels) *string { return obj.A }, func(obj *CrossLevels) string { return obj.Kind }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
@@ -279,7 +288,10 @@ func Validate_CrossLevels(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_MixedLevels validates an instance of MixedLevels according
 // to declarative validation rules in the API schema.
-func Validate_MixedLevels(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MixedLevels) (errs field.ErrorList) {
+func Validate_MixedLevels(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MixedLevels) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "a", func(obj *MixedLevels) *string { return obj.A }, func(obj *MixedLevels) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj).MarkAlpha()...)
@@ -328,7 +340,10 @@ func Validate_MixedLevels(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_SameFieldMixed validates an instance of SameFieldMixed according
 // to declarative validation rules in the API schema.
-func Validate_SameFieldMixed(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *SameFieldMixed) (errs field.ErrorList) {
+func Validate_SameFieldMixed(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *SameFieldMixed) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value", func(obj *SameFieldMixed) *string { return obj.Value }, func(obj *SameFieldMixed) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -370,7 +385,10 @@ func Validate_SameFieldMixed(ctx context.Context, op operation.Operation, fldPat
 
 // Validate_SameValueMixedPayloads validates an instance of SameValueMixedPayloads according
 // to declarative validation rules in the API schema.
-func Validate_SameValueMixedPayloads(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *SameValueMixedPayloads) (errs field.ErrorList) {
+func Validate_SameValueMixedPayloads(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *SameValueMixedPayloads) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "value", func(obj *SameValueMixedPayloads) *string { return obj.Value }, func(obj *SameValueMixedPayloads) string { return obj.Mode }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)

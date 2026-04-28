@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ImmutableType validates an instance of ImmutableType according
 // to declarative validation rules in the API schema.
-func Validate_ImmutableType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ImmutableType) (errs field.ErrorList) {
+func Validate_ImmutableType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ImmutableType) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.Immutable(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
 		errs = append(errs, e...)
@@ -73,7 +76,10 @@ func Validate_ImmutableType(ctx context.Context, op operation.Operation, fldPath
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.StringField

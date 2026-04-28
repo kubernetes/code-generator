@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_LabelValueStringType validates an instance of LabelValueStringType according
 // to declarative validation rules in the API schema.
-func Validate_LabelValueStringType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *LabelValueStringType) (errs field.ErrorList) {
+func Validate_LabelValueStringType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *LabelValueStringType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.LabelValue(ctx, op, fldPath, obj, oldObj)...)
 
 	return errs
@@ -65,7 +68,10 @@ func Validate_LabelValueStringType(ctx context.Context, op operation.Operation, 
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.LabelValueField

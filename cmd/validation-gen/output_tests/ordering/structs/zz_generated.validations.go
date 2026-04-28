@@ -117,7 +117,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_T00 validates an instance of T00 according
 // to declarative validation rules in the API schema.
-func Validate_T00(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T00) (errs field.ErrorList) {
+func Validate_T00(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T00) (errs field.ErrorList) {
+
 	// field T00.TypeMeta has no validation
 	// field T00.S has no validation
 	// field T00.PS has no validation
@@ -151,7 +154,10 @@ func Validate_T00(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_T01 validates an instance of T01 according
 // to declarative validation rules in the API schema.
-func Validate_T01(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T01) (errs field.ErrorList) {
+func Validate_T01(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T01) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T01, no flags")...)
 
 	// field T01.TypeMeta has no validation
@@ -213,7 +219,10 @@ func Validate_T01(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_T02 validates an instance of T02 according
 // to declarative validation rules in the API schema.
-func Validate_T02(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T02) (errs field.ErrorList) {
+func Validate_T02(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T02) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T02, ShortCircuit"); len(e) != 0 {
 		errs = append(errs, e...)
@@ -310,7 +319,10 @@ func Validate_T02(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_T03 validates an instance of T03 according
 // to declarative validation rules in the API schema.
-func Validate_T03(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *T03) (errs field.ErrorList) {
+func Validate_T03(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *T03) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "T03, ShortCircuit"); len(e) != 0 {
 		errs = append(errs, e...)
@@ -412,7 +424,10 @@ func Validate_T03(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_TMultiple validates an instance of TMultiple according
 // to declarative validation rules in the API schema.
-func Validate_TMultiple(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *TMultiple) (errs field.ErrorList) {
+func Validate_TMultiple(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *TMultiple) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "TMultiple, ShortCircuit 1"); len(e) != 0 {
 		errs = append(errs, e...)
@@ -544,7 +559,10 @@ func Validate_TMultiple(ctx context.Context, op operation.Operation, fldPath *fi
 
 // Validate_Tother validates an instance of Tother according
 // to declarative validation rules in the API schema.
-func Validate_Tother(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Tother) (errs field.ErrorList) {
+func Validate_Tother(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Tother) (errs field.ErrorList) {
+
 	// field Tother.OS
 	errs = append(errs,
 		func(fldPath *field.Path, obj, oldObj *string, oldValueCorrelated bool) (errs field.ErrorList) {

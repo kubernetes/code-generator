@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.StructField
@@ -171,7 +174,10 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_ValidatedInnerStruct validates an instance of ValidatedInnerStruct according
 // to declarative validation rules in the API schema.
-func Validate_ValidatedInnerStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ValidatedInnerStruct) (errs field.ErrorList) {
+func Validate_ValidatedInnerStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ValidatedInnerStruct) (errs field.ErrorList) {
+
 	func() { // cohort stringField
 		errs = append(errs, validate.Subfield(ctx, op, fldPath, obj, oldObj, "stringField", func(o *ValidatedInnerStruct) *string { return &o.StringField }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 			return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef-struct")
@@ -184,7 +190,10 @@ func Validate_ValidatedInnerStruct(ctx context.Context, op operation.Operation, 
 
 // Validate_ValidatedStringSlice validates an instance of ValidatedStringSlice according
 // to declarative validation rules in the API schema.
-func Validate_ValidatedStringSlice(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj ValidatedStringSlice) (errs field.ErrorList) {
+func Validate_ValidatedStringSlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj ValidatedStringSlice) (errs field.ErrorList) {
+
 	errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		return validate.NEQ(ctx, op, fldPath, obj, oldObj, "disallowed-typedef")
 	})...)

@@ -60,7 +60,10 @@ var symbolsForBetaEnum = sets.New(BetaEnumA)
 
 // Validate_BetaEnum validates an instance of BetaEnum according
 // to declarative validation rules in the API schema.
-func Validate_BetaEnum(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *BetaEnum) (errs field.ErrorList) {
+func Validate_BetaEnum(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *BetaEnum) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForBetaEnum, nil).MarkBeta()...)
 
 	return errs
@@ -70,7 +73,10 @@ var symbolsForEnum = sets.New(EnumA)
 
 // Validate_Enum validates an instance of Enum according
 // to declarative validation rules in the API schema.
-func Validate_Enum(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Enum) (errs field.ErrorList) {
+func Validate_Enum(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Enum) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Enum(ctx, op, fldPath, obj, oldObj, symbolsForEnum, nil).MarkAlpha()...)
 
 	return errs
@@ -78,7 +84,10 @@ func Validate_Enum(ctx context.Context, op operation.Operation, fldPath *field.P
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.EnumField

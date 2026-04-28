@@ -118,7 +118,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_OtherString validates an instance of OtherString according
 // to declarative validation rules in the API schema.
-func Validate_OtherString(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherString) (errs field.ErrorList) {
+func Validate_OtherString(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OtherString) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherString")...)
 
 	return errs
@@ -126,7 +129,10 @@ func Validate_OtherString(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_OtherStruct validates an instance of OtherStruct according
 // to declarative validation rules in the API schema.
-func Validate_OtherStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherStruct) (errs field.ErrorList) {
+func Validate_OtherStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OtherStruct) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type OtherStruct")...)
 
 	// field OtherStruct.StringField
@@ -146,7 +152,10 @@ func Validate_OtherStruct(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.StructField
@@ -330,7 +339,10 @@ func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_TypedefMapOther validates an instance of TypedefMapOther according
 // to declarative validation rules in the API schema.
-func Validate_TypedefMapOther(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj TypedefMapOther) (errs field.ErrorList) {
+func Validate_TypedefMapOther(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TypedefMapOther) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type TypedefMapOther")...)
 
 	return errs
@@ -338,7 +350,10 @@ func Validate_TypedefMapOther(ctx context.Context, op operation.Operation, fldPa
 
 // Validate_TypedefSliceOther validates an instance of TypedefSliceOther according
 // to declarative validation rules in the API schema.
-func Validate_TypedefSliceOther(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj TypedefSliceOther) (errs field.ErrorList) {
+func Validate_TypedefSliceOther(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj TypedefSliceOther) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type TypedefSliceOther")...)
 
 	return errs

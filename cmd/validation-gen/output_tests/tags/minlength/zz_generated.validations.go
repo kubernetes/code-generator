@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_Min10Type validates an instance of Min10Type according
 // to declarative validation rules in the API schema.
-func Validate_Min10Type(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Min10Type) (errs field.ErrorList) {
+func Validate_Min10Type(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Min10Type) (errs field.ErrorList) {
+
 	errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 10).MarkAlpha()...)
 
 	return errs
@@ -65,7 +68,10 @@ func Validate_Min10Type(ctx context.Context, op operation.Operation, fldPath *fi
 
 // Validate_Min2Type validates an instance of Min2Type according
 // to declarative validation rules in the API schema.
-func Validate_Min2Type(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Min2Type) (errs field.ErrorList) {
+func Validate_Min2Type(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Min2Type) (errs field.ErrorList) {
+
 	errs = append(errs, validate.MinLength(ctx, op, fldPath, obj, oldObj, 2).MarkAlpha()...)
 
 	return errs
@@ -73,7 +79,10 @@ func Validate_Min2Type(ctx context.Context, op operation.Operation, fldPath *fie
 
 // Validate_Struct validates an instance of Struct according
 // to declarative validation rules in the API schema.
-func Validate_Struct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Struct) (errs field.ErrorList) {
+func Validate_Struct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Struct) (errs field.ErrorList) {
+
 	// field Struct.TypeMeta has no validation
 
 	// field Struct.Min0PtrField

@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ListKeyStruct validates an instance of ListKeyStruct according
 // to declarative validation rules in the API schema.
-func Validate_ListKeyStruct(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ListKeyStruct) (errs field.ErrorList) {
+func Validate_ListKeyStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ListKeyStruct) (errs field.ErrorList) {
+
 	// field ListKeyStruct.TypeMeta has no validation
 
 	// field ListKeyStruct.AlphaListTypeStandardKey

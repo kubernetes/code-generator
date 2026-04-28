@@ -57,7 +57,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_MyType validates an instance of MyType according
 // to declarative validation rules in the API schema.
-func Validate_MyType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MyType) (errs field.ErrorList) {
+func Validate_MyType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MyType) (errs field.ErrorList) {
+
 	// field MyType.TypeMeta has no validation
 
 	// field MyType.UUIDField
@@ -115,7 +118,10 @@ func Validate_MyType(ctx context.Context, op operation.Operation, fldPath *field
 
 // Validate_UUIDStringType validates an instance of UUIDStringType according
 // to declarative validation rules in the API schema.
-func Validate_UUIDStringType(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *UUIDStringType) (errs field.ErrorList) {
+func Validate_UUIDStringType(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *UUIDStringType) (errs field.ErrorList) {
+
 	errs = append(errs, validate.UUID(ctx, op, fldPath, obj, oldObj)...)
 
 	return errs

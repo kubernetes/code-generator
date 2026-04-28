@@ -102,7 +102,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_E01 validates an instance of E01 according
 // to declarative validation rules in the API schema.
-func Validate_E01(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E01) (errs field.ErrorList) {
+func Validate_E01(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E01) (errs field.ErrorList) {
+
 	errs = append(errs, validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E01, no flags")...)
 
 	return errs
@@ -110,7 +113,10 @@ func Validate_E01(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_E02 validates an instance of E02 according
 // to declarative validation rules in the API schema.
-func Validate_E02(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E02) (errs field.ErrorList) {
+func Validate_E02(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E02) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E02, ShortCircuit"); len(e) != 0 {
 		errs = append(errs, e...)
@@ -125,7 +131,10 @@ func Validate_E02(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_E03 validates an instance of E03 according
 // to declarative validation rules in the API schema.
-func Validate_E03(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *E03) (errs field.ErrorList) {
+func Validate_E03(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *E03) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "E03, ShortCircuit"); len(e) != 0 {
 		errs = append(errs, e...)
@@ -141,7 +150,10 @@ func Validate_E03(ctx context.Context, op operation.Operation, fldPath *field.Pa
 
 // Validate_EMultiple validates an instance of EMultiple according
 // to declarative validation rules in the API schema.
-func Validate_EMultiple(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *EMultiple) (errs field.ErrorList) {
+func Validate_EMultiple(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *EMultiple) (errs field.ErrorList) {
+
 	earlyReturn := false
 	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "EMultiple, ShortCircuit 1"); len(e) != 0 {
 		errs = append(errs, e...)

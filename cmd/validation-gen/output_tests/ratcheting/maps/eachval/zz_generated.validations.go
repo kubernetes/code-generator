@@ -58,7 +58,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_StructWithMaps validates an instance of StructWithMaps according
 // to declarative validation rules in the API schema.
-func Validate_StructWithMaps(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StructWithMaps) (errs field.ErrorList) {
+func Validate_StructWithMaps(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StructWithMaps) (errs field.ErrorList) {
+
 	// field StructWithMaps.TypeMeta has no validation
 
 	// field StructWithMaps.MapPrimitiveField

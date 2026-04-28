@@ -147,7 +147,10 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 
 // Validate_ChainedValidation validates an instance of ChainedValidation according
 // to declarative validation rules in the API schema.
-func Validate_ChainedValidation(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ChainedValidation) (errs field.ErrorList) {
+func Validate_ChainedValidation(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ChainedValidation) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *ChainedValidation) *string { return obj.FieldA }, func(obj *ChainedValidation) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -177,7 +180,10 @@ func Validate_ChainedValidation(ctx context.Context, op operation.Operation, fld
 
 // Validate_Collections validates an instance of Collections according
 // to declarative validation rules in the API schema.
-func Validate_Collections(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *Collections) (errs field.ErrorList) {
+func Validate_Collections(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *Collections) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "listField", func(obj *Collections) []string { return obj.ListField }, func(obj *Collections) string { return obj.D1 }, validate.SemanticDeepEqual, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj []string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenSlice(ctx, op, fldPath, obj, oldObj)...)
@@ -224,7 +230,10 @@ func Validate_Collections(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_ImplicitForbidden validates an instance of ImplicitForbidden according
 // to declarative validation rules in the API schema.
-func Validate_ImplicitForbidden(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *ImplicitForbidden) (errs field.ErrorList) {
+func Validate_ImplicitForbidden(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *ImplicitForbidden) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *ImplicitForbidden) *string { return obj.FieldA }, func(obj *ImplicitForbidden) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -252,7 +261,10 @@ func Validate_ImplicitForbidden(ctx context.Context, op operation.Operation, fld
 
 // Validate_MultipleDiscriminators validates an instance of MultipleDiscriminators according
 // to declarative validation rules in the API schema.
-func Validate_MultipleDiscriminators(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *MultipleDiscriminators) (errs field.ErrorList) {
+func Validate_MultipleDiscriminators(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *MultipleDiscriminators) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *MultipleDiscriminators) *string { return obj.FieldA }, func(obj *MultipleDiscriminators) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -302,7 +314,10 @@ func Validate_MultipleDiscriminators(ctx context.Context, op operation.Operation
 
 // Validate_NonStringDiscriminator validates an instance of NonStringDiscriminator according
 // to declarative validation rules in the API schema.
-func Validate_NonStringDiscriminator(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *NonStringDiscriminator) (errs field.ErrorList) {
+func Validate_NonStringDiscriminator(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *NonStringDiscriminator) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *NonStringDiscriminator) *string { return obj.FieldA }, func(obj *NonStringDiscriminator) bool { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -331,7 +346,10 @@ func Validate_NonStringDiscriminator(ctx context.Context, op operation.Operation
 
 // Validate_SharedField validates an instance of SharedField according
 // to declarative validation rules in the API schema.
-func Validate_SharedField(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *SharedField) (errs field.ErrorList) {
+func Validate_SharedField(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *SharedField) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *SharedField) *string { return obj.FieldA }, func(obj *SharedField) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
@@ -371,7 +389,10 @@ func Validate_SharedField(ctx context.Context, op operation.Operation, fldPath *
 
 // Validate_StrictUnion validates an instance of StrictUnion according
 // to declarative validation rules in the API schema.
-func Validate_StrictUnion(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *StrictUnion) (errs field.ErrorList) {
+func Validate_StrictUnion(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *StrictUnion) (errs field.ErrorList) {
+
 	errs = append(errs, validate.Discriminated(ctx, op, fldPath, obj, oldObj, "fieldA", func(obj *StrictUnion) *string { return obj.FieldA }, func(obj *StrictUnion) string { return obj.D1 }, validate.DirectEqualPtr, func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *string) field.ErrorList {
 		errs := field.ErrorList{}
 		errs = append(errs, validate.ForbiddenPointer(ctx, op, fldPath, obj, oldObj)...)
