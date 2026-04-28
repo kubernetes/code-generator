@@ -663,6 +663,66 @@ func Validate_OptionalStruct(
 		errs = append(errs, fn(fldPath.Child("optionalIntPtrField"), obj.OptionalIntPtrField, oldVal, oldObj != nil)...)
 	}
 
+	{ // field OptionalStruct.OptionalTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *OptionalStruct) *IntType {
+				return &oldObj.OptionalTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalTypedefField"), &obj.OptionalTypedefField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field OptionalStruct.OptionalTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.OptionalPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *OptionalStruct) *IntType {
+				return oldObj.OptionalTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("optionalTypedefPtrField"), obj.OptionalTypedefPtrField, oldVal, oldObj != nil)...)
+	}
+
 	return errs
 }
 
@@ -736,6 +796,68 @@ func Validate_RequiredStruct(
 				return oldObj.RequiredIntPtrField
 			})
 		errs = append(errs, fn(fldPath.Child("requiredIntPtrField"), obj.RequiredIntPtrField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field RequiredStruct.RequiredTypedefField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredValue(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *RequiredStruct) *IntType {
+				return &oldObj.RequiredTypedefField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredTypedefField"), &obj.RequiredTypedefField, oldVal, oldObj != nil)...)
+	}
+
+	{ // field RequiredStruct.RequiredTypedefPtrField
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj *IntType,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if obj == oldObj || (obj != nil && oldObj != nil && *obj == *oldObj) {
+					return nil
+				}
+			}
+			// call field-attached validations
+			earlyReturn := false
+			if e := validate.RequiredPointer(ctx, op, fldPath, obj, oldObj); len(e) != 0 {
+				errs = append(errs, e...)
+				earlyReturn = true
+			}
+			if earlyReturn {
+				return // do not proceed
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_IntType(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *RequiredStruct) *IntType {
+				return oldObj.RequiredTypedefPtrField
+			})
+		errs = append(errs, fn(fldPath.Child("requiredTypedefPtrField"), obj.RequiredTypedefPtrField, oldVal, oldObj != nil)...)
 	}
 
 	return errs
