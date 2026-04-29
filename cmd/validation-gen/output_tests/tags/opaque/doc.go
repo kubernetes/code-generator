@@ -89,6 +89,7 @@ type OtherStruct struct {
 
 // OpaqueFieldsStruct contains fields with the opaque markers, contains no field validations.
 // Validations should not be generated for these fields.
+// +k8s:validateTrue="type OpaqueFieldsStruct"
 type OpaqueFieldsStruct struct {
 	// +k8s:opaqueType
 	OtherStruct

@@ -56,6 +56,34 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 	return nil
 }
 
+// Validate_DeepTypedefMap validates an instance of DeepTypedefMap according
+// to declarative validation rules in the API schema.
+func Validate_DeepTypedefMap(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj DeepTypedefMap) (errs field.ErrorList) {
+
+	// iterate the map and call the value type's validation function
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	return errs
+}
+
+// Validate_DeepTypedefSlice validates an instance of DeepTypedefSlice according
+// to declarative validation rules in the API schema.
+func Validate_DeepTypedefSlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj DeepTypedefSlice) (errs field.ErrorList) {
+
+	// iterate the list and call the type's validation function
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	return errs
+}
+
 // Validate_HasFieldVal validates an instance of HasFieldVal according
 // to declarative validation rules in the API schema.
 func Validate_HasFieldVal(
@@ -261,6 +289,50 @@ func Validate_T1(
 		errs = append(errs, fn(fldPath.Child("validatedMapKey"), obj.ValidatedMapKey, oldVal, oldObj != nil)...)
 	}
 
+	{ // field T1.DeepValidatedSlice
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj DeepTypedefSlice,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_DeepTypedefSlice(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) DeepTypedefSlice {
+				return oldObj.DeepValidatedSlice
+			})
+		errs = append(errs, fn(fldPath.Child("deepValidatedSlice"), obj.DeepValidatedSlice, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.DeepValidatedMap
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj DeepTypedefMap,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_DeepTypedefMap(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) DeepTypedefMap {
+				return oldObj.DeepValidatedMap
+			})
+		errs = append(errs, fn(fldPath.Child("deepValidatedMap"), obj.DeepValidatedMap, oldVal, oldObj != nil)...)
+	}
+
 	return errs
 }
 
@@ -269,6 +341,11 @@ func Validate_T1(
 func Validate_TypedefMapWithKeyValidations(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj TypedefMapWithKeyValidations) (errs field.ErrorList) {
+
+	// iterate the map and call the key type's validation function
+	if e := validate.EachMapKey(ctx, op, fldPath, obj, oldObj, Validate_ValidatedKeyType); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }
@@ -279,6 +356,11 @@ func Validate_TypedefMapWithValidations(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj TypedefMapWithValidations) (errs field.ErrorList) {
 
+	// iterate the map and call the value type's validation function
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
 	return errs
 }
 
@@ -287,6 +369,11 @@ func Validate_TypedefMapWithValidations(
 func Validate_TypedefSliceWithValidations(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj TypedefSliceWithValidations) (errs field.ErrorList) {
+
+	// iterate the list and call the type's validation function
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
 
 	return errs
 }

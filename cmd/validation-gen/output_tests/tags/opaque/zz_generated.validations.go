@@ -137,6 +137,10 @@ func Validate_OpaqueFieldsStruct(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj *OpaqueFieldsStruct) (errs field.ErrorList) {
 
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type OpaqueFieldsStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
 	// field OpaqueFieldsStruct.OtherStruct has no validation
 	// field OpaqueFieldsStruct.OpaqueSliceField has no validation
 	// field OpaqueFieldsStruct.OpaqueMapField has no validation

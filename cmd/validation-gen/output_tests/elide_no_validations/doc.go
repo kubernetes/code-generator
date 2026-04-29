@@ -41,6 +41,9 @@ type T1 struct {
 	ValidatedSlice  TypedefSliceWithValidations  `json:"validatedSlice"`
 	ValidatedMap    TypedefMapWithValidations    `json:"validatedMap"`
 	ValidatedMapKey TypedefMapWithKeyValidations `json:"validatedMapKey"`
+
+	DeepValidatedSlice DeepTypedefSlice `json:"deepValidatedSlice"`
+	DeepValidatedMap   DeepTypedefMap   `json:"deepValidatedMap"`
 }
 
 // +k8s:validateFalse="type HasTypeVal"
@@ -92,3 +95,7 @@ type TypedefSliceWithValidations []OtherStruct
 type TypedefMapWithValidations map[string]OtherStruct
 
 type TypedefMapWithKeyValidations map[ValidatedKeyType]string
+
+type DeepTypedefSlice TypedefSliceWithValidations
+
+type DeepTypedefMap TypedefMapWithValidations
