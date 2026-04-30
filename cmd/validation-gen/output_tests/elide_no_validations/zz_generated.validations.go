@@ -76,6 +76,41 @@ func Validate_DeepTypedefSlice(
 	ctx context.Context, op operation.Operation, fldPath *field.Path,
 	obj, oldObj DeepTypedefSlice) (errs field.ErrorList) {
 
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil,
+		func(ctx context.Context, op operation.Operation, fldPath *field.Path, obj, oldObj *OtherStruct) field.ErrorList {
+			return validate.FixedResult(ctx, op, fldPath, obj, oldObj, false, "type DeepTypedefSlice")
+		}); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	// iterate the list and call the type's validation function
+	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	return errs
+}
+
+// Validate_DoubleDeepTypedefMap validates an instance of DoubleDeepTypedefMap according
+// to declarative validation rules in the API schema.
+func Validate_DoubleDeepTypedefMap(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj DoubleDeepTypedefMap) (errs field.ErrorList) {
+
+	// iterate the map and call the value type's validation function
+	if e := validate.EachMapVal(ctx, op, fldPath, obj, oldObj, validate.DirectEqual, Validate_OtherStruct); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	return errs
+}
+
+// Validate_DoubleDeepTypedefSlice validates an instance of DoubleDeepTypedefSlice according
+// to declarative validation rules in the API schema.
+func Validate_DoubleDeepTypedefSlice(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj DoubleDeepTypedefSlice) (errs field.ErrorList) {
+
 	// iterate the list and call the type's validation function
 	if e := validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_OtherStruct); len(e) != 0 {
 		errs = append(errs, e...)
@@ -331,6 +366,50 @@ func Validate_T1(
 				return oldObj.DeepValidatedMap
 			})
 		errs = append(errs, fn(fldPath.Child("deepValidatedMap"), obj.DeepValidatedMap, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.DoubleDeepValidatedSlice
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj DoubleDeepTypedefSlice,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_DoubleDeepTypedefSlice(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) DoubleDeepTypedefSlice {
+				return oldObj.DoubleDeepValidatedSlice
+			})
+		errs = append(errs, fn(fldPath.Child("doubleDeepValidatedSlice           "), obj.DoubleDeepValidatedSlice, oldVal, oldObj != nil)...)
+	}
+
+	{ // field T1.DoubleDeepValidatedMap
+		fn := func(
+			fldPath *field.Path,
+			obj, oldObj DoubleDeepTypedefMap,
+			oldValueCorrelated bool) (errs field.ErrorList) {
+			// don't revalidate unchanged data
+			if oldValueCorrelated && op.Type == operation.Update {
+				if equality.Semantic.DeepEqual(obj, oldObj) {
+					return nil
+				}
+			}
+			// call the type's validation function
+			errs = append(errs, Validate_DoubleDeepTypedefMap(ctx, op, fldPath, obj, oldObj)...)
+			return
+		}
+		oldVal := safe.Field(oldObj,
+			func(oldObj *T1) DoubleDeepTypedefMap {
+				return oldObj.DoubleDeepValidatedMap
+			})
+		errs = append(errs, fn(fldPath.Child("doubleDeepValidatedMap"), obj.DoubleDeepValidatedMap, oldVal, oldObj != nil)...)
 	}
 
 	return errs

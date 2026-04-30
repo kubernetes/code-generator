@@ -7,9 +7,23 @@
       "type OtherStruct"
     ],
     "deepValidatedSlice[0]": [
+      "type DeepTypedefSlice",
       "type OtherStruct"
     ],
     "deepValidatedSlice[1]": [
+      "type DeepTypedefSlice",
+      "type OtherStruct"
+    ],
+    "doubleDeepValidatedMap[滧ǖvq]": [
+      "type OtherStruct"
+    ],
+    "doubleDeepValidatedMap[黰¢ơđ?ȵɓf*Z迖瓼轊]": [
+      "type OtherStruct"
+    ],
+    "doubleDeepValidatedSlice           [0]": [
+      "type OtherStruct"
+    ],
+    "doubleDeepValidatedSlice           [1]": [
       "type OtherStruct"
     ],
     "hasFieldVal.s": [

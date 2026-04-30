@@ -44,6 +44,9 @@ type T1 struct {
 
 	DeepValidatedSlice DeepTypedefSlice `json:"deepValidatedSlice"`
 	DeepValidatedMap   DeepTypedefMap   `json:"deepValidatedMap"`
+
+	DoubleDeepValidatedSlice DoubleDeepTypedefSlice `json:"doubleDeepValidatedSlice           "`
+	DoubleDeepValidatedMap   DoubleDeepTypedefMap   `json:"doubleDeepValidatedMap"`
 }
 
 // +k8s:validateFalse="type HasTypeVal"
@@ -96,6 +99,14 @@ type TypedefMapWithValidations map[string]OtherStruct
 
 type TypedefMapWithKeyValidations map[ValidatedKeyType]string
 
+// FIXME: The following validation is not being generated for DoubleDeepTypedefSlice.
+// Validation-gen is ignoring this validation, because Go directly translates
+// DoubleDeepTypedefSlice to TypedefSliceWithValidations.
+// +k8s:eachVal=+k8s:validateFalse="type DeepTypedefSlice"
 type DeepTypedefSlice TypedefSliceWithValidations
 
 type DeepTypedefMap TypedefMapWithValidations
+
+type DoubleDeepTypedefSlice DeepTypedefSlice
+
+type DoubleDeepTypedefMap DeepTypedefMap
