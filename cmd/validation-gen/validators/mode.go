@@ -130,7 +130,7 @@ func (mdtv *modeDiscriminatorTagValidator) GetValidations(context Context, tag c
 func (mdtv *modeDiscriminatorTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mdtv.TagName(),
-		StabilityLevel: TagStabilityLevelAlpha,
+		StabilityLevel: TagStabilityLevelBeta,
 		Scopes:         sets.List(mdtv.ValidScopes()),
 		Description:    "Indicates that this field is a discriminator for state-based validation.",
 		Args: []TagArgDoc{{
@@ -221,7 +221,7 @@ func (imtv *ifModeTagValidator) GetValidations(context Context, tag codetags.Tag
 func (imtv *ifModeTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            imtv.TagName(),
-		StabilityLevel: TagStabilityLevelAlpha,
+		StabilityLevel: TagStabilityLevelBeta,
 		Scopes:         sets.List(imtv.ValidScopes()),
 		Description:    "Indicates that this field's validation depends on a mode discriminator.",
 		Args: []TagArgDoc{{
