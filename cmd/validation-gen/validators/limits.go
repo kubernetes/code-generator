@@ -86,7 +86,7 @@ func (maxLengthTagValidator) GetValidations(context Context, tag codetags.Tag) (
 func (mltv maxLengthTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mltv.TagName(),
-		StabilityLevel: TagStabilityLevelBeta,
+		StabilityLevel: TagStabilityLevelStable,
 		Scopes:         sets.List(mltv.ValidScopes()),
 		Description: `Indicates that a string field has a limit on its length in characters.
 		This could allow up to 4*N bytes if multi-byte characters are used.
@@ -196,7 +196,7 @@ func (minItemsTagValidator) GetValidations(context Context, tag codetags.Tag) (V
 func (mitv minItemsTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mitv.TagName(),
-		StabilityLevel: TagStabilityLevelBeta,
+		StabilityLevel: TagStabilityLevelStable,
 		Scopes:         sets.List(mitv.ValidScopes()),
 		Description:    "Indicates that a list has a minimum size.",
 		Payloads: []TagPayloadDoc{{
@@ -314,7 +314,7 @@ func (maxPropertiesTagValidator) GetValidations(context Context, tag codetags.Ta
 func (mptv maxPropertiesTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mptv.TagName(),
-		StabilityLevel: TagStabilityLevelBeta,
+		StabilityLevel: TagStabilityLevelStable,
 		Scopes:         sets.List(mptv.ValidScopes()),
 		Description:    "maxProperties provides a limit on properties of an object as defined by JSON schema. In Kubernetes it may only be used to constrain the number of elements on a field defined as a golang map.",
 		Payloads: []TagPayloadDoc{{
@@ -436,7 +436,7 @@ func (maximumTagValidator) GetValidations(context Context, tag codetags.Tag) (Va
 func (mtv maximumTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mtv.TagName(),
-		StabilityLevel: TagStabilityLevelBeta,
+		StabilityLevel: TagStabilityLevelStable,
 		Scopes:         sets.List(mtv.ValidScopes()),
 		Description:    "Indicates that a numeric field has a maximum value.",
 		Payloads: []TagPayloadDoc{{
@@ -493,7 +493,7 @@ func (minLengthTagValidator) GetValidations(context Context, tag codetags.Tag) (
 func (mltv minLengthTagValidator) Docs() TagDoc {
 	return TagDoc{
 		Tag:            mltv.TagName(),
-		StabilityLevel: TagStabilityLevelAlpha,
+		StabilityLevel: TagStabilityLevelStable,
 		Scopes:         sets.List(mltv.ValidScopes()),
 		Description: `Indicates that a string field has a minimum length for its value in characters.
 		This means that the minimum size in bytes is a range from X to 4X if multi-byte characters are allowed.
