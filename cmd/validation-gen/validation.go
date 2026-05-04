@@ -249,8 +249,8 @@ type typeNode struct {
 	typeKeyIterations validators.Validations // validations on each key
 }
 
-// ResolveElemNode traverses underlying alias nodes to find the concrete element node (for slices/maps).
-func (n *typeNode) ResolveElemNode() *typeNode {
+// resolveElemNode traverses underlying alias nodes to find the concrete element node (for slices/maps).
+func (n *typeNode) resolveElemNode() *typeNode {
 	if n.elem != nil {
 		return n.elem.node
 	}
@@ -260,8 +260,8 @@ func (n *typeNode) ResolveElemNode() *typeNode {
 	return nil
 }
 
-// ResolveKeyNode traverses underlying alias nodes to find the concrete key node (for maps).
-func (n *typeNode) ResolveKeyNode() *typeNode {
+// resolveKeyNode traverses underlying alias nodes to find the concrete key node (for maps).
+func (n *typeNode) resolveKeyNode() *typeNode {
 	if n.key != nil {
 		return n.key.node
 	}
@@ -457,7 +457,7 @@ func (td *typeDiscoverer) discoverType(t *types.Type, fldPath *field.Path) (*typ
 			switch util.NonPointer(util.NativeType(t)).Kind {
 			case types.Slice:
 				// Validate each value.
-				elemNode := thisNode.ResolveElemNode()
+				elemNode := thisNode.resolveElemNode()
 				if elemNode == nil {
 					if !thisNode.typeValidations.OpaqueValType {
 						return nil, fmt.Errorf("%v: value type %v is in a non-included package; "+
@@ -490,7 +490,7 @@ func (td *typeDiscoverer) discoverType(t *types.Type, fldPath *field.Path) (*typ
 				}
 			case types.Map:
 				// Validate each key.
-				keyNode := thisNode.ResolveKeyNode()
+				keyNode := thisNode.resolveKeyNode()
 				if keyNode == nil {
 					if !thisNode.typeValidations.OpaqueKeyType {
 						return nil, fmt.Errorf("%v: key type %v is in a non-included package; "+
@@ -522,7 +522,7 @@ func (td *typeDiscoverer) discoverType(t *types.Type, fldPath *field.Path) (*typ
 					}
 				}
 				// Validate each value.
-				elemNode := thisNode.ResolveElemNode()
+				elemNode := thisNode.resolveElemNode()
 				if elemNode == nil {
 					if !thisNode.typeValidations.OpaqueValType {
 						return nil, fmt.Errorf("%v: value type %v is in a non-included package; "+
@@ -944,12 +944,12 @@ func (g *genValidations) hasValidationsImpl(n *typeNode, seen map[*typeNode]bool
 
 	if n.underlying != nil {
 		if n.typeKeyIterations.HasEmitable() {
-			if keyNode := n.ResolveKeyNode(); keyNode != nil && g.hasValidationsImpl(keyNode, seen) {
+			if keyNode := n.resolveKeyNode(); keyNode != nil && g.hasValidationsImpl(keyNode, seen) {
 				return true
 			}
 		}
 		if n.typeValIterations.HasEmitable() {
-			if elemNode := n.ResolveElemNode(); elemNode != nil && g.hasValidationsImpl(elemNode, seen) {
+			if elemNode := n.resolveElemNode(); elemNode != nil && g.hasValidationsImpl(elemNode, seen) {
 				return true
 			}
 		}
@@ -963,12 +963,12 @@ func (g *genValidations) hasValidationsImpl(n *typeNode, seen map[*typeNode]bool
 			return true
 		}
 		if c.fieldKeyIterations.HasEmitable() {
-			if keyNode := c.node.ResolveKeyNode(); keyNode != nil && g.hasValidationsImpl(keyNode, seen) {
+			if keyNode := c.node.resolveKeyNode(); keyNode != nil && g.hasValidationsImpl(keyNode, seen) {
 				return true
 			}
 		}
 		if c.fieldValIterations.HasEmitable() {
-			if elemNode := c.node.ResolveElemNode(); elemNode != nil && g.hasValidationsImpl(elemNode, seen) {
+			if elemNode := c.node.resolveElemNode(); elemNode != nil && g.hasValidationsImpl(elemNode, seen) {
 				return true
 			}
 		}
@@ -1141,7 +1141,7 @@ func (g *genValidations) emitValidationForChild(c *generator.Context, thisChild 
 	}
 
 	if validations := thisNode.typeKeyIterations; !validations.Empty() {
-		keyNode := thisNode.ResolveKeyNode()
+		keyNode := thisNode.resolveKeyNode()
 		if keyNode != nil && g.hasValidations(keyNode) {
 			emitComments(validations.Comments, sw)
 			emitCallsToValidators(c, validations.Functions, sw)
@@ -1151,7 +1151,7 @@ func (g *genValidations) emitValidationForChild(c *generator.Context, thisChild 
 	}
 
 	if validations := thisNode.typeValIterations; !validations.Empty() {
-		elemNode := thisNode.ResolveElemNode()
+		elemNode := thisNode.resolveElemNode()
 		if elemNode != nil && g.hasValidations(elemNode) {
 			emitComments(validations.Comments, sw)
 			emitCallsToValidators(c, validations.Functions, sw)
@@ -1270,8 +1270,8 @@ func (g *genValidations) emitValidationForChild(c *generator.Context, thisChild 
 					}
 				}
 
-				emitIterations(fld.fieldKeyIterations, fld.node.ResolveKeyNode())
-				emitIterations(fld.fieldValIterations, fld.node.ResolveElemNode())
+				emitIterations(fld.fieldKeyIterations, fld.node.resolveKeyNode())
+				emitIterations(fld.fieldValIterations, fld.node.resolveElemNode())
 
 				if fld.node.valueType.Kind == types.Slice || fld.node.valueType.Kind == types.Map {
 					// Descend into this field.

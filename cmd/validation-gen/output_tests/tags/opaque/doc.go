@@ -139,3 +139,27 @@ type TypedefSliceOther []OtherStruct
 // +k8s:eachKey=+k8s:opaqueType
 // +k8s:eachVal=+k8s:opaqueType
 type TypedefMapOther map[OtherString]OtherStruct
+
+type NoValidationStruct struct {
+	StringField string `json:"stringField"`
+}
+
+type NoValidationString string
+
+// OpaqueNoValidationFieldsStruct tests that when a type/key/val is opaque but the opaque type
+// does not have any validation, we correctly do not emit any validation calls.
+// +k8s:validateTrue="type OpaqueNoValidationFieldsStruct"
+type OpaqueNoValidationFieldsStruct struct {
+	// +k8s:opaqueType
+	NoValidationStruct
+
+	// +k8s:eachVal=+k8s:opaqueType
+	OpaqueSliceField []NoValidationStruct `json:"opaqueSliceField"`
+
+	// +k8s:eachKey=+k8s:opaqueType
+	// +k8s:eachVal=+k8s:opaqueType
+	OpaqueMapField map[NoValidationString]NoValidationStruct `json:"opaqueMapField"`
+
+	// +k8s:opaqueType
+	IsolatedOpaqueStructField NoValidationStruct `json:"isolatedOpaqueStructField"`
+}

@@ -86,4 +86,11 @@ func Test(t *testing.T) {
 		TypedefOpaqueMapField:     map[OtherString]OtherStruct{"a": {"foo"}},
 		IsolatedOpaqueStructField: OtherStruct{"foo"},
 	}).ExpectValid()
+
+	st.Value(&OpaqueNoValidationFieldsStruct{
+		NoValidationStruct:        NoValidationStruct{"foo"},
+		OpaqueSliceField:          []NoValidationStruct{{"foo"}},
+		OpaqueMapField:            map[NoValidationString]NoValidationStruct{"a": {"foo"}},
+		IsolatedOpaqueStructField: NoValidationStruct{"foo"},
+	}).ExpectValid()
 }

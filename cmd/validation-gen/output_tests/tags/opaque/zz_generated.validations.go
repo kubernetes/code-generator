@@ -53,6 +53,21 @@ func RegisterValidations(scheme *testscheme.Scheme) error {
 				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
 			}
 		})
+	// type OpaqueNoValidationFieldsStruct
+	scheme.AddValidationFunc(
+		(*OpaqueNoValidationFieldsStruct)(nil),
+		func(ctx context.Context, op operation.Operation, obj, oldObj interface{}) field.ErrorList {
+			switch op.Request.SubresourcePath() {
+			case "/":
+				return Validate_OpaqueNoValidationFieldsStruct(
+					ctx, op, nil, /* fldPath */
+					obj.(*OpaqueNoValidationFieldsStruct),
+					safe.Cast[*OpaqueNoValidationFieldsStruct](oldObj))
+			}
+			return field.ErrorList{
+				field.InternalError(nil, fmt.Errorf("no validation found for %T, subresource: %v", obj, op.Request.SubresourcePath())),
+			}
+		})
 	// type OtherString
 	scheme.AddValidationFunc(
 		(*OtherString)(nil),
@@ -148,6 +163,23 @@ func Validate_OpaqueFieldsStruct(
 	// field OpaqueFieldsStruct.TypedefOpaqueSliceField has no validation
 	// field OpaqueFieldsStruct.TypedefOpaqueMapField has no validation
 	// field OpaqueFieldsStruct.IsolatedOpaqueStructField has no validation
+	return errs
+}
+
+// Validate_OpaqueNoValidationFieldsStruct validates an instance of OpaqueNoValidationFieldsStruct according
+// to declarative validation rules in the API schema.
+func Validate_OpaqueNoValidationFieldsStruct(
+	ctx context.Context, op operation.Operation, fldPath *field.Path,
+	obj, oldObj *OpaqueNoValidationFieldsStruct) (errs field.ErrorList) {
+
+	if e := validate.FixedResult(ctx, op, fldPath, obj, oldObj, true, "type OpaqueNoValidationFieldsStruct"); len(e) != 0 {
+		errs = append(errs, e...)
+	}
+
+	// field OpaqueNoValidationFieldsStruct.NoValidationStruct has no validation
+	// field OpaqueNoValidationFieldsStruct.OpaqueSliceField has no validation
+	// field OpaqueNoValidationFieldsStruct.OpaqueMapField has no validation
+	// field OpaqueNoValidationFieldsStruct.IsolatedOpaqueStructField has no validation
 	return errs
 }
 
