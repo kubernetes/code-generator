@@ -13,10 +13,10 @@ require (
 	github.com/spf13/pflag v1.0.10
 	go.yaml.in/yaml/v2 v2.4.3
 	golang.org/x/text v0.36.0
-	k8s.io/apimachinery v0.0.0-20260502010923-32968db39b14
+	k8s.io/apimachinery v0.0.0-20260504204121-2fca5de43c56
 	k8s.io/gengo/v2 v2.0.0-20250922181213-ec3ebc5fd46b
 	k8s.io/klog/v2 v2.140.0
-	k8s.io/kube-openapi v0.0.0-20260317180543-43fb72c5454a
+	k8s.io/kube-openapi v0.0.0-20260502001324-b7f5293f4787
 	k8s.io/utils v0.0.0-20260210185600-b8788abfbbc2
 	sigs.k8s.io/randfill v1.0.0
 )
@@ -55,4 +55,5 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.2 // indirect
+	sigs.k8s.io/yaml v1.6.0 // indirect
 )
