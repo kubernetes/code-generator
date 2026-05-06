@@ -11,9 +11,9 @@ require (
 	github.com/google/gnostic-models v0.7.0
 	github.com/google/go-cmp v0.7.0
 	github.com/spf13/pflag v1.0.10
-	go.yaml.in/yaml/v2 v2.4.3
+	go.yaml.in/yaml/v2 v2.4.4
 	golang.org/x/text v0.36.0
-	k8s.io/apimachinery v0.0.0-20260506004124-0856a5bf49ce
+	k8s.io/apimachinery v0.0.0
 	k8s.io/gengo/v2 v2.0.0-20250922181213-ec3ebc5fd46b
 	k8s.io/klog/v2 v2.140.0
 	k8s.io/kube-openapi v0.0.0-20260502001324-b7f5293f4787
@@ -56,4 +56,9 @@ require (
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.2 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
+)
+
+replace (
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/streaming => ../streaming
 )
