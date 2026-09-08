@@ -80,7 +80,7 @@ func (customValidationTagValidator) ValidScopes() sets.Set[Scope] {
 }
 
 func (v *customValidationTagValidator) GetValidations(context Context, _ codetags.Tag) (Validations, error) {
-	// Resolve the output package for the type that owns the call site (the type
+	// Resolve the output packages for the type that owns the call site (the type
 	// itself, or the containing struct for a field), as done for Validate_<Type>.
 	definingType := context.Type
 	if context.Scope == ScopeField {
@@ -90,16 +90,12 @@ func (v *customValidationTagValidator) GetValidations(context Context, _ codetag
 	if !ok {
 		return Validations{}, fmt.Errorf("cannot resolve generated package for %s (is it being processed by validation-gen?)", definingType.Name.Package)
 	}
-	// The call site is the same for every copy of the input's validation, so the
-	// hand-written function must live in the canonical package.
-	outPkg := outPkgs[0]
 
 	// Resolve the function name from the naming convention.
 	funcName := customValidationFuncPrefix + definingType.Name.Name
 	if context.Scope == ScopeField {
 		funcName += "_" + context.Member.Name
 	}
-	fn := types.Name{Package: outPkg, Name: funcName}
 
 	// value and oldValue are the nilable form of the validated value, matching
 	// what the generated traversal passes to the function.
@@ -108,12 +104,22 @@ func (v *customValidationTagValidator) GetValidations(context Context, _ codetag
 		valueType = types.PointerTo(valueType)
 	}
 
-	// Fail with a clear error if the function is missing or mis-typed, rather
-	// than silently skipping validation or emitting code that won't compile.
-	if err := v.checkFunction(fn, valueType); err != nil {
-		return Validations{}, err
+	// Each copy of the validation calls the function beside it, so no copy has to
+	// import another (which may not even be legal across modules). That means
+	// every output package needs its own definition. Fail with a clear error if
+	// one is missing or mis-typed, rather than silently skipping validation or
+	// emitting code that won't compile.
+	for _, outPkg := range outPkgs {
+		fn := types.Name{Package: outPkg, Name: funcName}
+		if err := v.checkFunction(fn, valueType); err != nil {
+			return Validations{}, err
+		}
+		v.claimed[fn] = true
 	}
-	v.claimed[fn] = true
+
+	// Name the function in the input package: the generator rewrites it to
+	// whichever output package it is generating, as it does for Validate_<Type>.
+	fn := types.Name{Package: definingType.Name.Package, Name: funcName}
 
 	// Declare no Emission: the generator can't know a hand-written function's
 	// error type or path, so the declarative-validation test generator must not
@@ -144,13 +150,13 @@ func (v *customValidationTagValidator) verifyCustomFunctions() error {
 			if pkg := v.gengoContext.Universe[inPkg]; pkg != nil {
 				for name := range pkg.Functions {
 					if strings.HasPrefix(name, customValidationFuncPrefix) {
-						issues = append(issues, fmt.Sprintf("%s.%s: move to the generated package %s", inPkg, name, outPkgs[0]))
+						issues = append(issues, fmt.Sprintf("%s.%s: move to the generated package(s) %s", inPkg, name, strings.Join(outPkgs, ", ")))
 					}
 				}
 			}
 		}
-		// A ValidateCustom_* function in a generated package with no tag. Calls
-		// only resolve to the canonical package, so a copy elsewhere is dead code.
+		// A ValidateCustom_* function in a generated package with no tag is never
+		// called, so it is dead code.
 		for _, outPkg := range outPkgs {
 			if scanned[outPkg] {
 				continue
@@ -260,7 +266,9 @@ func (v customValidationTagValidator) Docs() TagDoc {
 		Docs: "The function lives in the generated package, with signature " +
 			"func(context.Context, operation.Operation, *field.Path, value, oldValue <ValueType>) field.ErrorList, " +
 			"where <ValueType> is the validated value's type made nilable: a pointer (e.g. *string), or the " +
-			"type itself if already nilable (slice, map, pointer). In the function name, <Type> and <Field> " +
+			"type itself if already nilable (slice, map, pointer). If the types are generated into more than " +
+			"one package, each needs its own definition, since a copy calls the function beside it. " +
+			"In the function name, <Type> and <Field> " +
 			"are Go identifiers (e.g. Replicas, not the JSON name replicas). " +
 			"Field scope (ValidateCustom_<Type>_<Field>) validates one field; on update the framework skips " +
 			"the call when that field is unchanged. Type scope (ValidateCustom_<Type>) is for checks across " +
