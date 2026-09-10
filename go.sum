@@ -105,8 +105,8 @@ google.golang.org/protobuf v1.36.12 h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fw
 google.golang.org/protobuf v1.36.12/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
 gopkg.in/inf.v0 v0.9.1 h1:73M5CoZyi3ZLMOyDlQh031Cx6N9NDJ2Vvfl76EDAgDc=
 gopkg.in/inf.v0 v0.9.1/go.mod h1:cWUDdTG/fYaXco+Dcufb5Vnc6Gp2YChqWtbxRZE0mXw=
-k8s.io/apimachinery v0.0.0-20260908214849-ae6b8e23cfd0 h1:e5IcqX3j8dIPWNWZgSi2Y/NEMJPXztBl61SJqfnEdDw=
-k8s.io/apimachinery v0.0.0-20260908214849-ae6b8e23cfd0/go.mod h1:KKSe3YvEoG7VAsAN8m/Pkko3k83u+6kLcjSa+5j1oOk=
+k8s.io/apimachinery v0.0.0-20260910012034-a34869e33a20 h1:dcJUNbuc/dUk7qj2X8wqYKw+YeA0+INFg2bcJYFlZ/8=
+k8s.io/apimachinery v0.0.0-20260910012034-a34869e33a20/go.mod h1:KKSe3YvEoG7VAsAN8m/Pkko3k83u+6kLcjSa+5j1oOk=
 k8s.io/gengo/v2 v2.0.0-20260408192533-25e2208e0dc3 h1:3L6PNkMLXkU/pz3jWzaaIUz0Rs2V9h+5O51AeRC7poc=
 k8s.io/gengo/v2 v2.0.0-20260408192533-25e2208e0dc3/go.mod h1:yvyl3l9E+UxlqOMUULdKTAYB0rEhsmjr7+2Vb/1pCSo=
 k8s.io/klog/v2 v2.140.0 h1:Tf+J3AH7xnUzZyVVXhTgGhEKnFqye14aadWv7bzXdzc=
