@@ -13,7 +13,7 @@ require (
 	github.com/spf13/pflag v1.0.10
 	go.yaml.in/yaml/v2 v2.4.4
 	golang.org/x/text v0.42.0
-	k8s.io/apimachinery v0.0.0-20260925175343-be1093d69c39
+	k8s.io/apimachinery v0.0.0-20260925175345-fdc546200a6d
 	k8s.io/gengo/v2 v2.0.0-20260408192533-25e2208e0dc3
 	k8s.io/klog/v2 v2.140.0
 	k8s.io/kube-openapi v0.0.0-20260908163437-c4db2bdfbfe6
@@ -25,7 +25,7 @@ require (
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
-	github.com/fxamacker/cbor/v2 v2.9.1 // indirect
+	github.com/fxamacker/cbor/v2 v2.9.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-openapi/jsonpointer v1.0.0 // indirect
 	github.com/go-openapi/jsonreference v1.0.0 // indirect
